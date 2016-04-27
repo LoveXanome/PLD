@@ -36,7 +36,8 @@ System.register(['angular2/core', 'angular2/router', './ville'], function(export
                 VilleDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'my-ville-detail',
-                        templateUrl: 'app/html/detail.html'
+                        templateUrl: 'app/html/detail.html',
+                        styleUrls: ['app/css/detail.css']
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams])
                 ], VilleDetailComponent);

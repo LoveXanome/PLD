@@ -5,7 +5,8 @@ import {Ville} from './ville';
 
 @Component({
     selector: 'my-ville-detail',
-    templateUrl: 'app/html/detail.html'
+    templateUrl: 'app/html/detail.html',
+    styleUrls: ['app/css/detail.css']
 })
 
 export class VilleDetailComponent {

@@ -9,7 +9,7 @@ import {MapComponent} from './map.component';
 	selector: 'my-app',
 	template: `
 	  <div class="titre">
-	  	<h1 class="text-center">Bienvenus dans Urban Bus</h1>
+	  	<h1 class="text-center">Bienvenue dans Urban Bus</h1>
 	  </div>
  	  <div class="corps">
 	    <router-outlet></router-outlet>
