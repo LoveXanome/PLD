@@ -16,8 +16,11 @@ export class HomeComponent {
     private _selectedNomVille: string;
 
     constructor(private _router: Router) { 
-        this._selectedNomVille = this.villes[0].nom;
     };
+
+    ngOnInit() {
+        this._selectedNomVille = this.villes[0].nom;
+    }
 
     onChange(ville) {
         this._selectedNomVille = ville;

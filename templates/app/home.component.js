@@ -25,9 +25,11 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 function HomeComponent(_router) {
                     this._router = _router;
                     this.villes = VILLES;
-                    this._selectedNomVille = this.villes[0].nom;
                 }
                 ;
+                HomeComponent.prototype.ngOnInit = function () {
+                    this._selectedNomVille = this.villes[0].nom;
+                };
                 HomeComponent.prototype.onChange = function (ville) {
                     this._selectedNomVille = ville;
                 };

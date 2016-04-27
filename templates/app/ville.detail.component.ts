@@ -2,11 +2,13 @@ import {Component, Input} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
 import {Ville} from './ville';
+import {MapComponent} from './map.component';
 
 @Component({
     selector: 'my-ville-detail',
     templateUrl: 'app/html/detail.html',
-    styleUrls: ['app/css/detail.css']
+    styleUrls: ['app/css/detail.css'],
+    directives: [MapComponent]
 })
 
 export class VilleDetailComponent {
