@@ -24,7 +24,6 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             HomeComponent = (function () {
                 function HomeComponent(_router) {
                     this._router = _router;
-                    /*constructor(private _router: Router){}*/
                     this.villes = VILLES;
                 }
                 ;
@@ -36,7 +35,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 };
                 HomeComponent = __decorate([
                     core_1.Component({
-                        selector: 'my-app',
+                        selector: 'my-home',
                         templateUrl: 'app/html/home.html'
                     }), 
                     __metadata('design:paramtypes', [router_1.Router])

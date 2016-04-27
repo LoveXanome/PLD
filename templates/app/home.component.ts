@@ -6,7 +6,7 @@ import {VilleDetailComponent} from './ville.detail.component';
 
 
 @Component({
-    selector: 'my-app',
+    selector: 'my-home',
     templateUrl: 'app/html/home.html'
 })
 
@@ -14,8 +14,6 @@ import {VilleDetailComponent} from './ville.detail.component';
 export class HomeComponent {
     constructor(private _router: Router) { };
 
-    /*constructor(private _router: Router){}*/
-    
     villes = VILLES;
     selectedVille: Ville;
 
