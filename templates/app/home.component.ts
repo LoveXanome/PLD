@@ -12,17 +12,19 @@ import {VilleDetailComponent} from './ville.detail.component';
 
 
 export class HomeComponent {
-    constructor(private _router: Router) { };
-
     villes = VILLES;
-    selectedVille: Ville;
+    private _selectedNomVille: string;
 
-    onChange(ville: Ville) {
-        this.selectedVille = ville;
+    constructor(private _router: Router) { 
+        this._selectedNomVille = this.villes[0].nom;
+    };
+
+    onChange(ville) {
+        this._selectedNomVille = ville;
     }
 
     gotoDetail() {
-        this._router.navigate(['VilleDetail', {nom: this.selectedVille} ]);
+        this._router.navigate(['VilleDetail', { nom: this._selectedNomVille } ]);
     }
 }
 
