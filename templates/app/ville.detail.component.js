@@ -31,6 +31,8 @@ System.register(['angular2/core', 'angular2/router', './ville'], function(export
                     {*/
                     this._selectedVille = new ville_1.Ville();
                     this._selectedVille.nom = routeParams.get('nom');
+                    this._selectedArret = "arrêt fictif";
+                    this._selectedLigne = "ligne fictive";
                     //}
                 }
                 VilleDetailComponent = __decorate([

@@ -3,3 +3,12 @@
     height: 90%;
     color: white;
 }
+
+.traitMilieu {
+	border-right: 1px solid #b3b3b3 !important;
+}
+
+.titreInformations {
+    margin: 10px;
+	border-bottom: 1px solid #b3b3b3 !important;
+}

@@ -7,7 +7,7 @@
 <div class="row">
 	<!-- Nav tabs -->
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#Acceuil" data-toggle="tab">Acceuil</a>
+        <li class="active"><a href="#Accueil" data-toggle="tab">Accueil</a>
         </li>
         <li><a href="#Statistiques" data-toggle="tab">Statistiques</a>
         </li>
@@ -15,13 +15,29 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane fade in active" id="Acceuil">
+        <div class="tab-pane fade in active" id="Accueil">
         	<div class="row">
     			<div class="col-md-6 divMap">
         			 MAPP
         		</div>
         		<div class="col-md-6">
+        			<div class="row text-center">
+        				<div class="col-md-6">
+        					<label for="semaine">Semaine</label>
+							<input type="radio" name="porter_donnees" id="semaine" value="semaine"><br>
+        				</div>
+        				<div class="col-md-6">
+        					<label for="jours">Jours</label>
+							<input type="radio" name="porter_donnees" id="jours" value="jours"><br>
+        				</div>
+
+        				<hr />
+        			</div>
         			<div class="row">
+        				<div class="titreInformations">
+        					Information	de la ligne	: {{_selectedLigne}}
+        				</div>
+
         				<div class="col-md-6">
         					<div class="panel panel-primary text-center">
 		                        <div class="panel-heading ">
@@ -29,7 +45,7 @@
 		                        </div>
 		                        <div class="panel-body">
 		                        	<div class="row">
-		                        		<div class="col-md-6">
+		                        		<div class="col-md-6 traitMilieu">
 			                            	<h2 >
 												56                          	
 				                            </h2>
@@ -40,6 +56,23 @@
 												392                          	
 				                            </h2>
 				                            Par Semaine
+			                            </div>
+		                        	</div>  
+		                        </div>
+		                    </div>
+        				</div>
+        				<div class="col-md-6">
+        					<div class="panel panel-primary text-center">
+		                        <div class="panel-heading ">
+		                            Nombre de passage pour {{_selectedArret}}
+		                        </div>
+		                        <div class="panel-body">
+		                        	<div class="row">
+		                        		<div>
+			                            	<h2 >
+												28                          	
+				                            </h2>
+				                            Par Jour
 			                            </div>
 		                        	</div>  
 		                        </div>
