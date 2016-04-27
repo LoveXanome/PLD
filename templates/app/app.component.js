@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './home.component', './ville.detail.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './home.component', './ville.detail.component', './map.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './home.component', './vill
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, home_component_1, ville_detail_component_1;
+    var core_1, router_1, home_component_1, ville_detail_component_1, map_component_1;
     var AppComponent;
     return {
         setters:[
@@ -25,6 +25,9 @@ System.register(['angular2/core', 'angular2/router', './home.component', './vill
             },
             function (ville_detail_component_1_1) {
                 ville_detail_component_1 = ville_detail_component_1_1;
+            },
+            function (map_component_1_1) {
+                map_component_1 = map_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -48,6 +51,11 @@ System.register(['angular2/core', 'angular2/router', './home.component', './vill
                             path: '/detail',
                             name: 'VilleDetail',
                             component: ville_detail_component_1.VilleDetailComponent
+                        },
+                        {
+                            path: '/map',
+                            name: 'Map',
+                            component: map_component_1.MapComponent
                         }
                     ]), 
                     __metadata('design:paramtypes', [])
