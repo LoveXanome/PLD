@@ -14,7 +14,7 @@ import {VilleDetailComponent} from './ville.detail.component';
 	    <router-outlet></router-outlet>
 	  </div>
 	`,
-  	styleUrls: ['app/css/style.css']
+  	styleUrls: ['app/css/style.css'],
 	directives: [ROUTER_DIRECTIVES]
 })
 

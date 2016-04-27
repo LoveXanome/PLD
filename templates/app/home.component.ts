@@ -20,7 +20,6 @@ export class HomeComponent {
     selectedVille: Ville;
 
     onChange(ville: Ville) {
-        console.debug(ville);
         this.selectedVille = ville;
     }
 
