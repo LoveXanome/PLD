@@ -3,6 +3,7 @@ import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 
 import {HomeComponent} from './home.component';
 import {VilleDetailComponent} from './ville.detail.component';
+import {MapComponent} from './map.component';
 
 @Component({
 	selector: 'my-app',
@@ -29,6 +30,11 @@ import {VilleDetailComponent} from './ville.detail.component';
 		path: '/detail',
 		name: 'VilleDetail',
 		component: VilleDetailComponent
+	},
+	{
+		path: '/map',
+		name: 'Map',
+		component: MapComponent
 	}
 ])
 
