@@ -1,0 +1,39 @@
+Tutoriel pour installer angular 2 sous linux 
+
+node -v --> v4.2.6
+npm -v  --> 3.8.7
+
+Installation de Node : 
+
+1)Télécharger la version de node sur le lien ci dessous (fr.archive.ubuntu.com/ubuntu) : 
+http://packages.ubuntu.com/de/xenial/i386/nodejs/download
+
+2)Installer le paquet 
+$sudo dpkg -i nodejs_4.2.6~dfsg-1ubuntu4_i386.deb 
+
+3)Faire le lien symbolique 
+$sudo ln -s /usr/bin/nodejs /usr/bin/node
+
+4)Vérifier la bonne version de node
+$node -v --> v4.2.6
+
+Installation de npm : 
+
+1) Installer avec le paquet npm
+$sudo apt-get install npm
+
+Normalement on a la version antécédente à la version voulu (sinon passer à l'étape 3)
+
+2)Taper 2 fois la commande : 
+$sudo npm install -g npm
+$sudo npm install -g npm
+
+--> version mise à jours en 3.8.7
+
+3)Ajouter les dependances
+$sudo npm install -g concurrently
+$sudo npm install -g lite-server
+$sudo npm install -g typescript
+
+4)Lancer le projet
+$sudo npm start 
