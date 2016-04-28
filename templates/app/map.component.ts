@@ -80,6 +80,7 @@ export class MapComponent {
     }
 
     displayLine(ligne: Ligne) {
+
 		var polyline2 = L.polyline(convertLigneToLatLngs(ligne.arrets), { color: ligne.couleur, opacity: 1, weight: 8 }).addTo(this.mymap);
 		polyline2.bindPopup("<b>Ligne:</b> " + ligne.nom);
 		for (var arr of ligne.arrets) {
