@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx',
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, http_1, map_component_1, ville_1, httpRequest_1;
-    var VilleDetailComponent, LIGNES, ARRETS_C1, ARRETS_C2, ARRETS_C3, ARRETS_C4;
+    var VilleDetailComponent, LIGNES, STOPS_C1, STOPS_C2, STOPS_C3, STOPS_C4;
     function randomColor() {
         var letters = '0123456789ABCDEF'.split('');
         var color = '#';
@@ -51,13 +51,12 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx',
                     this._selectedVille.nom = routeParams.get('nom');
                 }
                 VilleDetailComponent.prototype.ngOnInit = function () {
-                    this._lignes[0].arrets = ARRETS_C1;
-                    this._lignes[1].arrets = ARRETS_C2;
+                    this._lignes[0].stops = STOPS_C1;
+                    this._lignes[1].stops = STOPS_C2;
                 };
                 VilleDetailComponent.prototype.clickArret = function (arret) {
                     if (this._selectedLigne == null)
                         return;
-                    this._selectedArret = arret;
                 };
                 /*
                     Appellé lorsqu'on clique sur un arrêt de la map
@@ -68,7 +67,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx',
                     //On vérifie que la ligne séléctionner appartient à l'arrêt
                     if (this._selectedLigne == null)
                         return;
-                    for (var _a = 0, _b = this._selectedLigne.arrets; _a < _b.length; _a++) {
+                    for (var _a = 0, _b = this._selectedLigne.stops; _a < _b.length; _a++) {
                         var arr = _b[_a];
                         if (arr == arret) {
                             return;
@@ -84,7 +83,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx',
                     //On vérifie que l'arrêt séléctionner appartient à la ligne 
                     if (this._selectedArret == null)
                         return;
-                    for (var _a = 0, _b = ligne.arrets; _a < _b.length; _a++) {
+                    for (var _a = 0, _b = ligne.stops; _a < _b.length; _a++) {
                         var arr = _b[_a];
                         if (arr == this._selectedArret) {
                             return;
@@ -105,30 +104,30 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx',
             }());
             exports_1("VilleDetailComponent", VilleDetailComponent);
             LIGNES = [
-                { "id": 11, "nom": "C1", "categorie": true, "arrets": ARRETS_C1, "couleur": randomColor() },
-                { "id": 12, "nom": "C2", "categorie": false, "arrets": ARRETS_C2, "couleur": randomColor() },
-                { "id": 13, "nom": "C3", "categorie": true, "arrets": ARRETS_C3, "couleur": randomColor() },
-                { "id": 14, "nom": "C4", "categorie": true, "arrets": ARRETS_C4, "couleur": randomColor() }
+                { "id": 11, "name": "C1", "category": true, "stops": STOPS_C1, "color": randomColor() },
+                { "id": 12, "name": "C2", "category": false, "stops": STOPS_C2, "color": randomColor() },
+                { "id": 13, "name": "C3", "category": true, "stops": STOPS_C3, "color": randomColor() },
+                { "id": 14, "name": "C4", "category": true, "stops": STOPS_C4, "color": randomColor() }
             ];
-            ARRETS_C1 = [
-                { "id": 11, "nom": "Gare Part-Dieu", "longitude": 40547, "latitude": -0.04 },
-                { "id": 12, "nom": "Brotteaux", "longitude": 45.544, "latitude": -0.01 },
-                { "id": 13, "nom": "Vitton", "longitude": 4.455, "latitude": -0.06 }
+            STOPS_C1 = [
+                { "id": 11, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04 },
+                { "id": 12, "name": "Brotteaux", "lng": 45.544, "lat": -0.01 },
+                { "id": 13, "name": "Vitton", "lng": 4.455, "lat": -0.06 }
             ];
-            ARRETS_C2 = [
-                { "id": 21, "nom": "Gare Part-Dieu", "longitude": 40547, "latitude": -0.04 },
-                { "id": 22, "nom": "Brotteaux", "longitude": 45.544, "latitude": -0.01 },
-                { "id": 23, "nom": "Charpenne", "longitude": 4.455, "latitude": -0.06 }
+            STOPS_C2 = [
+                { "id": 21, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04 },
+                { "id": 22, "name": "Brotteaux", "lng": 45.544, "lat": -0.01 },
+                { "id": 23, "name": "Charpenne", "lng": 4.455, "lat": -0.06 }
             ];
-            ARRETS_C3 = [
-                { "id": 21, "nom": "Gare Part-Dieu", "longitude": 40547, "latitude": -0.04 },
-                { "id": 22, "nom": "Brotteaux", "longitude": 45.544, "latitude": -0.01 },
-                { "id": 23, "nom": "Charpenne", "longitude": 4.455, "latitude": -0.06 }
+            STOPS_C3 = [
+                { "id": 21, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04 },
+                { "id": 22, "name": "Brotteaux", "lng": 45.544, "lat": -0.01 },
+                { "id": 23, "name": "Charpenne", "lng": 4.455, "lat": -0.06 }
             ];
-            ARRETS_C4 = [
-                { "id": 21, "nom": "Gare Part-Dieu", "longitude": 40547, "latitude": -0.04 },
-                { "id": 22, "nom": "Brotteaux", "longitude": 45.544, "latitude": -0.01 },
-                { "id": 23, "nom": "Charpenne", "longitude": 4.455, "latitude": -0.06 }
+            STOPS_C4 = [
+                { "id": 21, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04 },
+                { "id": 22, "name": "Brotteaux", "lng": 45.544, "lat": -0.01 },
+                { "id": 23, "name": "Charpenne", "lng": 4.455, "lat": -0.06 }
             ];
         }
     }

@@ -14,7 +14,7 @@ declare var L: any;
 
 export class MapComponent {
 	mymap: any;
-    arrets = ARRETS;
+    stops = STOPS;
     lignes = LIGNES;
 
     @Output() onClickedArret = new EventEmitter<Arret>();
@@ -22,11 +22,11 @@ export class MapComponent {
 
     constructor() {
     }
-
-    ngOnInit() {
-        this.lignes[0].arrets = this.arrets[0];
-        this.lignes[1].arrets = this.arrets[1];
-        this.lignes[2].arrets = this.arrets[2];
+    
+    ngOnInit(){
+        this.lignes[0].stops  = this.stops [0]; 
+        this.lignes[1].stops  = this.stops [1];
+        this.lignes[2].stops  = this.stops [2];
     }
 
     ngAfterViewInit() { 
@@ -78,17 +78,18 @@ export class MapComponent {
     displayLine(ligne: Ligne) {
         var _this = this;
         
-        var polyline2 = L.polyline(convertLigneToLatLngs(ligne.arrets), { color: ligne.couleur, opacity: 1, weight: 8 }).addTo(this.mymap);
+        var polyline2 = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
 
         polyline2.on('click', function() {
             _this.onClickedLigne.emit(ligne);
         });
 
-		for (var arr of ligne.arrets) {
+		for (var arr of ligne.stops) {
+            //arr.ligneId = ligne.id;
 			var coordonnee = convertArretToLatLngs(arr);
 			//Création d'un cercle pour un arret donné
             var circle = L.circle(coordonnee, 15, {
-                color: ligne.couleur,
+                color: ligne.color,
 				fillColor: 'white',
 				fillOpacity: 1
 			}).addTo(this.mymap);
@@ -104,19 +105,18 @@ export class MapComponent {
 }
 
 function convertArretToLatLngs(arret: Arret) {
-    return L.latLng(arret.longitude , arret.latitude);
+    return L.latLng(arret.lng , arret.lat);
 }
 
-function convertLigneToLatLngs(arrets: Arret[]) {
+function convertLigneToLatLngs(stops : Arret[]) {
     var arretConvert: Arret[] = [];
-    for (var arr of arrets)
+    for (var arr of stops )
     {
         var coordonnee = convertArretToLatLngs(arr)
         arretConvert.push(coordonnee);
     }
     return arretConvert;
 }
-
 
 function randomColor(){
     var letters = '0123456789ABCDEF'.split('');
@@ -127,28 +127,30 @@ function randomColor(){
     }
     return color;    
 }
-var ARRETS: Arret[][] = [ 
+
+
+var STOPS: Arret[][] = [ 
     [
-        { "id": 1, "nom": "Arret République" ,"longitude":51.478 , "latitude":-0.04 }, 
-        { "id": 2, "nom": "Arret Marie Curie" ,"longitude":51.459 , "latitude":-0.01 },
-        { "id": 3, "nom": "Arret BelleCourt" ,"longitude":51.428 , "latitude":-0.06 } 
+        { "id": 1, "name": "Arret République" ,"lng":51.478 , "lat":-0.04 }, 
+        { "id": 2, "name": "Arret Marie Curie" ,"lng":51.459 , "lat":-0.01 },
+        { "id": 3, "name": "Arret BelleCourt" ,"lng":51.428 , "lat":-0.06 } 
     ],
     [
-        { "id": 1, "nom": "Arret Perrache" ,"longitude":51.472 , "latitude":-0.01 }, 
-        { "id": 2, "nom": "Arret Confluence" ,"longitude":51.442 , "latitude":-0.02 },
-        { "id": 3, "nom": "Arret INSA" ,"longitude":51.440, "latitude":-0.01 }, 
-        { "id": 4, "nom": "Arret Part Dieu" ,"longitude":51.435, "latitude":-0.02 }
+        { "id": 1, "name": "Arret Perrache" ,"lng":51.472 , "lat":-0.01 }, 
+        { "id": 2, "name": "Arret Confluence" ,"lng":51.442 , "lat":-0.02 },
+        { "id": 3, "name": "Arret INSA" ,"lng":51.440, "lat":-0.01 }, 
+        { "id": 4, "name": "Arret Part Dieu" ,"lng":51.435, "lat":-0.02 }
     ],
     [
-        { "id": 1, "nom": "Arret Perrache", "longitude":51.481 , "latitude":-0.01 }, 
-        { "id": 2, "nom": "Arret Haribot" ,"longitude":51.483 , "latitude":-0.02 },    
-        { "id": 3, "nom": "Arret Fourvière" ,"longitude":51.486, "latitude":-0.02 }, 
+        { "id": 1, "name": "Arret Perrache", "lng":51.481 , "lat":-0.01 }, 
+        { "id": 2, "name": "Arret Haribot" ,"lng":51.483 , "lat":-0.02 },    
+        { "id": 3, "name": "Arret Fourvière" ,"lng":51.486, "lat":-0.02 }, 
     ]
 ];
 
 var LIGNES: Ligne[] = [
-    { "id": 1, "nom": "A" ,"categorie": true, "arrets": ARRETS[0] , "couleur": randomColor()},
-    { "id": 2, "nom": "B" ,"categorie": false, "arrets": ARRETS[1] , "couleur": randomColor()},
-    { "id": 3, "nom": "C" ,"categorie": true, "arrets": ARRETS[2] , "couleur": randomColor()},
+    { "id": 1, "name": "A" ,"category": true, "stops": STOPS[0] , "color": randomColor()},
+    { "id": 2, "name": "B" ,"category": false, "stops": STOPS[1] , "color": randomColor()},
+    { "id": 3, "name": "C" ,"category": true, "stops": STOPS[2] , "color": randomColor()},
 ];
 
