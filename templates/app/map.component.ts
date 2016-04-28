@@ -35,11 +35,20 @@ export class MapComponent {
 		//On peut cliquer sur les lignes et les arêts
         
         //create a Marker
-        L.marker([51.481, -0.01]).addTo(this.mymap);
+        //L.marker([51.481, -0.01]).addTo(this.mymap);
 
         // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup
-        var polyline = L.polyline([ [51.481, -0.01 ],[ 51.483, -0.02 ],[ 51.486, -0.1 ] ], {color: 'red'}).addTo(this.mymap)
+        var polyline = L.polyline([[51.481, -0.01], [51.483, -0.02], [51.486, -0.1]], { color: 'red' }).addTo(this.mymap);
         this.mymap.fitBounds(polyline.getBounds());
+
+       	//Pour afficher les arrêts
+		var circle = L.circle([51.481, -0.01], 5, {
+				  color: 'red',
+				  fillColor: '#f03',
+				  fillOpacity: 1
+			  }).addTo(this.mymap);
+
+		circle.bindPopup("Arret Gaston Berger");
         
     }
 }
