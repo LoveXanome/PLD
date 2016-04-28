@@ -5,10 +5,10 @@ import 'rxjs/Rx';
 
 import {MapComponent} from './map.component';
 
-import {Ville} from './ville';
-import {Ligne} from './ligne';
-import {Arret} from './arret';
-import {HttpRequest} from './httpRequest';
+import {Ville} from './classes/ville';
+import {Ligne} from './classes/ligne';
+import {Arret} from './classes/arret';
+import {HttpRequest} from './classes/httpRequest';
 
 @Component({
     selector: 'my-ville-detail',
@@ -29,20 +29,12 @@ export class VilleDetailComponent {
     private _httpRequest: HttpRequest;
 
     constructor(private _router: Router, routeParams: RouteParams, http: Http) {
-        
         this._httpRequest = new HttpRequest(http);
-
-        this._httpRequest.get('http://localhost:5000/', this.doResult);
-
 
         this._selectedVille = new Ville();
         this._selectedVille.nom = routeParams.get('nom');
     }
 
-    doResult(res: any)
-    {
-        console.debug(res);
-    }
 
     ngOnInit() {
         this._lignes[0].arrets = ARRETS_C1;

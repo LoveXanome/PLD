@@ -1,15 +1,6 @@
 import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
 
-/*
-this._httpRequest.get('http://localhost:5000/', this.doResult);
-
-doResult(res: any)
-{
-    console.debug(res);
-}
-
-*/
 export class HttpRequest {
 	private _data: any;
   	private _http: any;

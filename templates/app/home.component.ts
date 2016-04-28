@@ -1,7 +1,7 @@
 import { Component, OnInit } from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
-import {Ville} from './ville';
+import {Ville} from './classes/ville';
 import {VilleDetailComponent} from './ville.detail.component';
 
 @Component({

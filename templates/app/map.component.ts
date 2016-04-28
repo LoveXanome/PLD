@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
-import {Ligne} from './ligne';
-import {Arret} from './arret';
+import {Ligne} from './classes/ligne';
+import {Arret} from './classes/arret';
 
 declare var L: any;
 

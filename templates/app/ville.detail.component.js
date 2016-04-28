@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx', './map.component', './ville', './httpRequest'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx', './map.component', './classes/ville', './classes/httpRequest'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -47,13 +47,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx',
                     this._router = _router;
                     this._lignes = LIGNES;
                     this._httpRequest = new httpRequest_1.HttpRequest(http);
-                    this._httpRequest.get('http://localhost:5000/', this.doResult);
                     this._selectedVille = new ville_1.Ville();
                     this._selectedVille.nom = routeParams.get('nom');
                 }
-                VilleDetailComponent.prototype.doResult = function (res) {
-                    console.debug(res);
-                };
                 VilleDetailComponent.prototype.ngOnInit = function () {
                     this._lignes[0].arrets = ARRETS_C1;
                     this._lignes[1].arrets = ARRETS_C2;
