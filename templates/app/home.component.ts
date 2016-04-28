@@ -4,12 +4,10 @@ import {Router, RouteParams} from 'angular2/router';
 import {Ville} from './ville';
 import {VilleDetailComponent} from './ville.detail.component';
 
-
 @Component({
     selector: 'my-home',
     templateUrl: 'app/html/home.html'
 })
-
 
 export class HomeComponent {
     villes = VILLES;
