@@ -17,7 +17,7 @@ import {Arret} from './arret';
 export class VilleDetailComponent {
     private _selectedVille: Ville;
 
-    private _selectedArret: Arret;
+    _selectedArret: Arret;
     private _selectedLigne: Ligne;
 
     private _lignes = LIGNES;
@@ -28,22 +28,9 @@ export class VilleDetailComponent {
     }
 
     ngOnInit() {
-        //this._selectedArret = "arrêt fictif";
-        //this._selectedLigne = "ligne fictive";
-
         this._lignes[0].arrets = ARRETS_C1;
         this._lignes[1].arrets = ARRETS_C2;
-
-<<<<<<< HEAD
-        //console.debug(this._lignes);
-=======
-       // console.debug(this._lignes);
->>>>>>> 2847849a9fe430622d429da029e7ba9643d188ac
     }
-
-    ngAfterViewInit() {         
-    }
-
 
     public changeArret() {
         if (this._selectedArret == null) {
@@ -60,7 +47,6 @@ export class VilleDetailComponent {
         }
         else
             this._selectedLigne = null;
-
     }
 
     clickLigne(idLigne: number) {
@@ -71,6 +57,13 @@ export class VilleDetailComponent {
     clickArret(idLigne: number) {
         //TODO récupérer les informations AJAX
         this._selectedArret = this._lignes[0].arrets[0];
+    }
+
+    /*
+        Appellé lorsqu'on clique sur un arrêt de la map
+    */
+    onClickedArret(arret: Arret) {
+        this._selectedArret = arret;
     }
 }
 

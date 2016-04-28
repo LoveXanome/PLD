@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from 'angular2/core';
+import { Component, OnInit, Output, EventEmitter} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
 import {Ligne} from './ligne';
@@ -17,13 +17,13 @@ export class MapComponent {
     arrets = ARRETS;
     lignes = LIGNES;
 
-    @Input() selectedArret: Arret;
- 
+    @Output() onClickedArret = new EventEmitter<Arret>();
+
     constructor() {
     }
-    
-    ngOnInit(){
-        this.lignes[0].arrets = this.arrets[0]; 
+
+    ngOnInit() {
+        this.lignes[0].arrets = this.arrets[0];
         this.lignes[1].arrets = this.arrets[1];
         this.lignes[2].arrets = this.arrets[2];
     }
@@ -61,28 +61,20 @@ export class MapComponent {
 
 		circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
 
-
-
         var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         marker.bindPopup("Arrêt: République");
 
-		//ajout d'une action sur l'arret
+        /*
+            Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
+        */
         var _this = this;
 		circle.on('click', function() {
-            this.selectedArret = _this.lignes[0].arrets[0];
-            //console.debug(_this.selectedArret.toString());
+            _this.onClickedArret.emit(_this.lignes[0].arrets[0]);
         });
 
-
-
-        //var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
-        //marker.bindPopup("Arrêt: République");
-
-        
         // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup     
         for(var ligne of this.lignes)
         {
-
             var arretConvert: Arret[] = [];
             
             var polyline = L.polyline( convertLigneToLatLngs(ligne.arrets), {color: ligne.couleur , opacity:1, weight:8 }).addTo(this.mymap)
@@ -100,7 +92,6 @@ export class MapComponent {
                 }).addTo(this.mymap).bindPopup("<b>" + arr.nom + "</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
             }
         }
-        
     }
 }
 

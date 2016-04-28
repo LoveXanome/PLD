@@ -12,6 +12,14 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
     };
     var core_1, router_1, map_component_1, ville_1;
     var VilleDetailComponent, LIGNES, ARRETS_C1, ARRETS_C2, ARRETS_C3, ARRETS_C4;
+    function randomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var _i = 0; _i < 6; _i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
     return {
         setters:[
             function (core_1_1) {
@@ -35,13 +43,8 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
                     this._selectedVille.nom = routeParams.get('nom');
                 }
                 VilleDetailComponent.prototype.ngOnInit = function () {
-                    //this._selectedArret = "arrêt fictif";
-                    //this._selectedLigne = "ligne fictive";
                     this._lignes[0].arrets = ARRETS_C1;
                     this._lignes[1].arrets = ARRETS_C2;
-                    //console.debug(this._lignes);
-                };
-                VilleDetailComponent.prototype.ngAfterViewInit = function () {
                 };
                 VilleDetailComponent.prototype.changeArret = function () {
                     if (this._selectedArret == null) {
@@ -65,6 +68,12 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
                     //TODO récupérer les informations AJAX
                     this._selectedArret = this._lignes[0].arrets[0];
                 };
+                /*
+                    Appellé lorsqu'on clique sur un arrêt de la map
+                */
+                VilleDetailComponent.prototype.onClickedArret = function (arret) {
+                    this._selectedArret = arret;
+                };
                 VilleDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'my-ville-detail',
@@ -78,10 +87,10 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
             }());
             exports_1("VilleDetailComponent", VilleDetailComponent);
             LIGNES = [
-                { "id": 11, "nom": "C1", "categorie": true, "arrets": ARRETS_C1 },
-                { "id": 12, "nom": "C2", "categorie": false, "arrets": ARRETS_C2 },
-                { "id": 13, "nom": "C3", "categorie": true, "arrets": ARRETS_C3 },
-                { "id": 14, "nom": "C4", "categorie": true, "arrets": ARRETS_C4 }
+                { "id": 11, "nom": "C1", "categorie": true, "arrets": ARRETS_C1, "couleur": randomColor() },
+                { "id": 12, "nom": "C2", "categorie": false, "arrets": ARRETS_C2, "couleur": randomColor() },
+                { "id": 13, "nom": "C3", "categorie": true, "arrets": ARRETS_C3, "couleur": randomColor() },
+                { "id": 14, "nom": "C4", "categorie": true, "arrets": ARRETS_C4, "couleur": randomColor() }
             ];
             ARRETS_C1 = [
                 { "id": 11, "nom": "Gare Part-Dieu", "longitude": 40547, "latitude": -0.04 },
