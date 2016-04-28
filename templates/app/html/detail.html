@@ -2,6 +2,8 @@
 	<div ng-if="_selectedVille" class="text-center">
 	    <h2>{{_selectedVille.nom}}</h2>
 	</div>
+	<button class="btn" (click)="changeArret()">Arret</button>
+	<button class="btn" (click)="changeLigne()">Ligne</button>
 </div>
 
 <div class="row">
@@ -33,89 +35,140 @@
 
         				<hr />
         			</div>
-        			<div class="row">
+        			<div class="row fenetre">
         				<div class="titreInformations">
-        					Information	de la ligne	: {{_selectedLigne}}
+        					Information	de la ligne	: <span *ngIf="_selectedLigne">{{_selectedLigne.nom}}</span>
+        				</div>
+						
+						<div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
+							Sélectionner un arrêt ou une ligne
+						</div>
+						<div *ngIf="!_selectedLigne && _selectedArret" class="text-center">
+							Sélectionner une ligne correspondant à l'arrêt {{_selectedArret.nom}}
+							<br/>
+						  	<div class="dataTable_wrapper tableLigne">
+                                <table width="80%" id="tableLigne" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom de la ligne</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX" *ngFor="#ligne of _lignes" 
+                                        [class.success]="ligne.categorie"  [class.danger]="!ligne.categorie" 
+                                        (click)="clickLigne(ligne.id)">
+                                            <td>{{ligne.nom}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+						</div>
+						<div *ngIf="_selectedLigne">
+							<div class="col-md-6">
+	        					<div class="panel panel-primary text-center">
+			                        <div class="panel-heading ">
+			                            Nombre de passage
+			                        </div>
+			                        <div class="panel-body">
+			                        	<div class="row">
+			                        		<div class="col-md-6 traitMilieu">
+				                            	<h2 >
+													56
+					                            </h2>
+					                            Par Jour
+				                            </div>
+				                            <div class="col-md-6">
+				                            	<h2 >
+													392
+					                            </h2>
+					                            Par Semaine
+				                            </div>
+			                        	</div>  
+			                        </div>
+			                    </div>
+	        				</div>
+	        				<div class="col-md-6">
+	        					<div class="panel panel-primary text-center">
+			                        <div class="panel-heading ">
+			                            Vitesse moyenne de la ligne
+			                        </div>
+			                        <div class="panel-body">
+			                        	<div class="row">
+			                        		<div>
+				                            	<h2 >
+													37
+					                            </h2>
+					                            Km/h
+				                            </div>
+			                        	</div>  
+			                        </div>
+			                    </div>
+	        				</div>
+						</div>        				
+    				</div>
+        			<div class="row fenetre">
+        				<div class="titreInformations">
+        					Information	de l'arêt	: <span *ngIf="_selectedArret">{{_selectedArret.nom}}</span>
         				</div>
 
-        				<div class="col-md-6">
-        					<div class="panel panel-primary text-center">
-		                        <div class="panel-heading ">
-		                            Nombre de passage
-		                        </div>
-		                        <div class="panel-body">
-		                        	<div class="row">
-		                        		<div class="col-md-6 traitMilieu">
-			                            	<h2 >
-												56
-				                            </h2>
-				                            Par Jour
-			                            </div>
-			                            <div class="col-md-6">
-			                            	<h2 >
-												392
-				                            </h2>
-				                            Par Semaine
-			                            </div>
-		                        	</div>  
-		                        </div>
-		                    </div>
-        				</div>
-        				<div class="col-md-6">
-        					<div class="panel panel-primary text-center">
-		                        <div class="panel-heading ">
-		                            Vitesse moyenne de la ligne
-		                        </div>
-		                        <div class="panel-body">
-		                        	<div class="row">
-		                        		<div>
-			                            	<h2 >
-												37
-				                            </h2>
-				                            Km/h
-			                            </div>
-		                        	</div>  
-		                        </div>
-		                    </div>
-        				</div>
-    				</div>
-        			<div class="row">
-        				<div class="titreInformations">
-        					Information	de l'arêt	: {{_selectedArret}}
-        				</div>
-        				<div class="col-md-6">
-        					<div class="panel panel-primary text-center">
-		                        <div class="panel-heading ">
-		                            Nombre de passage
-		                        </div>
-		                        <div class="panel-body">
-		                        	<div class="row">
-		                        		<div>
-			                            	<h2 >
-												28
-				                            </h2>
-				                            Par Jour
-			                            </div>
-		                        	</div>  
-		                        </div>
-		                    </div>
-        				</div>
-        				<div class="col-md-6">
-        					<div class="panel panel-primary text-center">
-		                        <div class="panel-heading ">
-		                            Nombre d'habitants
-		                        </div>
-		                        <div class="panel-body">
-		                        	<div class="row">
-		                        		<div>
-			                            	<h2 >
-												3 745
-				                            </h2>
-				                            à moins de 200m
-			                            </div>
-		                        	</div>  
-		                        </div>
-		                    </div>
+						<div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
+							Sélectionner un arrêt ou une ligne
+						</div>
+						<div *ngIf="!_selectedArret && _selectedLigne" class="text-center">
+							Sélectionner une ligne correspondant à l'arrêt {{_selectedLigne.nom}}
+							<br/>
+						  	<div class="dataTable_wrapper tableLigne">
+                                <table width="80%" id="tableLigne" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom de l'arrêt</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX" *ngFor="#arret of _selectedLigne.arrets" 
+                                        (click)="clickArret(arret.id)">
+                                            <td>{{arret.nom}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+						</div>
+
+        				<div *ngIf="_selectedArret">
+        					<div class="col-md-6">
+	        					<div class="panel panel-primary text-center">
+			                        <div class="panel-heading ">
+			                            Nombre de passage
+			                        </div>
+			                        <div class="panel-body">
+			                        	<div class="row">
+			                        		<div>
+				                            	<h2 >
+													28
+					                            </h2>
+					                            Par Jour
+				                            </div>
+			                        	</div>  
+			                        </div>
+			                    </div>
+	        				</div>
+	        				<div class="col-md-6">
+	        					<div class="panel panel-primary text-center">
+			                        <div class="panel-heading ">
+			                            Nombre d'habitants
+			                        </div>
+			                        <div class="panel-body">
+			                        	<div class="row">
+			                        		<div>
+				                            	<h2 >
+													3 745
+					                            </h2>
+					                            à moins de 200m
+				                            </div>
+			                        	</div>  
+			                        </div>
+			                    </div>
+	        				</div>
         				</div>
         			</div>
         		</div>
