@@ -36,7 +36,7 @@ System.register(['angular2/core', 'angular2/router', './home.component', './vill
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n\t  <div class=\"titre\">\n\t  \t<h1 class=\"text-center\">Bienvenue dans Urban Bus</h1>\n\t  </div>\n \t  <div class=\"corps\">\n\t    <router-outlet></router-outlet>\n\t  </div>\n\t",
+                        template: "\n\t  <div class=\"titre\">\n\t  \t<h1 class=\"text-center\">Bienvenue dans Urban Bus</h1>\n\t  </div>\n      <hr/>\n \t  <div class=\"corps\">\n\t    <router-outlet></router-outlet>\n\t  </div>\n\t",
                         styleUrls: ['app/css/style.css'],
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
