@@ -1,2 +1,6 @@
-*.js
-*.js.map
+templates/app/ville.detail.component.js
+templates/app/ville.detail.component.js.map
+
+templates/app/ligne.js
+templates/app/ligne.js.map
+
