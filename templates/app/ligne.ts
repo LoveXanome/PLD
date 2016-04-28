@@ -2,10 +2,10 @@ import {Arret} from './arret';
 
 export class Ligne {
     id: number;
-    nom: string;
-    categorie : Boolean;
-    arrets: Arret[];
-    couleur: String;
+    name: string;
+    category : Boolean;
+    stops : Arret[];
+    color: String;
 
 }
 

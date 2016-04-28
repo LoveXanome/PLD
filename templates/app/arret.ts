@@ -1,6 +1,6 @@
 export class Arret {
   id: number;
-  nom: string;
-  longitude: number;
-  latitude: number;
+  name: String;
+  lat: number;
+  lng: number;
 }

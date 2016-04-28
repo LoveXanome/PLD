@@ -31,8 +31,8 @@ export class VilleDetailComponent {
         //this._selectedArret = "arrêt fictif";
         //this._selectedLigne = "ligne fictive";
 
-        this._lignes[0].arrets = ARRETS_C1;
-        this._lignes[1].arrets = ARRETS_C2;
+        this._lignes[0].stops = STOPS_C1;
+        this._lignes[1].stops = STOPS_C2;
 
        // console.debug(this._lignes);
     }
@@ -43,7 +43,7 @@ export class VilleDetailComponent {
 
     changeArret() {
         if (this._selectedArret == null) {
-            this._selectedArret = this._lignes[0].arrets[0];
+            this._selectedArret = this._lignes[0].stops[0];
         }
         else
             this._selectedArret = null;
@@ -66,7 +66,7 @@ export class VilleDetailComponent {
 
     clickArret(idLigne: number) {
         //TODO récupérer les informations AJAX
-        this._selectedArret = this._lignes[0].arrets[0];
+        this._selectedArret = this._lignes[0].stops[0];
     }
 }
 
@@ -81,33 +81,33 @@ function randomColor(){
 }
 
 var LIGNES: Ligne[] = [
-    { "id": 11, "nom": "C1", "categorie": true, "arrets": ARRETS_C1 , "couleur": randomColor() },
-    { "id": 12, "nom": "C2", "categorie": false, "arrets": ARRETS_C2 , "couleur": randomColor()},
-    { "id": 13, "nom": "C3", "categorie": true, "arrets": ARRETS_C3 , "couleur": randomColor()},
-    { "id": 14, "nom": "C4", "categorie": true, "arrets": ARRETS_C4 , "couleur": randomColor()}
+    { "id": 11, "name": "C1", "category": true, "stops": STOPS_C1 , "color": randomColor() },
+    { "id": 12, "name": "C2", "category": false, "stops": STOPS_C2 , "color": randomColor()},
+    { "id": 13, "name": "C3", "category": true, "stops": STOPS_C3 , "color": randomColor()},
+    { "id": 14, "name": "C4", "category": true, "stops": STOPS_C4 , "color": randomColor()}
 ];
 
 
-var ARRETS_C1: Arret[] = [
-    { "id": 11, "nom": "Gare Part-Dieu", "longitude": 40547, "latitude": -0.04 },
-    {  "id": 12, "nom": "Brotteaux", "longitude": 45.544 , "latitude":-0.01 },
-    {  "id": 13, "nom": "Vitton", "longitude": 4.455 , "latitude":-0.06 } 
+var STOPS_C1: Arret[] = [
+    { "id": 11, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04 },
+    {  "id": 12, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01 },
+    {  "id": 13, "name": "Vitton", "lng": 4.455 , "lat":-0.06 } 
 ];
 
-var ARRETS_C2: Arret[] = [
-    { "id": 21, "nom": "Gare Part-Dieu", "longitude": 40547, "latitude": -0.04 },
-    { "id": 22, "nom": "Brotteaux", "longitude": 45.544, "latitude": -0.01 },
-    { "id": 23, "nom": "Charpenne", "longitude": 4.455, "latitude": -0.06 }
+var STOPS_C2: Arret[] = [
+    { "id": 21, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04 },
+    { "id": 22, "name": "Brotteaux", "lng": 45.544, "lat": -0.01 },
+    { "id": 23, "name": "Charpenne", "lng": 4.455, "lat": -0.06 }
 ];
 
-var ARRETS_C3: Arret[] = [
-    { "id": 21, "nom": "Gare Part-Dieu",  "longitude":40547 , "latitude":-0.04 }, 
-    {  "id": 22, "nom": "Brotteaux", "longitude": 45.544 , "latitude":-0.01 },
-    {  "id": 23, "nom": "Charpenne", "longitude": 4.455 , "latitude":-0.06 } 
+var STOPS_C3: Arret[] = [
+    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04 }, 
+    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01 },
+    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06 } 
 ];
 
-var ARRETS_C4: Arret[] = [
-    { "id": 21, "nom": "Gare Part-Dieu",  "longitude":40547 , "latitude":-0.04 }, 
-    {  "id": 22, "nom": "Brotteaux", "longitude": 45.544 , "latitude":-0.01 },
-    {  "id": 23, "nom": "Charpenne", "longitude": 4.455 , "latitude":-0.06 } 
+var STOPS_C4: Arret[] = [
+    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04 }, 
+    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01 },
+    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06 } 
 ];
