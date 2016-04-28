@@ -54,9 +54,10 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx',
                     this._lignes[0].stops = STOPS_C1;
                     this._lignes[1].stops = STOPS_C2;
                 };
-                VilleDetailComponent.prototype.clickArret = function (arret) {
+                VilleDetailComponent.prototype.onChoseArretOfLine = function (arret) {
                     if (this._selectedLigne == null)
                         return;
+                    this._selectedArret = arret;
                 };
                 /*
                     Appellé lorsqu'on clique sur un arrêt de la map

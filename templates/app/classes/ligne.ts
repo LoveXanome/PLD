@@ -1,4 +1,4 @@
-import {Arret} from './arret';
+import {Arret} from './classes/arret';
 
 export class Ligne {
     id: number;
