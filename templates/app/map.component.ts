@@ -51,19 +51,24 @@ export class MapComponent {
         this.mymap.fitBounds(polyline.getBounds());
 
        	//Pour afficher les arrêts
-		var circle = L.circle([51.481, -0.01], 1, {
+		var circle = L.circle([51.481, -0.08], 100, {
 				  color: 'red',
 				  fillColor: '#f03',
 				  fillOpacity: 1
 			  }).addTo(this.mymap);
 
-		circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+		//circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+
+		//ajout d'une action sur l'arret
+		circle.on('click', function() {
+			//non de la fonction : changeArret();
+		});
 
 
 
-        var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
-        marker.bindPopup("Arrêt: République");
-        
+        //var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
+        //marker.bindPopup("Arrêt: République");
+       
         
         // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup     
         for(var ligne of this.lignes)
