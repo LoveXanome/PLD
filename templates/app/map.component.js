@@ -37,6 +37,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 MapComponent.prototype.ngOnInit = function () {
                     this.lignes[0].arrets = this.arrets[0];
                     this.lignes[1].arrets = this.arrets[1];
+                    this.lignes[2].arrets = this.arrets[2];
                 };
                 MapComponent.prototype.ngAfterViewInit = function () {
                     //Créer le template de la map et la center sur londre
@@ -52,20 +53,30 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     //TODO affichage de données fictives : plusieurs lignes de bus, avec plusieurs arêtes.
                     //On peut cliquer sur les lignes et les arêts
                     //create a Marker
-                    var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
-                    marker.bindPopup("Arrêt: République");
+                    //L.marker([51.481, -0.01]).addTo(this.mymap);
                     // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup
+                    //var polyline = L.polyline([[51.481, -0.01], [51.483, -0.02], [51.486, -0.1]], { color: 'red' }).addTo(this.mymap);
+                    // this.mymap.fitBounds(polyline.getBounds());
+                    // var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
+                    // marker.bindPopup("Arrêt: République");
+                    // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup     
                     for (var _a = 0, _b = this.lignes; _a < _b.length; _a++) {
                         var ligne = _b[_a];
-                        //console.debug(ligne);
                         var arretConvert = [];
                         for (var _c = 0, _d = ligne.arrets; _c < _d.length; _c++) {
                             var arr = _d[_c];
-                            arretConvert.push(convertToLatLngs(arr));
+                            var coordonnee = convertToLatLngs(arr);
+                            arretConvert.push(coordonnee);
+                            //Création d'un cercle pour un arret donné
+                            L.circle(coordonnee, 3, {
+                                color: ligne.couleur,
+                                fillColor: ligne.couleur,
+                                fillOpacity: 1
+                            }).addTo(this.mymap).bindPopup("<b>" + arr.nom + "</b><br>T1 et T4");
                         }
                         var polyline = L.polyline(arretConvert, { color: ligne.couleur, opacity: 1 }).addTo(this.mymap);
-                        //this.mymap.fitBounds(polyline.getBounds());
-                        polyline.bindPopup("Ligne: " + ligne.nom);
+                        //this.mymap.fitBounds(polyline.getBounds());  // Permet de cibler sur un element donnée
+                        polyline.bindPopup("<b>Ligne:</b> " + ligne.nom);
                     }
                 };
                 MapComponent = __decorate([
@@ -81,20 +92,26 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             exports_1("MapComponent", MapComponent);
             ARRETS = [
                 [
-                    { "lon": 51.478, "lat": -0.04 },
-                    { "lon": 51.459, "lat": -0.01 },
-                    { "lon": 51.428, "lat": -0.06 }
+                    { "id": 1, "nom": "Arret République", "lon": 51.478, "lat": -0.04 },
+                    { "id": 2, "nom": "Arret Marie Curie", "lon": 51.459, "lat": -0.01 },
+                    { "id": 3, "nom": "Arret BelleCourt", "lon": 51.428, "lat": -0.06 }
                 ],
                 [
-                    { "lon": 51.472, "lat": -0.01 },
-                    { "lon": 51.442, "lat": -0.02 },
-                    { "lon": 51.440, "lat": -0.01 },
-                    { "lon": 51.435, "lat": -0.02 }
+                    { "id": 1, "nom": "Arret Perrache", "lon": 51.472, "lat": -0.01 },
+                    { "id": 2, "nom": "Arret Confluence", "lon": 51.442, "lat": -0.02 },
+                    { "id": 3, "nom": "Arret INSA", "lon": 51.440, "lat": -0.01 },
+                    { "id": 4, "nom": "Arret Part Dieu", "lon": 51.435, "lat": -0.02 }
+                ],
+                [
+                    { "id": 1, "nom": "Arret Perrache", "lon": 51.481, "lat": -0.01 },
+                    { "id": 2, "nom": "Arret Haribot", "lon": 51.483, "lat": -0.02 },
+                    { "id": 3, "nom": "Arret Fourvière", "lon": 51.486, "lat": -0.02 },
                 ]
             ];
             LIGNES = [
                 { "id": 1, "nom": "A", "arrets": ARRETS[0], "couleur": randomColor() },
                 { "id": 2, "nom": "B", "arrets": ARRETS[1], "couleur": randomColor() },
+                { "id": 3, "nom": "C", "arrets": ARRETS[2], "couleur": randomColor() },
             ];
         }
     }
