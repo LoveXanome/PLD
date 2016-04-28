@@ -54,10 +54,10 @@ export class MapComponent {
 				  fillOpacity: 1
 			  }).addTo(this.mymap);
 
-		circle.bindPopup("<b>Arret Gaston Berger</b><br>T1 et T4");
+		circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
 
 
-		
+
         var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         marker.bindPopup("Arrêt: République");
         

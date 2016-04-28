@@ -1,4 +1,2 @@
-app.component.js
-app.component.js.map
-map.component.js
-map.component.js.map
+*.js
+*.js.map
