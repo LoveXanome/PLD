@@ -11,7 +11,10 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var MapComponent, LIGNES, ARRETS;
+    var MapComponent, ARRETS, LIGNES;
+    function convertToLatLngs(arret) {
+        return L.latLng(arret.lon, arret.lat);
+    }
     return {
         setters:[
             function (core_1_1) {
@@ -20,8 +23,13 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             MapComponent = (function () {
                 function MapComponent() {
+                    this.arrets = ARRETS;
+                    this.lignes = LIGNES;
                 }
-                MapComponent.prototype.ngAfterContentInit = function () {
+                MapComponent.prototype.ngOnInit = function () {
+                    this.lignes[0].arrets = this.arrets;
+                };
+                MapComponent.prototype.ngAfterViewInit = function () {
                     //Créer le template de la map et la center sur londre
                     this.mymap = L.map('mapid', {
                         center: [51.505, -0.09],
@@ -35,10 +43,21 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     //TODO affichage de données fictives : plusieurs lignes de bus, avec plusieurs arêtes.
                     //On peut cliquer sur les lignes et les arêts
                     //create a Marker
-                    L.marker([51.481, -0.01]).addTo(this.mymap);
+                    var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
+                    marker.bindPopup("Arrêt: République");
                     // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup
-                    var polyline = L.polyline([[51.481, -0.01], [51.483, -0.02], [51.486, -0.1]], { color: 'red' }).addTo(this.mymap);
-                    this.mymap.fitBounds(polyline.getBounds());
+                    for (var _i = 0, _a = this.lignes; _i < _a.length; _i++) {
+                        var ligne = _a[_i];
+                        //console.debug(ligne);
+                        var arretConvert = [];
+                        for (var _b = 0, _c = ligne.arrets; _b < _c.length; _b++) {
+                            var arr = _c[_b];
+                            arretConvert.push(convertToLatLngs(arr));
+                        }
+                        var polyline = L.polyline(arretConvert, { color: '#E515B6' }).addTo(this.mymap);
+                        this.mymap.fitBounds(polyline.getBounds());
+                        polyline.bindPopup("Ligne: " + ligne.nom);
+                    }
                 };
                 MapComponent = __decorate([
                     core_1.Component({
@@ -51,13 +70,13 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 return MapComponent;
             }());
             exports_1("MapComponent", MapComponent);
-            LIGNES = [
-                { "id": 11, "nom": "Lyon", "arrets": ARRETS }
-            ];
             ARRETS = [
-                { "longitude": 40.547, "latitude": -0.04 },
-                { "longitude": 45.544, "latitude": -0.01 },
-                { "longitude": 48.455, "latitude": -0.06 }
+                { "lon": 51.478, "lat": -0.04 },
+                { "lon": 51.459, "lat": -0.01 },
+                { "lon": 51.428, "lat": -0.06 }
+            ];
+            LIGNES = [
+                { "id": 1, "nom": "B", "arrets": ARRETS }
             ];
         }
     }
