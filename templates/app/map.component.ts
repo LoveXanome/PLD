@@ -1,4 +1,4 @@
-import { Component, OnInit } from 'angular2/core';
+import { Component, OnInit, Input } from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
 import {Ligne} from './ligne';
@@ -16,6 +16,8 @@ export class MapComponent {
 	mymap: any;
     arrets = ARRETS;
     lignes = LIGNES;
+
+    @Input() selectedArret: Arret;
  
     constructor() {
     }
@@ -52,17 +54,19 @@ export class MapComponent {
 
        	//Pour afficher les arrêts
 		var circle = L.circle([51.481, -0.08], 100, {
-				  color: 'red',
-				  fillColor: '#f03',
-				  fillOpacity: 1
-			  }).addTo(this.mymap);
+    		  color: 'red',
+    		  fillColor: '#f03',
+    		  fillOpacity: 1
+    	}).addTo(this.mymap);
 
 		//circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
 
 		//ajout d'une action sur l'arret
+        var _this = this;
 		circle.on('click', function() {
-			//non de la fonction : changeArret();
-		});
+            this.selectedArret = _this.lignes[0].arrets[0];
+            //console.debug(_this.selectedArret.toString());
+        });
 
 
 

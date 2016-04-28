@@ -20,21 +20,9 @@
         <div class="tab-pane fade in active" id="Accueil">
         	<div class="row">
     			<div class="col-md-6">
-        			<my-map></my-map>
+        			<my-map [_selectedArret]="selectedArret"></my-map>
         		</div>
         		<div class="col-md-6">
-        			<div class="row text-center">
-        				<div class="col-md-6">
-        					<label for="semaine">Semaine</label>
-							<input type="radio" name="porter_donnees" id="semaine" value="semaine"><br>
-        				</div>
-        				<div class="col-md-6">
-        					<label for="jours">Jours</label>
-							<input type="radio" name="porter_donnees" id="jours" value="jours"><br>
-        				</div>
-
-        				<hr />
-        			</div>
         			<div class="row fenetre">
         				<div class="titreInformations">
         					Information	de la ligne	: <span *ngIf="_selectedLigne">{{_selectedLigne.nom}}</span>
@@ -142,11 +130,17 @@
 			                        </div>
 			                        <div class="panel-body">
 			                        	<div class="row">
-			                        		<div>
+			                        		<div class="col-md-6 traitMilieu">
 				                            	<h2 >
 													28
 					                            </h2>
 					                            Par Jour
+				                            </div>
+				                            <div class="col-md-6">
+				                            	<h2 >
+													392
+					                            </h2>
+					                            Par Semaine
 				                            </div>
 			                        	</div>  
 			                        </div>

@@ -39,7 +39,7 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
                     //this._selectedLigne = "ligne fictive";
                     this._lignes[0].arrets = ARRETS_C1;
                     this._lignes[1].arrets = ARRETS_C2;
-                    console.debug(this._lignes);
+                    //console.debug(this._lignes);
                 };
                 VilleDetailComponent.prototype.ngAfterViewInit = function () {
                 };

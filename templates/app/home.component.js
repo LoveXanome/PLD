@@ -39,7 +39,8 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 HomeComponent = __decorate([
                     core_1.Component({
                         selector: 'my-home',
-                        templateUrl: 'app/html/home.html'
+                        templateUrl: 'app/html/home.html',
+                        styleUrls: ['app/css/home.css']
                     }), 
                     __metadata('design:paramtypes', [router_1.Router])
                 ], HomeComponent);

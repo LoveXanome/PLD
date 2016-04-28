@@ -34,14 +34,14 @@ export class VilleDetailComponent {
         this._lignes[0].arrets = ARRETS_C1;
         this._lignes[1].arrets = ARRETS_C2;
 
-        console.debug(this._lignes);
+        //console.debug(this._lignes);
     }
 
     ngAfterViewInit() {         
     }
 
 
-    changeArret() {
+    public changeArret() {
         if (this._selectedArret == null) {
             this._selectedArret = this._lignes[0].arrets[0];
         }
@@ -49,7 +49,7 @@ export class VilleDetailComponent {
             this._selectedArret = null;
     }
 
-    changeLigne() {
+    public changeLigne() {
         if (this._selectedLigne == null)
         {
             this._selectedLigne = this._lignes[0];
