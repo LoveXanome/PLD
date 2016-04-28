@@ -42,13 +42,13 @@ export class MapComponent {
         this.mymap.fitBounds(polyline.getBounds());
 
        	//Pour afficher les arrêts
-		var circle = L.circle([51.481, -0.01], 5, {
+		var circle = L.circle([51.481, -0.01], 1, {
 				  color: 'red',
 				  fillColor: '#f03',
 				  fillOpacity: 1
 			  }).addTo(this.mymap);
 
-		circle.bindPopup("Arret Gaston Berger");
+		circle.bindPopup("<b>Arret Gaston Berger</b><br>T1 et T4");
         
     }
 }
