@@ -41,11 +41,11 @@ export class VilleDetailComponent {
         this._lignes[1].stops = STOPS_C2;
     }
 
-    clickArret(arret: Arret) {
+    onChoseArretOfLine(arret: Arret) {
         if (this._selectedLigne == null)
             return;
+        this._selectedArret = arret;
     }
-
 
     /*
         Appellé lorsqu'on clique sur un arrêt de la map

@@ -26,14 +26,14 @@
         		<div class="col-md-6">
         			<div class="row fenetre">
         				<div class="titreInformations">
-        					Information	de la ligne	: <span *ngIf="_selectedLigne">{{_selectedLigne.nom}}</span>
+        					Information	de la ligne	: <span *ngIf="_selectedLigne">{{_selectedLigne.name}}</span>
         				</div>
 						
 						<div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
 							Sélectionner un arrêt ou une ligne
 						</div>
 						<div *ngIf="!_selectedLigne && _selectedArret" class="text-center">
-							Sélectionner une ligne correspondant à l'arrêt {{_selectedArret.nom}}
+							Sélectionner une ligne correspondant à l'arrêt {{_selectedArret.name}}
 							<br/>
 						  	<div class="dataTable_wrapper tableLigne">
                                 <table width="80%" id="tableLigne" class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -44,9 +44,9 @@
                                     </thead>
                                     <tbody>
                                         <tr class="odd gradeX" *ngFor="#ligne of _lignes" 
-                                        [class.success]="ligne.categorie"  [class.danger]="!ligne.categorie" 
+                                        [class.success]="ligne.category"  [class.danger]="!ligne.category" 
                                         (click)="clickLigne(ligne.id)">
-                                            <td>{{ligne.nom}}</td>
+                                            <td>{{ligne.name}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -97,14 +97,14 @@
     				</div>
         			<div class="row fenetre">
         				<div class="titreInformations">
-        					Information	de l'arêt	: <span *ngIf="_selectedArret">{{_selectedArret.nom}}</span>
+        					Information	de l'arêt	: <span *ngIf="_selectedArret">{{_selectedArret.name}}</span>
         				</div>
 
 						<div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
 							Sélectionner un arrêt ou une ligne
 						</div>
 						<div *ngIf="!_selectedArret && _selectedLigne" class="text-center">
-							Sélectionner une ligne correspondant à l'arrêt {{_selectedLigne.nom}}
+							Sélectionner une ligne correspondant à l'arrêt {{_selectedLigne.name}}
 							<br/>
 						  	<div class="dataTable_wrapper tableLigne">
                                 <table width="80%" id="tableLigne" class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -114,9 +114,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX" *ngFor="#arret of _selectedLigne.arrets" 
-                                        (click)="clickArret(arret)">
-                                            <td>{{arret.nom}}</td>
+                                        <tr class="odd gradeX" *ngFor="#arret of _selectedLigne.stops" 
+                                        (click)="onChoseArretOfLine(arret)">
+                                            <td>{{arret.name}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
