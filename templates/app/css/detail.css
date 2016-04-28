@@ -12,3 +12,12 @@
     margin: 10px;
 	border-bottom: 1px solid #b3b3b3 !important;
 }
+
+.fenetre {
+    height: 225px;
+}
+
+.tableLigne {
+    max-height: 140px;
+    overflow: auto;
+}

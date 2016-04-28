@@ -34,7 +34,7 @@ export class VilleDetailComponent {
         this._lignes[0].arrets = ARRETS_C1;
         this._lignes[1].arrets = ARRETS_C2;
 
-        //console.debug(this._lignes);
+       // console.debug(this._lignes);
     }
 
     ngAfterViewInit() {         
@@ -56,6 +56,7 @@ export class VilleDetailComponent {
         }
         else
             this._selectedLigne = null;
+
     }
 
     clickLigne(idLigne: number) {
