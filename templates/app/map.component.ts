@@ -21,7 +21,8 @@ export class MapComponent {
     }
     
     ngOnInit(){
-       this.lignes[0].arrets = this.arrets; 
+        this.lignes[0].arrets = this.arrets[0]; 
+        this.lignes[1].arrets = this.arrets[1];
     }
 
     ngAfterViewInit() { 
@@ -56,8 +57,8 @@ export class MapComponent {
                 arretConvert.push(convertToLatLngs(arr));
             }
             
-            var polyline = L.polyline( arretConvert, {color: '#E515B6'}).addTo(this.mymap)
-            this.mymap.fitBounds(polyline.getBounds());
+            var polyline = L.polyline( arretConvert, {color: ligne.couleur , opacity:1 }).addTo(this.mymap)
+            //this.mymap.fitBounds(polyline.getBounds());
             polyline.bindPopup("Ligne: "+ ligne.nom); 
         }
         
@@ -70,13 +71,33 @@ function convertToLatLngs(arret: Arret) {
     return L.latLng(arret.lon , arret.lat);
 }
 
-var ARRETS: Arret[] = [ 
-    { "lon":51.478 , "lat":-0.04 }, 
-    { "lon":51.459 , "lat":-0.01 },
-    { "lon":51.428 , "lat":-0.06 } 
+function randomColor(){
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var _i = 0; _i < 6; _i++ ) 
+    {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;    
+}
+
+
+var ARRETS: Arret[][] = [ 
+    [
+        { "lon":51.478 , "lat":-0.04 }, 
+        { "lon":51.459 , "lat":-0.01 },
+        { "lon":51.428 , "lat":-0.06 } 
+    ],
+    [
+        { "lon":51.472 , "lat":-0.01 }, 
+        { "lon":51.442 , "lat":-0.02 },
+        { "lon":51.440, "lat":-0.01 }, 
+        { "lon":51.435, "lat":-0.02 }
+    ]
 ];
 
 var LIGNES: Ligne[] = [
-    { "id": 1, "nom": "B" , "arrets": ARRETS}
+    { "id": 1, "nom": "A" , "arrets": ARRETS[0] , "couleur": randomColor()},
+    { "id": 2, "nom": "B" , "arrets": ARRETS[1] , "couleur": randomColor()},
 ];
 

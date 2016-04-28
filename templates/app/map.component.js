@@ -15,6 +15,14 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     function convertToLatLngs(arret) {
         return L.latLng(arret.lon, arret.lat);
     }
+    function randomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var _i = 0; _i < 6; _i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
     return {
         setters:[
             function (core_1_1) {
@@ -27,7 +35,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.lignes = LIGNES;
                 }
                 MapComponent.prototype.ngOnInit = function () {
-                    this.lignes[0].arrets = this.arrets;
+                    this.lignes[0].arrets = this.arrets[0];
+                    this.lignes[1].arrets = this.arrets[1];
                 };
                 MapComponent.prototype.ngAfterViewInit = function () {
                     //Créer le template de la map et la center sur londre
@@ -46,16 +55,16 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
                     marker.bindPopup("Arrêt: République");
                     // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup
-                    for (var _i = 0, _a = this.lignes; _i < _a.length; _i++) {
-                        var ligne = _a[_i];
+                    for (var _a = 0, _b = this.lignes; _a < _b.length; _a++) {
+                        var ligne = _b[_a];
                         //console.debug(ligne);
                         var arretConvert = [];
-                        for (var _b = 0, _c = ligne.arrets; _b < _c.length; _b++) {
-                            var arr = _c[_b];
+                        for (var _c = 0, _d = ligne.arrets; _c < _d.length; _c++) {
+                            var arr = _d[_c];
                             arretConvert.push(convertToLatLngs(arr));
                         }
-                        var polyline = L.polyline(arretConvert, { color: '#E515B6' }).addTo(this.mymap);
-                        this.mymap.fitBounds(polyline.getBounds());
+                        var polyline = L.polyline(arretConvert, { color: ligne.couleur, opacity: 1 }).addTo(this.mymap);
+                        //this.mymap.fitBounds(polyline.getBounds());
                         polyline.bindPopup("Ligne: " + ligne.nom);
                     }
                 };
@@ -71,12 +80,21 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             }());
             exports_1("MapComponent", MapComponent);
             ARRETS = [
-                { "lon": 51.478, "lat": -0.04 },
-                { "lon": 51.459, "lat": -0.01 },
-                { "lon": 51.428, "lat": -0.06 }
+                [
+                    { "lon": 51.478, "lat": -0.04 },
+                    { "lon": 51.459, "lat": -0.01 },
+                    { "lon": 51.428, "lat": -0.06 }
+                ],
+                [
+                    { "lon": 51.472, "lat": -0.01 },
+                    { "lon": 51.442, "lat": -0.02 },
+                    { "lon": 51.440, "lat": -0.01 },
+                    { "lon": 51.435, "lat": -0.02 }
+                ]
             ];
             LIGNES = [
-                { "id": 1, "nom": "B", "arrets": ARRETS }
+                { "id": 1, "nom": "A", "arrets": ARRETS[0], "couleur": randomColor() },
+                { "id": 2, "nom": "B", "arrets": ARRETS[1], "couleur": randomColor() },
             ];
         }
     }
