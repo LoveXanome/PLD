@@ -34,10 +34,12 @@ System.register(['angular2/core', 'angular2/router', './ville', './map.component
                     {*/
                     this._selectedVille = new ville_1.Ville();
                     this._selectedVille.nom = routeParams.get('nom');
-                    this._selectedArret = "arrêt fictif";
-                    this._selectedLigne = "ligne fictive";
                     //}
                 }
+                VilleDetailComponent.prototype.ngOnInit = function () {
+                    this._selectedArret = "arrêt fictif";
+                    this._selectedLigne = "ligne fictive";
+                };
                 VilleDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'my-ville-detail',

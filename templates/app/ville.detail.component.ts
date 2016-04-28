@@ -17,7 +17,7 @@ export class VilleDetailComponent {
     private _selectedArret: string;
     private _selectedLigne: string;
     
-      constructor(
+    constructor(
       private _router: Router,
       routeParams: RouteParams) {
         /*if(routeParams.get('nom') !== null)
@@ -25,9 +25,12 @@ export class VilleDetailComponent {
             this._selectedVille = new Ville();
             this._selectedVille.nom = routeParams.get('nom');
 
-            this._selectedArret = "arrêt fictif";
-            this._selectedLigne = "ligne fictive";
         //}
 
+    }
+
+    ngOnInit() {
+        this._selectedArret = "arrêt fictif";
+        this._selectedLigne = "ligne fictive";
     }
 }
