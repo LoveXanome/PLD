@@ -1,11 +1,14 @@
 import {Component, Input} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
+import {Http, Response} from 'angular2/http';
+import 'rxjs/Rx';
 
 import {MapComponent} from './map.component';
 
 import {Ville} from './ville';
 import {Ligne} from './ligne';
 import {Arret} from './arret';
+import {HttpRequest} from './httpRequest';
 
 @Component({
     selector: 'my-ville-detail',
@@ -17,14 +20,28 @@ import {Arret} from './arret';
 export class VilleDetailComponent {
     private _selectedVille: Ville;
 
-    _selectedArret: Arret;
-    private _selectedLigne: Ligne;
+    private _selectedArret: Arret;
+    result: Object;
 
+    private _selectedLigne: Ligne;
     private _lignes = LIGNES;
 
-    constructor(private _router: Router, routeParams: RouteParams) {
+    private _httpRequest: HttpRequest;
+
+    constructor(private _router: Router, routeParams: RouteParams, http: Http) {
+        
+        this._httpRequest = new HttpRequest(http);
+
+        this._httpRequest.get('http://localhost:5000/', this.doResult);
+
+
         this._selectedVille = new Ville();
         this._selectedVille.nom = routeParams.get('nom');
+    }
+
+    doResult(res: any)
+    {
+        console.debug(res);
     }
 
     ngOnInit() {
@@ -44,7 +61,7 @@ export class VilleDetailComponent {
     */
     onClickedArret(arret: Arret) {
         this._selectedArret = arret;
-        console.debug(arret);
+        //console.debug(arret);
 
         //On vérifie que la ligne séléctionner appartient à l'arrêt
         if (this._selectedLigne == null)

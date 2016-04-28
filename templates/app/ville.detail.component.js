@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './map.component', './ville'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/http', 'rxjs/Rx', './map.component', './ville', './httpRequest'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, map_component_1, ville_1;
+    var core_1, router_1, http_1, map_component_1, ville_1, httpRequest_1;
     var VilleDetailComponent, LIGNES, ARRETS_C1, ARRETS_C2, ARRETS_C3, ARRETS_C4;
     function randomColor() {
         var letters = '0123456789ABCDEF'.split('');
@@ -28,20 +28,32 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
+            function (_1) {},
             function (map_component_1_1) {
                 map_component_1 = map_component_1_1;
             },
             function (ville_1_1) {
                 ville_1 = ville_1_1;
+            },
+            function (httpRequest_1_1) {
+                httpRequest_1 = httpRequest_1_1;
             }],
         execute: function() {
             VilleDetailComponent = (function () {
-                function VilleDetailComponent(_router, routeParams) {
+                function VilleDetailComponent(_router, routeParams, http) {
                     this._router = _router;
                     this._lignes = LIGNES;
+                    this._httpRequest = new httpRequest_1.HttpRequest(http);
+                    this._httpRequest.get('http://localhost:5000/', this.doResult);
                     this._selectedVille = new ville_1.Ville();
                     this._selectedVille.nom = routeParams.get('nom');
                 }
+                VilleDetailComponent.prototype.doResult = function (res) {
+                    console.debug(res);
+                };
                 VilleDetailComponent.prototype.ngOnInit = function () {
                     this._lignes[0].arrets = ARRETS_C1;
                     this._lignes[1].arrets = ARRETS_C2;
@@ -56,7 +68,7 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
                 */
                 VilleDetailComponent.prototype.onClickedArret = function (arret) {
                     this._selectedArret = arret;
-                    console.debug(arret);
+                    //console.debug(arret);
                     //On vérifie que la ligne séléctionner appartient à l'arrêt
                     if (this._selectedLigne == null)
                         return;
@@ -91,7 +103,7 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
                         styleUrls: ['app/css/detail.css'],
                         directives: [map_component_1.MapComponent]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, http_1.Http])
                 ], VilleDetailComponent);
                 return VilleDetailComponent;
             }());

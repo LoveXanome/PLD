@@ -85,7 +85,6 @@ export class MapComponent {
         });
 
 		for (var arr of ligne.arrets) {
-            arr.ligneId = ligne.id;
 			var coordonnee = convertArretToLatLngs(arr);
 			//Création d'un cercle pour un arret donné
             var circle = L.circle(coordonnee, 15, {
