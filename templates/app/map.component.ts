@@ -1,4 +1,4 @@
-import { Component, OnInit } from 'angular2/core';
+import { Component, OnInit, Output, EventEmitter} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
 import {Ligne} from './ligne';
@@ -16,7 +16,10 @@ export class MapComponent {
 	mymap: any;
     stops = STOPS;
     lignes = LIGNES;
- 
+
+    @Output() onClickedArret = new EventEmitter<Arret>();
+    @Output() onClickedLigne = new EventEmitter<Ligne>();
+
     constructor() {
     }
     
@@ -52,23 +55,15 @@ export class MapComponent {
 
        	//Pour afficher les arrêts
 		var circle = L.circle([51.481, -0.08], 100, {
-
-				  color: 'red',
-				  fillColor: '#f03',
-				  fillOpacity: 1
-			  }).addTo(this.mymap);
+    		  color: 'red',
+    		  fillColor: '#f03',
+    		  fillOpacity: 1
+    	}).addTo(this.mymap);
 
 		circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
 
-
-
         var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         marker.bindPopup("Arrêt: République");
-
-		//ajout d'une action sur l'arret
-		circle.on('click', function() {
-			//non de la fonction : changeArret();
-		});
 
         //var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         //marker.bindPopup("Arrêt: République");
@@ -79,18 +74,32 @@ export class MapComponent {
         }     
     }
 
-    displayLine(ligne: Ligne) {
 
-		var polyline2 = L.polyline(convertLigneToLatLngs(ligne.stops ), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
-		polyline2.bindPopup("<b>Ligne:</b> " + ligne.name);
-		for (var arr of ligne.stops ) {
+    displayLine(ligne: Ligne) {
+        var _this = this;
+        
+        var polyline2 = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
+
+        polyline2.on('click', function() {
+            _this.onClickedLigne.emit(ligne);
+        });
+
+		for (var arr of ligne.stops) {
+            //arr.ligneId = ligne.id;
 			var coordonnee = convertArretToLatLngs(arr);
 			//Création d'un cercle pour un arret donné
-			L.circle(coordonnee, 6, {
-				color: ligne.color,
+            var circle = L.circle(coordonnee, 15, {
+                color: ligne.color,
 				fillColor: 'white',
 				fillOpacity: 1
-			}).addTo(this.mymap).bindPopup("<b>" + arr.name + "</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+			}).addTo(this.mymap);
+
+            /*
+               Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
+            */  
+            circle.on('click', function() {
+                _this.onClickedArret.emit(arr);
+            });
 		}
 	}
 }
@@ -109,7 +118,6 @@ function convertLigneToLatLngs(stops : Arret[]) {
     return arretConvert;
 }
 
-
 function randomColor(){
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
@@ -119,6 +127,8 @@ function randomColor(){
     }
     return color;    
 }
+
+
 var STOPS: Arret[][] = [ 
     [
         { "id": 1, "name": "Arret République" ,"lng":51.478 , "lat":-0.04 }, 

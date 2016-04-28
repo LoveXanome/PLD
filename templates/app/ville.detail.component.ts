@@ -17,7 +17,7 @@ import {Arret} from './arret';
 export class VilleDetailComponent {
     private _selectedVille: Ville;
 
-    private _selectedArret: Arret;
+    _selectedArret: Arret;
     private _selectedLigne: Ligne;
 
     private _lignes = LIGNES;
@@ -28,45 +28,53 @@ export class VilleDetailComponent {
     }
 
     ngOnInit() {
-        //this._selectedArret = "arrêt fictif";
-        //this._selectedLigne = "ligne fictive";
-
         this._lignes[0].stops = STOPS_C1;
         this._lignes[1].stops = STOPS_C2;
-
-       // console.debug(this._lignes);
     }
 
-    ngAfterViewInit() {         
-    }
-
-
-    changeArret() {
-        if (this._selectedArret == null) {
-            this._selectedArret = this._lignes[0].stops[0];
-        }
-        else
-            this._selectedArret = null;
-    }
-
-    changeLigne() {
+    clickArret(arret: Arret) {
         if (this._selectedLigne == null)
-        {
-            this._selectedLigne = this._lignes[0];
+            return;
+    }
+
+
+    /*
+        Appellé lorsqu'on clique sur un arrêt de la map
+    */
+    onClickedArret(arret: Arret) {
+        this._selectedArret = arret;
+        //console.debug(arret);
+
+        //On vérifie que la ligne séléctionner appartient à l'arrêt
+        if (this._selectedLigne == null)
+            return;
+
+        for (var arr of this._selectedLigne.stops) {
+            if (arr == arret) {
+                return;
+            }
         }
-        else
-            this._selectedLigne = null;
 
+        this._selectedLigne = null;
     }
 
-    clickLigne(idLigne: number) {
-        //TODO récupérer les informations AJAX
-        this._selectedLigne = this._lignes[0];
-    }
+    /*
+        Appellé lorsqu'on clique sur un arrêt de la map
+    */
+    onClickedLigne(ligne: Ligne) {
+        this._selectedLigne = ligne;
 
-    clickArret(idLigne: number) {
-        //TODO récupérer les informations AJAX
-        this._selectedArret = this._lignes[0].stops[0];
+        //On vérifie que l'arrêt séléctionner appartient à la ligne 
+        if (this._selectedArret == null)
+            return;
+
+        for (var arr of ligne.stops) {
+            if (arr == this._selectedArret) {
+                return;
+            }
+        }
+     
+        this._selectedArret = null;
     }
 }
 
