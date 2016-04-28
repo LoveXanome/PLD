@@ -86,20 +86,23 @@ export class MapComponent {
 
 		for (var arr of ligne.stops) {
             //arr.ligneId = ligne.id;
-			var coordonnee = convertArretToLatLngs(arr);
-			//Création d'un cercle pour un arret donné
-            var circle = L.circle(coordonnee, 15, {
-                color: ligne.color,
-				fillColor: 'white',
-				fillOpacity: 1
-			}).addTo(this.mymap);
+			if (arr.is_stop == true)
+            {
+                var coordonnee = convertArretToLatLngs(arr);
+                //Création d'un cercle pour un arret donné
+                var circle = L.circle(coordonnee, 15, {
+                    color: ligne.color,
+                    fillColor: 'white',
+                    fillOpacity: 1
+                }).addTo(this.mymap);
 
-            /*
-               Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
-            */  
-            circle.on('click', function() {
-                _this.onClickedArret.emit(arr);
-            });
+                /*
+                   Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
+                */  
+                circle.on('click', function() {
+                    _this.onClickedArret.emit(arr);
+                });
+            }
 		}
 	}
 }
@@ -131,20 +134,20 @@ function randomColor(){
 
 var STOPS: Arret[][] = [ 
     [
-        { "id": 1, "name": "Arret République" ,"lng":51.478 , "lat":-0.04 }, 
-        { "id": 2, "name": "Arret Marie Curie" ,"lng":51.459 , "lat":-0.01 },
-        { "id": 3, "name": "Arret BelleCourt" ,"lng":51.428 , "lat":-0.06 } 
+        { "id": 1, "name": "Arret République" ,"lng":51.478 , "lat":-0.04 , "is_stop": true }, 
+        { "id": 2, "name": "Arret Marie Curie" ,"lng":51.459 , "lat":-0.01 , "is_stop": false },
+        { "id": 3, "name": "Arret BelleCourt" ,"lng":51.428 , "lat":-0.06 , "is_stop": true } 
     ],
     [
-        { "id": 1, "name": "Arret Perrache" ,"lng":51.472 , "lat":-0.01 }, 
-        { "id": 2, "name": "Arret Confluence" ,"lng":51.442 , "lat":-0.02 },
-        { "id": 3, "name": "Arret INSA" ,"lng":51.440, "lat":-0.01 }, 
-        { "id": 4, "name": "Arret Part Dieu" ,"lng":51.435, "lat":-0.02 }
+        { "id": 1, "name": "Arret Perrache" ,"lng":51.472 , "lat":-0.01, "is_stop": true }, 
+        { "id": 2, "name": "Arret Confluence" ,"lng":51.442 , "lat":-0.02, "is_stop": false},
+        { "id": 3, "name": "Arret INSA" ,"lng":51.440, "lat":-0.01, "is_stop": true }, 
+        { "id": 4, "name": "Arret Part Dieu" ,"lng":51.435, "lat":-0.02, "is_stop": true }
     ],
     [
-        { "id": 1, "name": "Arret Perrache", "lng":51.481 , "lat":-0.01 }, 
-        { "id": 2, "name": "Arret Haribot" ,"lng":51.483 , "lat":-0.02 },    
-        { "id": 3, "name": "Arret Fourvière" ,"lng":51.486, "lat":-0.02 }, 
+        { "id": 1, "name": "Arret Perrache", "lng":51.481 , "lat":-0.01, "is_stop": true }, 
+        { "id": 2, "name": "Arret Haribot" ,"lng":51.483 , "lat":-0.02, "is_stop": true },    
+        { "id": 3, "name": "Arret Fourvière" ,"lng":51.486, "lat":-0.02, "is_stop": true }, 
     ]
 ];
 

@@ -106,25 +106,25 @@ var LIGNES: Ligne[] = [
 
 
 var STOPS_C1: Arret[] = [
-    { "id": 11, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04 },
-    {  "id": 12, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01 },
-    {  "id": 13, "name": "Vitton", "lng": 4.455 , "lat":-0.06 } 
+    { "id": 11, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04, "is_stop": true },
+    {  "id": 12, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
+    {  "id": 13, "name": "Vitton", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
 ];
 
 var STOPS_C2: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04 },
-    { "id": 22, "name": "Brotteaux", "lng": 45.544, "lat": -0.01 },
-    { "id": 23, "name": "Charpenne", "lng": 4.455, "lat": -0.06 }
+    { "id": 21, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04, "is_stop": true },
+    { "id": 22, "name": "Brotteaux", "lng": 45.544, "lat": -0.01, "is_stop": true },
+    { "id": 23, "name": "Charpenne", "lng": 4.455, "lat": -0.06, "is_stop": true }
 ];
 
 var STOPS_C3: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04 }, 
-    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01 },
-    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06 } 
+    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04, "is_stop": true }, 
+    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
+    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
 ];
 
 var STOPS_C4: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04 }, 
-    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01 },
-    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06 } 
+    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04, "is_stop": true }, 
+    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
+    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
 ];
