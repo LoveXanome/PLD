@@ -46,11 +46,23 @@ export class MapComponent {
         //L.marker([51.481, -0.01]).addTo(this.mymap);
 
         // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup
-        //var polyline = L.polyline([[51.481, -0.01], [51.483, -0.02], [51.486, -0.1]], { color: 'red' }).addTo(this.mymap);
-       // this.mymap.fitBounds(polyline.getBounds());
-		
-       // var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
-       // marker.bindPopup("Arrêt: République");
+
+        var polyline = L.polyline([[51.481, -0.01], [51.483, -0.02], [51.486, -0.1]], { color: 'red' }).addTo(this.mymap);
+        this.mymap.fitBounds(polyline.getBounds());
+
+       	//Pour afficher les arrêts
+		var circle = L.circle([51.481, -0.01], 1, {
+				  color: 'red',
+				  fillColor: '#f03',
+				  fillOpacity: 1
+			  }).addTo(this.mymap);
+
+		circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+
+
+
+        var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
+        marker.bindPopup("Arrêt: République");
         
         
         // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup     
@@ -70,8 +82,8 @@ export class MapComponent {
                 L.circle(coordonnee, 6, {
                     color: ligne.couleur,
                     fillColor: 'white',
-                    fillOpacity: 1,
-                }).addTo(this.mymap).bindPopup("<b>"+ arr.nom +"</b><br>T1 et T4");
+                    fillOpacity: 1
+                }).addTo(this.mymap).bindPopup("<b>" + arr.nom + "</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
             }
         }
         
@@ -79,7 +91,7 @@ export class MapComponent {
 }
 
 function convertArretToLatLngs(arret: Arret) {
-    return L.latLng(arret.lon , arret.lat);
+    return L.latLng(arret.longitude , arret.latitude);
 }
 
 function convertLigneToLatLngs(arrets: Arret[]) {
@@ -92,6 +104,7 @@ function convertLigneToLatLngs(arrets: Arret[]) {
     return arretConvert;
 }
 
+
 function randomColor(){
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
@@ -102,29 +115,28 @@ function randomColor(){
     return color;    
 }
 
-
 var ARRETS: Arret[][] = [ 
     [
-        { "id": 1, "nom": "Arret République" ,"lon":51.478 , "lat":-0.04 }, 
-        { "id": 2, "nom": "Arret Marie Curie" ,"lon":51.459 , "lat":-0.01 },
-        { "id": 3, "nom": "Arret BelleCourt" ,"lon":51.428 , "lat":-0.06 } 
+        { "id": 1, "nom": "Arret République" ,"longitude":51.478 , "latitude":-0.04 }, 
+        { "id": 2, "nom": "Arret Marie Curie" ,"longitude":51.459 , "latitude":-0.01 },
+        { "id": 3, "nom": "Arret BelleCourt" ,"longitude":51.428 , "latitude":-0.06 } 
     ],
     [
-        { "id": 1, "nom": "Arret Perrache" ,"lon":51.472 , "lat":-0.01 }, 
-        { "id": 2, "nom": "Arret Confluence" ,"lon":51.442 , "lat":-0.02 },
-        { "id": 3, "nom": "Arret INSA" ,"lon":51.440, "lat":-0.01 }, 
-        { "id": 4, "nom": "Arret Part Dieu" ,"lon":51.435, "lat":-0.02 }
+        { "id": 1, "nom": "Arret Perrache" ,"longitude":51.472 , "latitude":-0.01 }, 
+        { "id": 2, "nom": "Arret Confluence" ,"longitude":51.442 , "latitude":-0.02 },
+        { "id": 3, "nom": "Arret INSA" ,"longitude":51.440, "latitude":-0.01 }, 
+        { "id": 4, "nom": "Arret Part Dieu" ,"longitude":51.435, "latitude":-0.02 }
     ],
     [
-        { "id": 1, "nom": "Arret Perrache", "lon":51.481 , "lat":-0.01 }, 
-        { "id": 2, "nom": "Arret Haribot" ,"lon":51.483 , "lat":-0.02 },
-        { "id": 3, "nom": "Arret Fourvière" ,"lon":51.486, "lat":-0.02 }, 
+        { "id": 1, "nom": "Arret Perrache", "longitude":51.481 , "latitude":-0.01 }, 
+        { "id": 2, "nom": "Arret Haribot" ,"longitude":51.483 , "latitude":-0.02 },    
+        { "id": 3, "nom": "Arret Fourvière" ,"longitude":51.486, "latitude":-0.02 }, 
     ]
 ];
 
 var LIGNES: Ligne[] = [
-    { "id": 1, "nom": "A" , "arrets": ARRETS[0] , "couleur": randomColor()},
-    { "id": 2, "nom": "B" , "arrets": ARRETS[1] , "couleur": randomColor()},
-    { "id": 3, "nom": "C" , "arrets": ARRETS[2] , "couleur": randomColor()},
+    { "id": 1, "nom": "A" ,"categorie": true, "arrets": ARRETS[0] , "couleur": randomColor()},
+    { "id": 2, "nom": "B" ,"categorie": false, "arrets": ARRETS[1] , "couleur": randomColor()},
+    { "id": 3, "nom": "C" ,"categorie": true, "arrets": ARRETS[2] , "couleur": randomColor()},
 ];
 
