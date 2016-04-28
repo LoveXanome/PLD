@@ -46,17 +46,43 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
                     this._lignes[0].arrets = ARRETS_C1;
                     this._lignes[1].arrets = ARRETS_C2;
                 };
+                VilleDetailComponent.prototype.clickArret = function (arret) {
+                    if (this._selectedLigne == null)
+                        return;
+                    this._selectedArret = arret;
+                };
                 /*
                     Appellé lorsqu'on clique sur un arrêt de la map
                 */
                 VilleDetailComponent.prototype.onClickedArret = function (arret) {
                     this._selectedArret = arret;
+                    console.debug(arret);
+                    //On vérifie que la ligne séléctionner appartient à l'arrêt
+                    if (this._selectedLigne == null)
+                        return;
+                    for (var _a = 0, _b = this._selectedLigne.arrets; _a < _b.length; _a++) {
+                        var arr = _b[_a];
+                        if (arr == arret) {
+                            return;
+                        }
+                    }
+                    this._selectedLigne = null;
                 };
                 /*
-                    Appellé lorsqu 'on clique sur un arrêt de la map
+                    Appellé lorsqu'on clique sur un arrêt de la map
                 */
                 VilleDetailComponent.prototype.onClickedLigne = function (ligne) {
                     this._selectedLigne = ligne;
+                    //On vérifie que l'arrêt séléctionner appartient à la ligne 
+                    if (this._selectedArret == null)
+                        return;
+                    for (var _a = 0, _b = ligne.arrets; _a < _b.length; _a++) {
+                        var arr = _b[_a];
+                        if (arr == this._selectedArret) {
+                            return;
+                        }
+                    }
+                    this._selectedArret = null;
                 };
                 VilleDetailComponent = __decorate([
                     core_1.Component({

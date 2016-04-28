@@ -32,18 +32,50 @@ export class VilleDetailComponent {
         this._lignes[1].arrets = ARRETS_C2;
     }
 
+    clickArret(arret: Arret) {
+        if (this._selectedLigne == null)
+            return;
+
+        this._selectedArret = arret;
+    }
+
     /*
         Appellé lorsqu'on clique sur un arrêt de la map
     */
     onClickedArret(arret: Arret) {
         this._selectedArret = arret;
+        console.debug(arret);
+
+        //On vérifie que la ligne séléctionner appartient à l'arrêt
+        if (this._selectedLigne == null)
+            return;
+
+        for (var arr of this._selectedLigne.arrets) {
+            if (arr == arret) {
+                return;
+            }
+        }
+
+        this._selectedLigne = null;
     }
 
     /*
-        Appellé lorsqu 'on clique sur un arrêt de la map
+        Appellé lorsqu'on clique sur un arrêt de la map
     */
     onClickedLigne(ligne: Ligne) {
         this._selectedLigne = ligne;
+
+        //On vérifie que l'arrêt séléctionner appartient à la ligne 
+        if (this._selectedArret == null)
+            return;
+
+        for (var arr of ligne.arrets) {
+            if (arr == this._selectedArret) {
+                return;
+            }
+        }
+
+        this._selectedArret = null;
     }
 }
 
