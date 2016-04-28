@@ -1,2 +1,2 @@
-*.js
-*.js.map
+templates/app/*.js
+templates/app/*.js.map
