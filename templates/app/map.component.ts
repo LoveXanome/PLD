@@ -59,7 +59,12 @@ export class MapComponent {
     		  fillOpacity: 1
     	}).addTo(this.mymap);
 
-		//circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+		circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+
+
+
+        var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
+        marker.bindPopup("Arrêt: République");
 
 		//ajout d'une action sur l'arret
         var _this = this;
@@ -72,38 +77,47 @@ export class MapComponent {
 
         //var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         //marker.bindPopup("Arrêt: République");
-       
+
         
         // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup     
         for(var ligne of this.lignes)
         {
 
             var arretConvert: Arret[] = [];
-            for (var arr of ligne.arrets)
-            {
-                var coordonnee = convertToLatLngs(arr)
-                arretConvert.push(coordonnee);
-                
-                //Création d'un cercle pour un arret donné
-                L.circle(coordonnee, 3, {
-                    color: ligne.couleur,
-                    fillColor: ligne.couleur,
-                    fillOpacity: 1
-                }).addTo(this.mymap).bindPopup("<b>" + arr.nom + "</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
-            }
             
-            var polyline = L.polyline( arretConvert, {color: ligne.couleur , opacity:1 }).addTo(this.mymap)
+            var polyline = L.polyline( convertLigneToLatLngs(ligne.arrets), {color: ligne.couleur , opacity:1, weight:8 }).addTo(this.mymap)
             //this.mymap.fitBounds(polyline.getBounds());  // Permet de cibler sur un element donnée
             polyline.bindPopup("<b>Ligne:</b> "+ ligne.nom); 
             
+            for (var arr of ligne.arrets)
+            {
+                var coordonnee = convertArretToLatLngs(arr);  
+                //Création d'un cercle pour un arret donné
+                L.circle(coordonnee, 6, {
+                    color: ligne.couleur,
+                    fillColor: 'white',
+                    fillOpacity: 1
+                }).addTo(this.mymap).bindPopup("<b>" + arr.nom + "</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+            }
         }
         
     }
 }
 
-function convertToLatLngs(arret: Arret) {
-    return L.latLng(arret.lon , arret.lat);
+function convertArretToLatLngs(arret: Arret) {
+    return L.latLng(arret.longitude , arret.latitude);
 }
+
+function convertLigneToLatLngs(arrets: Arret[]) {
+    var arretConvert: Arret[] = [];
+    for (var arr of arrets)
+    {
+        var coordonnee = convertArretToLatLngs(arr)
+        arretConvert.push(coordonnee);
+    }
+    return arretConvert;
+}
+
 
 function randomColor(){
     var letters = '0123456789ABCDEF'.split('');
@@ -115,29 +129,28 @@ function randomColor(){
     return color;    
 }
 
-
 var ARRETS: Arret[][] = [ 
     [
-        { "id": 1, "nom": "Arret République" ,"lon":51.478 , "lat":-0.04 }, 
-        { "id": 2, "nom": "Arret Marie Curie" ,"lon":51.459 , "lat":-0.01 },
-        { "id": 3, "nom": "Arret BelleCourt" ,"lon":51.428 , "lat":-0.06 } 
+        { "id": 1, "nom": "Arret République" ,"longitude":51.478 , "latitude":-0.04 }, 
+        { "id": 2, "nom": "Arret Marie Curie" ,"longitude":51.459 , "latitude":-0.01 },
+        { "id": 3, "nom": "Arret BelleCourt" ,"longitude":51.428 , "latitude":-0.06 } 
     ],
     [
-        { "id": 1, "nom": "Arret Perrache" ,"lon":51.472 , "lat":-0.01 }, 
-        { "id": 2, "nom": "Arret Confluence" ,"lon":51.442 , "lat":-0.02 },
-        { "id": 3, "nom": "Arret INSA" ,"lon":51.440, "lat":-0.01 }, 
-        { "id": 4, "nom": "Arret Part Dieu" ,"lon":51.435, "lat":-0.02 }
+        { "id": 1, "nom": "Arret Perrache" ,"longitude":51.472 , "latitude":-0.01 }, 
+        { "id": 2, "nom": "Arret Confluence" ,"longitude":51.442 , "latitude":-0.02 },
+        { "id": 3, "nom": "Arret INSA" ,"longitude":51.440, "latitude":-0.01 }, 
+        { "id": 4, "nom": "Arret Part Dieu" ,"longitude":51.435, "latitude":-0.02 }
     ],
     [
-        { "id": 1, "nom": "Arret Perrache", "lon":51.481 , "lat":-0.01 }, 
-        { "id": 2, "nom": "Arret Haribot" ,"lon":51.483 , "lat":-0.02 },
-        { "id": 3, "nom": "Arret Fourvière" ,"lon":51.486, "lat":-0.02 }, 
+        { "id": 1, "nom": "Arret Perrache", "longitude":51.481 , "latitude":-0.01 }, 
+        { "id": 2, "nom": "Arret Haribot" ,"longitude":51.483 , "latitude":-0.02 },    
+        { "id": 3, "nom": "Arret Fourvière" ,"longitude":51.486, "latitude":-0.02 }, 
     ]
 ];
 
 var LIGNES: Ligne[] = [
-    { "id": 1, "nom": "A" , "arrets": ARRETS[0] , "couleur": randomColor()},
-    { "id": 2, "nom": "B" , "arrets": ARRETS[1] , "couleur": randomColor()},
-    { "id": 3, "nom": "C" , "arrets": ARRETS[2] , "couleur": randomColor()},
+    { "id": 1, "nom": "A" ,"categorie": true, "arrets": ARRETS[0] , "couleur": randomColor()},
+    { "id": 2, "nom": "B" ,"categorie": false, "arrets": ARRETS[1] , "couleur": randomColor()},
+    { "id": 3, "nom": "C" ,"categorie": true, "arrets": ARRETS[2] , "couleur": randomColor()},
 ];
 

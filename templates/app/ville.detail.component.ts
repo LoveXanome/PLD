@@ -34,7 +34,11 @@ export class VilleDetailComponent {
         this._lignes[0].arrets = ARRETS_C1;
         this._lignes[1].arrets = ARRETS_C2;
 
+<<<<<<< HEAD
         //console.debug(this._lignes);
+=======
+       // console.debug(this._lignes);
+>>>>>>> 2847849a9fe430622d429da029e7ba9643d188ac
     }
 
     ngAfterViewInit() {         
@@ -56,6 +60,7 @@ export class VilleDetailComponent {
         }
         else
             this._selectedLigne = null;
+
     }
 
     clickLigne(idLigne: number) {
@@ -69,11 +74,21 @@ export class VilleDetailComponent {
     }
 }
 
+function randomColor(){
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var _i = 0; _i < 6; _i++ ) 
+    {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;    
+}
+
 var LIGNES: Ligne[] = [
-    { "id": 11, "nom": "C1", "categorie": true, "arrets": ARRETS_C1 },
-    { "id": 12, "nom": "C2", "categorie": false, "arrets": ARRETS_C2 },
-    { "id": 13, "nom": "C3", "categorie": true, "arrets": ARRETS_C3 },
-    { "id": 14, "nom": "C4", "categorie": true, "arrets": ARRETS_C4 }
+    { "id": 11, "nom": "C1", "categorie": true, "arrets": ARRETS_C1 , "couleur": randomColor() },
+    { "id": 12, "nom": "C2", "categorie": false, "arrets": ARRETS_C2 , "couleur": randomColor()},
+    { "id": 13, "nom": "C3", "categorie": true, "arrets": ARRETS_C3 , "couleur": randomColor()},
+    { "id": 14, "nom": "C4", "categorie": true, "arrets": ARRETS_C4 , "couleur": randomColor()}
 ];
 
 
