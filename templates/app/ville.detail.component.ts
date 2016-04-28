@@ -50,8 +50,7 @@ export class VilleDetailComponent {
     }
 
     changeLigne() {
-        if (this._selectedLigne == null)
-        {
+        if (this._selectedLigne == null) {
             this._selectedLigne = this._lignes[0];
         }
         else
@@ -67,6 +66,10 @@ export class VilleDetailComponent {
     clickArret(idLigne: number) {
         //TODO récupérer les informations AJAX
         this._selectedArret = this._lignes[0].arrets[0];
+    }
+    
+    goBack() {
+        window.history.back();
     }
 }
 
