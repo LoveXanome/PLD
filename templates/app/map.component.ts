@@ -70,35 +70,28 @@ export class MapComponent {
 			//non de la fonction : changeArret();
 		});
 
-
-
         //var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         //marker.bindPopup("Arrêt: République");
 
-        
-        // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup     
-        for(var ligne of this.lignes)
-        {
-
-            var arretConvert: Arret[] = [];
-            
-            var polyline = L.polyline( convertLigneToLatLngs(ligne.arrets), {color: ligne.couleur , opacity:1, weight:8 }).addTo(this.mymap)
-            //this.mymap.fitBounds(polyline.getBounds());  // Permet de cibler sur un element donnée
-            polyline.bindPopup("<b>Ligne:</b> "+ ligne.nom); 
-            
-            for (var arr of ligne.arrets)
-            {
-                var coordonnee = convertArretToLatLngs(arr);  
-                //Création d'un cercle pour un arret donné
-                L.circle(coordonnee, 6, {
-                    color: ligne.couleur,
-                    fillColor: 'white',
-                    fillOpacity: 1
-                }).addTo(this.mymap).bindPopup("<b>" + arr.nom + "</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
-            }
-        }
-        
+        // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup   
+        for (var ligne of this.lignes) {
+			this.displayLine(ligne);
+        }     
     }
+
+    displayLine(ligne: Ligne) {
+		var polyline2 = L.polyline(convertLigneToLatLngs(ligne.arrets), { color: ligne.couleur, opacity: 1, weight: 8 }).addTo(this.mymap);
+		polyline2.bindPopup("<b>Ligne:</b> " + ligne.nom);
+		for (var arr of ligne.arrets) {
+			var coordonnee = convertArretToLatLngs(arr);
+			//Création d'un cercle pour un arret donné
+			L.circle(coordonnee, 6, {
+				color: ligne.couleur,
+				fillColor: 'white',
+				fillOpacity: 1
+			}).addTo(this.mymap).bindPopup("<b>" + arr.nom + "</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+		}
+	}
 }
 
 function convertArretToLatLngs(arret: Arret) {
@@ -125,7 +118,6 @@ function randomColor(){
     }
     return color;    
 }
-
 var ARRETS: Arret[][] = [ 
     [
         { "id": 1, "nom": "Arret République" ,"longitude":51.478 , "latitude":-0.04 }, 
