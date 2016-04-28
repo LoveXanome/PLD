@@ -18,6 +18,7 @@ export class MapComponent {
     lignes = LIGNES;
 
     @Output() onClickedArret = new EventEmitter<Arret>();
+    @Output() onClickedLigne = new EventEmitter<Ligne>();
 
     constructor() {
     }
@@ -64,14 +65,6 @@ export class MapComponent {
         var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         marker.bindPopup("Arrêt: République");
 
-        /*
-            Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
-        */
-        var _this = this;
-		circle.on('click', function() {
-            _this.onClickedArret.emit(_this.lignes[0].arrets[0]);
-        });
-
         //var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         //marker.bindPopup("Arrêt: République");
 
@@ -81,18 +74,31 @@ export class MapComponent {
         }     
     }
 
-    displayLine(ligne: Ligne) {
 
-		var polyline2 = L.polyline(convertLigneToLatLngs(ligne.arrets), { color: ligne.couleur, opacity: 1, weight: 8 }).addTo(this.mymap);
-		polyline2.bindPopup("<b>Ligne:</b> " + ligne.nom);
+    displayLine(ligne: Ligne) {
+        var _this = this;
+        
+        var polyline2 = L.polyline(convertLigneToLatLngs(ligne.arrets), { color: ligne.couleur, opacity: 1, weight: 8 }).addTo(this.mymap);
+
+        polyline2.on('click', function() {
+            _this.onClickedLigne.emit(ligne);
+        });
+
 		for (var arr of ligne.arrets) {
 			var coordonnee = convertArretToLatLngs(arr);
 			//Création d'un cercle pour un arret donné
-			L.circle(coordonnee, 6, {
-				color: ligne.couleur,
+            var circle = L.circle(coordonnee, 6, {
+                color: ligne.couleur,
 				fillColor: 'white',
 				fillOpacity: 1
-			}).addTo(this.mymap).bindPopup("<b>" + arr.nom + "</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
+			}).addTo(this.mymap);
+
+            /*
+               Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
+            */  
+            circle.on('click', function() {
+                _this.onClickedArret.emit(arr);
+            });
 		}
 	}
 }

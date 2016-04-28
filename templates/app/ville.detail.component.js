@@ -46,33 +46,17 @@ System.register(['angular2/core', 'angular2/router', './map.component', './ville
                     this._lignes[0].arrets = ARRETS_C1;
                     this._lignes[1].arrets = ARRETS_C2;
                 };
-                VilleDetailComponent.prototype.changeArret = function () {
-                    if (this._selectedArret == null) {
-                        this._selectedArret = this._lignes[0].arrets[0];
-                    }
-                    else
-                        this._selectedArret = null;
-                };
-                VilleDetailComponent.prototype.changeLigne = function () {
-                    if (this._selectedLigne == null) {
-                        this._selectedLigne = this._lignes[0];
-                    }
-                    else
-                        this._selectedLigne = null;
-                };
-                VilleDetailComponent.prototype.clickLigne = function (idLigne) {
-                    //TODO récupérer les informations AJAX
-                    this._selectedLigne = this._lignes[0];
-                };
-                VilleDetailComponent.prototype.clickArret = function (idLigne) {
-                    //TODO récupérer les informations AJAX
-                    this._selectedArret = this._lignes[0].arrets[0];
-                };
                 /*
                     Appellé lorsqu'on clique sur un arrêt de la map
                 */
                 VilleDetailComponent.prototype.onClickedArret = function (arret) {
                     this._selectedArret = arret;
+                };
+                /*
+                    Appellé lorsqu 'on clique sur un arrêt de la map
+                */
+                VilleDetailComponent.prototype.onClickedLigne = function (ligne) {
+                    this._selectedLigne = ligne;
                 };
                 VilleDetailComponent = __decorate([
                     core_1.Component({

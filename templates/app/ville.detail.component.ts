@@ -32,38 +32,18 @@ export class VilleDetailComponent {
         this._lignes[1].arrets = ARRETS_C2;
     }
 
-    public changeArret() {
-        if (this._selectedArret == null) {
-            this._selectedArret = this._lignes[0].arrets[0];
-        }
-        else
-            this._selectedArret = null;
-    }
-
-    public changeLigne() {
-        if (this._selectedLigne == null)
-        {
-            this._selectedLigne = this._lignes[0];
-        }
-        else
-            this._selectedLigne = null;
-    }
-
-    clickLigne(idLigne: number) {
-        //TODO récupérer les informations AJAX
-        this._selectedLigne = this._lignes[0];
-    }
-
-    clickArret(idLigne: number) {
-        //TODO récupérer les informations AJAX
-        this._selectedArret = this._lignes[0].arrets[0];
-    }
-
     /*
         Appellé lorsqu'on clique sur un arrêt de la map
     */
     onClickedArret(arret: Arret) {
         this._selectedArret = arret;
+    }
+
+    /*
+        Appellé lorsqu 'on clique sur un arrêt de la map
+    */
+    onClickedLigne(ligne: Ligne) {
+        this._selectedLigne = ligne;
     }
 }
 
