@@ -58,30 +58,38 @@ export class MapComponent {
         {
 
             var arretConvert: Arret[] = [];
-            for (var arr of ligne.arrets)
-            {
-                var coordonnee = convertToLatLngs(arr)
-                arretConvert.push(coordonnee);
-                
-                //Création d'un cercle pour un arret donné
-                L.circle(coordonnee, 3, {
-                    color: ligne.couleur,
-                    fillColor: ligne.couleur,
-                    fillOpacity: 1
-                }).addTo(this.mymap).bindPopup("<b>"+ arr.nom +"</b><br>T1 et T4");
-            }
             
-            var polyline = L.polyline( arretConvert, {color: ligne.couleur , opacity:1 }).addTo(this.mymap)
+            var polyline = L.polyline( convertLigneToLatLngs(ligne.arrets), {color: ligne.couleur , opacity:1, weight:8 }).addTo(this.mymap)
             //this.mymap.fitBounds(polyline.getBounds());  // Permet de cibler sur un element donnée
             polyline.bindPopup("<b>Ligne:</b> "+ ligne.nom); 
             
+            for (var arr of ligne.arrets)
+            {
+                var coordonnee = convertArretToLatLngs(arr);  
+                //Création d'un cercle pour un arret donné
+                L.circle(coordonnee, 6, {
+                    color: ligne.couleur,
+                    fillColor: 'white',
+                    fillOpacity: 1,
+                }).addTo(this.mymap).bindPopup("<b>"+ arr.nom +"</b><br>T1 et T4");
+            }
         }
         
     }
 }
 
-function convertToLatLngs(arret: Arret) {
+function convertArretToLatLngs(arret: Arret) {
     return L.latLng(arret.lon , arret.lat);
+}
+
+function convertLigneToLatLngs(arrets: Arret[]) {
+    var arretConvert: Arret[] = [];
+    for (var arr of arrets)
+    {
+        var coordonnee = convertArretToLatLngs(arr)
+        arretConvert.push(coordonnee);
+    }
+    return arretConvert;
 }
 
 function randomColor(){
