@@ -25,7 +25,7 @@
             <div class="panel-body">
                 Veuillez sélectionner une ville pour connaître ses détails concernant ses lignes de bus.<br/>
                 <select class="form-control choixVille" required (change)="onChange($event.target.value)">
-                    <option *ngFor="#ville of villes" [value]="ville.nom" >
+                    <option *ngFor="#ville of villes" [value]="ville.agency" >
                         {{ville.agency}}
                     </option>
                 </select>
