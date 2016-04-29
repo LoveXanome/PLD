@@ -1,6 +1,6 @@
 <div class="villeChoisie row">
 	<div class="col-md-12" ng-if="_selectedVille" class="text-center">
-	    <h2 class="text-uppercase">{{_selectedVille.nom}}</h2>
+	    <h2 class="text-uppercase">{{_selectedVille.agency}}</h2>
 	</div>
 </div>
 
@@ -99,7 +99,7 @@
     				</div>
         			<div class="row fenetre">
         				<div class="titreInformations">
-        					Information	de l'arrêt	: <span *ngIf="_selectedArret">{{_selectedArret.nom}}</span>
+        					Information	de l'arrêt	: <span *ngIf="_selectedArret">{{_selectedArret.name}}</span>
         				</div>
 
 						<div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">

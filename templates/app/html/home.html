@@ -15,6 +15,7 @@
 	</div>
 </div>
 
+
 <div class="row">
 	<div class="centered col-md-9">
         <div class="panel panel-default">
@@ -24,8 +25,8 @@
             <div class="panel-body">
                 Veuillez sélectionner une ville pour connaître ses détails concernant ses lignes de bus.<br/>
                 <select class="form-control choixVille" required (change)="onChange($event.target.value)">
-                    <option *ngFor="#ville of villes" [value]="ville.nom" >
-                        {{ville.nom}}
+                    <option *ngFor="#ville of villes" [value]="ville.agency" >
+                        {{ville.agency}}
                     </option>
                 </select>
                 <input class="btn btn-primary" type="submit" value="Voir les lignes"  (click)="gotoDetail()" >

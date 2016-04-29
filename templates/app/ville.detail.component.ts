@@ -30,7 +30,7 @@ export class VilleDetailComponent {
 
     constructor(private _router: Router, routeParams: RouteParams, http: Http) {
         this._selectedVille = new Ville();
-        this._selectedVille.nom = routeParams.get('nom');
+        this._selectedVille.agency = routeParams.get('nom');
     }
 
 
@@ -108,25 +108,25 @@ var LIGNES: Ligne[] = [
 
 
 var STOPS_C1: Arret[] = [
-    { "id": 11, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04, "is_stop": true },
-    {  "id": 12, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
-    {  "id": 13, "name": "Vitton", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
+    { "id": 11, "name": "Gare Part-Dieu", "location":{"lng": 40547, "lat": -0.04}, "is_stop": true },
+    {  "id": 12, "name": "Brotteaux","location":{ "lng": 45.544 , "lat":-0.01}, "is_stop": true },
+    {  "id": 13, "name": "Vitton", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
 ];
 
 var STOPS_C2: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04, "is_stop": true },
-    { "id": 22, "name": "Brotteaux", "lng": 45.544, "lat": -0.01, "is_stop": true },
-    { "id": 23, "name": "Charpenne", "lng": 4.455, "lat": -0.06, "is_stop": true }
+    { "id": 21, "name": "Gare Part-Dieu", "location":{"lng": 40547, "lat": -0.04}, "is_stop": true },
+    { "id": 22, "name": "Brotteaux", "location":{"lng": 45.544, "lat": -0.01}, "is_stop": true },
+    { "id": 23, "name": "Charpenne", "location":{"lng": 4.455, "lat": -0.06}, "is_stop": true }
 ];
 
 var STOPS_C3: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04, "is_stop": true }, 
-    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
-    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
+    { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40547 , "lat":-0.04}, "is_stop": true }, 
+    {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.01}, "is_stop": true },
+    {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
 ];
 
 var STOPS_C4: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04, "is_stop": true }, 
-    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
-    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
+    { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40547 , "lat":-0.04}, "is_stop": true }, 
+    {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.01}, "is_stop": true },
+    {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
 ];
