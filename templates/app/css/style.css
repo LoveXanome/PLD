@@ -1,7 +1,6 @@
-.titre {
-    padding-bottom: 50px;
-}
+.titre,
 .corps {
-    padding-left: 50px;
-    padding-right: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
+

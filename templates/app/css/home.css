@@ -1,3 +1,19 @@
-.test {
-    
+.choixFichier, .choixVille {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+form {
+    margin: 0px !important;   
+}
+
+.centered {
+    float: none !important;
+    margin: auto;
+}
+
+.panel-heading {
+    font-size: 18px;
+    font-weight: bold;  
+    background-color: #D8D8D8;
 }
