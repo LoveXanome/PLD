@@ -27,6 +27,24 @@
         		</div>
         		<div class="col-md-6">
         			<div class="row fenetre">
+        				<span (click)="selectTous">
+        					<label><input type="checkbox" name="checkbox" value="value"
+        						[checked]="_lignesAllChecked">
+	        					Tout selectionner
+	        				</label>
+	        			</span>
+        				<br/>
+        				<label><input type="checkbox" name="checkbox" value="value"
+        					(click)="selectUrbain" [checked]="_lignesUrbainesChecked">
+        					Urbain
+        				</label>
+        				<br/>
+        				<label><input type="checkbox" name="checkbox" value="value"
+        					(click)="selectNonUrbain" [checked]="_lignesNonUrbainesChecked">
+        					Non Urbain
+        				</label>
+        			</div>
+        			<div class="row fenetre">
         				<div class="titreInformations">
         					Information	de la ligne	: <span *ngIf="_selectedLigne">{{_selectedLigne.name}}</span>
         				</div>
