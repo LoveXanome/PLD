@@ -1,5 +1,7 @@
-import { Component, OnInit, Output, EventEmitter} from 'angular2/core';
+import {Component, OnInit, Output, EventEmitter, forwardRef} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
+
+import {VilleDetailComponent} from './ville.detail.component';
 
 import {Ligne} from './classes/ligne';
 import {Arret} from './classes/arret';
@@ -9,7 +11,8 @@ declare var L: any;
 @Component({
     selector: 'my-map',
     templateUrl: 'app/html/map.html',
-    styleUrls:[ 'app/css/map.css']
+    styleUrls: ['app/css/map.css'],
+    directives: [forwardRef(() => VilleDetailComponent)]
 })
 
 export class MapComponent {
@@ -21,16 +24,30 @@ export class MapComponent {
     @Output() onClickedLigne = new EventEmitter<Ligne>();
 
     constructor() {
+        this.mymap = 'coucou';
+    }
+
+    initMap() {
+        this.mymap = L.map('mapid', {
+            center: [51.505, -0.09],
+            zoom: 13
+        });
+            //Affiche la map pour de vrai
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+             maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(this.mymap);
     }
     
     ngOnInit(){
-        this.lignes[0].stops  = this.stops [0]; 
+        this.lignes[0].stops  =this.stops [0]; 
         this.lignes[1].stops  = this.stops [1];
         this.lignes[2].stops  = this.stops [2];
     }
 
-    ngAfterViewInit() { 
-    	//Créer le template de la map et la center sur londre
+
+    ngAfterViewChecked() { 
+    	/*//Créer le template de la map et la center sur londre
 		this.mymap = L.map('mapid', {
 			center: [51.505, -0.09],
 			zoom: 13
@@ -41,6 +58,7 @@ export class MapComponent {
 			maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		}).addTo(this.mymap);
+
 
 		//TODO affichage de données fictives : plusieurs lignes de bus, avec plusieurs arêtes.
 		//On peut cliquer sur les lignes et les arêts
@@ -63,19 +81,20 @@ export class MapComponent {
 		circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
 
         var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
-        marker.bindPopup("Arrêt: République");
+        marker.bindPopup("Arrêt: République");*/
 
         //var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
         //marker.bindPopup("Arrêt: République");
 
         // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup   
-        for (var ligne of this.lignes) {
+        /*for (var ligne of this.lignes) {
 			this.displayLine(ligne);
-        }     
+        }*/
     }
 
 
     displayLine(ligne: Ligne) {
+        console.debug(ligne);
         var _this = this;
         
         var polyline2 = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
@@ -104,6 +123,8 @@ export class MapComponent {
                 });
             }
 		}
+
+        return polyline2;
 	}
 }
 

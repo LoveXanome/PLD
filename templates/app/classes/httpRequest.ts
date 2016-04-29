@@ -11,7 +11,7 @@ export class HttpRequest {
 	}
 
 	get(url: string, doSuccess) {
-		return this._http.get(url)
+		this._http.get(url)
        		.map(res => res.json())
             .subscribe(
                 //En cas de succès
