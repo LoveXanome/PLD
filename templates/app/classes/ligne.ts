@@ -6,7 +6,7 @@ export class Ligne {
     category : Boolean;
     stops: Arret[];
     color: String;
-    polyligne: any;
+    //polyligne: any;
     isChecked: boolean;
 }
 

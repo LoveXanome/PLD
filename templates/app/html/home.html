@@ -1,22 +1,37 @@
 <div class="row">
-	<div class="col-md-5">
-		<form action="TODO"	enctype="multipart/form-data" method="post">
-			<h2> Ajout d'une ville </h2>
-			<input type="file" name="datafile" size="40">
-	  		<br/>
-			<input class="btn btn-primary" type="submit" value="Envoyer" >
-		</form>
+	<div class="centered col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Ajout d'une ville
+            </div>
+            <div class="panel-body">
+                <form action="TODO"	enctype="multipart/form-data" method="post">
+                    Si vous possédez un fichier <strong>GTFS</strong> concernant les données de votre ville, vous pouvez le télécharger ici.<br/>
+                    <input class="choixFichier" type="file" name="datafile" size="40">
+                    <input class="btn btn-primary" type="submit" value="Envoyer" >
+                </form>
+            </div>
+        </div>
 	</div>
+</div>
 
-	<div class="col-md-4 col-md-offset-2">
-		<h2>Sélection d'une ville </h2>	
-		<select class="form-control" required (change)="onChange($event.target.value)">
-		    <option *ngFor="#ville of villes" [value]="ville.nom" >
-	        	{{ville.nom}}
-	        </option>
-	  	</select>
-	  	<br/>
-		<input class="btn btn-primary" type="submit" value="Voir les lignes"  (click)="gotoDetail()" >
+
+<div class="row">
+	<div class="centered col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Sélection d'une ville
+            </div>
+            <div class="panel-body">
+                Veuillez sélectionner une ville pour connaître ses détails concernant ses lignes de bus.<br/>
+                <select class="form-control choixVille" required (change)="onChange($event.target.value)">
+                    <option *ngFor="#ville of villes" [value]="ville.agency" >
+                        {{ville.agency}}
+                    </option>
+                </select>
+                <input class="btn btn-primary" type="submit" value="Voir les lignes"  (click)="gotoDetail()" >
+            </div>
+        </div>
 	</div>
 </div>
 

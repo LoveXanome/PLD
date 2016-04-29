@@ -38,16 +38,17 @@ export class VilleDetailComponent {
     private _mapComponent: MapComponent;
 
     constructor(private _router: Router, routeParams: RouteParams, http: Http) {
-        this._httpRequest = new HttpRequest(http);
-
         this._selectedVille = new Ville();
-        this._selectedVille.nom = routeParams.get('nom');
 
+        this._selectedVille.agency = routeParams.get('nom');
+    
         this._lignesUrbaines = [];
         this._lignesNonUrbaines = [];
 
         this._mapComponent = new MapComponent();
 
+        this._httpRequest = new HttpRequest(this, http);
+        this._httpRequest.get('http://localhost:5000/agencies/1/routes', this.getHttpResult);
     }
 
     ngOnInit() {
@@ -72,12 +73,22 @@ export class VilleDetailComponent {
     }
 
     ngAfterViewInit() {
-        //Initialisation de la map
-        this._mapComponent.initMap();
+
+    }
+
+    getHttpResult(_this : any, _data : any) {
+        var data = _data.data;
+
+        //recuperation des lignes
+        var lignes: Ligne[];
+        lignes = data.routes; 
+
+         //Initialisation de la map
+        _this._mapComponent.initMap(data.location.lat, data.location.lng);
 
         //Test : TODO à supprimer
-        for (var ligne of this._lignes) {
-            this._mapComponent.displayLine(ligne);
+        for (var ligne of _this._lignes) {
+            _this._mapComponent.displayLine(ligne);
         }
     }
 
@@ -180,33 +191,33 @@ function randomColor(){
 }
 
 var LIGNES: Ligne[] = [
-    { "id": 11, "name": "C1", "category": true, "stops": STOPS_C1, "color": randomColor(), "polyligne": 'lol', isChecked: false},
-    { "id": 12, "name": "C2", "category": false, "stops": STOPS_C2, "color": randomColor() , isChecked: false},
-    { "id": 13, "name": "C3", "category": true, "stops": STOPS_C3, "color": randomColor() , isChecked: false},
-    { "id": 14, "name": "C4", "category": true, "stops": STOPS_C4, "color": randomColor() , isChecked: false}
+    { "id": 11, "name": "C1", "category": true, "stops": STOPS_C1, "color": randomColor(), 'isChecked': false},
+    { "id": 12, "name": "C2", "category": false, "stops": STOPS_C2, "color": randomColor(), 'isChecked': false},
+    { "id": 13, "name": "C3", "category": true, "stops": STOPS_C3, "color": randomColor(), 'isChecked': false},
+    { "id": 14, "name": "C4", "category": true, "stops": STOPS_C4, "color": randomColor(), 'isChecked': false}
 ];
 
 
 var STOPS_C1: Arret[] = [
-    { "id": 11, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04, "is_stop": true },
-    {  "id": 12, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
-    {  "id": 13, "name": "Vitton", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
+    { "id": 11, "name": "Gare Part-Dieu", "location":{"lng": 40547, "lat": -0.04}, "is_stop": true },
+    {  "id": 12, "name": "Brotteaux","location":{ "lng": 45.544 , "lat":-0.01}, "is_stop": true },
+    {  "id": 13, "name": "Vitton", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
 ];
 
 var STOPS_C2: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu", "lng": 40547, "lat": -0.04, "is_stop": true },
-    { "id": 22, "name": "Brotteaux", "lng": 45.544, "lat": -0.01, "is_stop": true },
-    { "id": 23, "name": "Charpenne", "lng": 4.455, "lat": -0.06, "is_stop": true }
+    { "id": 21, "name": "Gare Part-Dieu", "location":{"lng": 40547, "lat": -0.04}, "is_stop": true },
+    { "id": 22, "name": "Brotteaux", "location":{"lng": 45.544, "lat": -0.01}, "is_stop": true },
+    { "id": 23, "name": "Charpenne", "location":{"lng": 4.455, "lat": -0.06}, "is_stop": true }
 ];
 
 var STOPS_C3: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04, "is_stop": true }, 
-    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
-    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
+    { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40547 , "lat":-0.04}, "is_stop": true }, 
+    {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.01}, "is_stop": true },
+    {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
 ];
 
 var STOPS_C4: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu",  "lng":40547 , "lat":-0.04, "is_stop": true }, 
-    {  "id": 22, "name": "Brotteaux", "lng": 45.544 , "lat":-0.01, "is_stop": true },
-    {  "id": 23, "name": "Charpenne", "lng": 4.455 , "lat":-0.06, "is_stop": true } 
+    { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40547 , "lat":-0.04}, "is_stop": true }, 
+    {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.01}, "is_stop": true },
+    {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
 ];

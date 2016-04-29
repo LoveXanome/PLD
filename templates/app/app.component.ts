@@ -11,6 +11,7 @@ import {MapComponent} from './map.component';
 	  <div class="titre">
 	  	<h1 class="text-center">Bienvenue dans Urban Bus</h1>
 	  </div>
+      <hr/>
  	  <div class="corps">
 	    <router-outlet></router-outlet>
 	  </div>

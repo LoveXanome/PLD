@@ -18,11 +18,12 @@ export class HomeComponent {
     };
 
     ngOnInit() {
-        this._selectedNomVille = this.villes[0].nom;
+        this._selectedNomVille = this.villes[0].agency;
     }
 
     onChange(ville) {
         this._selectedNomVille = ville;
+        console.debug(this._selectedNomVille);
     }
 
     gotoDetail() {
@@ -31,14 +32,14 @@ export class HomeComponent {
 }
 
 var VILLES: Ville[] = [
-    { "id": 11, "nom": "Lyon" },
-    { "id": 12, "nom": "Nante" },
-    { "id": 13, "nom": "Bourg-en-Bress" },
-    { "id": 14, "nom": "Orléant" },
-    { "id": 15, "nom": "Grenoble" },
-    { "id": 16, "nom": "Troyes" },
-    { "id": 17, "nom": "Paris" },
-    { "id": 18, "nom": "Marseille" },
-    { "id": 19, "nom": "St-Etienne" },
-    { "id": 20, "nom": "Lille" }
+    { "id": 11, "agency": "Lyon", "location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 12, "agency": "Nante","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 13, "agency": "Bourg-en-Bress","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 14, "agency": "Orléant","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 15, "agency": "Grenoble","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 16, "agency": "Troyes","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 17, "agency": "Paris","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 18, "agency": "Marseille","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 19, "agency": "St-Etienne","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
+    { "id": 20, "agency": "Lille","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null }
 ];
