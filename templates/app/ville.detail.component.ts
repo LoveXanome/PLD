@@ -85,6 +85,10 @@ export class VilleDetailComponent {
      
         this._selectedArret = null;
     }
+    
+    goBack() {
+        window.history.back();
+    }
 }
 
 function randomColor(){

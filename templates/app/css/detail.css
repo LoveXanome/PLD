@@ -21,3 +21,29 @@
     max-height: 140px;
     overflow: auto;
 }
+
+.villeChoisie button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.villeChoisie .aboveButton {
+    margin: auto;
+    float: none;
+}
+
+.mapEtIndicateurs ul {
+    margin-bottom: 10px;   
+}
+
+.ligneRetour div {
+    float: none;
+    margin: auto;
+}
+
+.ligneRetour input {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

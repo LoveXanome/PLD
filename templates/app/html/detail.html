@@ -1,10 +1,22 @@
-<div class="row">
-	<div ng-if="_selectedVille" class="text-center">
-	    <h2>{{_selectedVille.nom}}</h2>
+<div class="villeChoisie row">
+	<div class="col-md-12" ng-if="_selectedVille" class="text-center">
+	    <h2 class="text-uppercase">{{_selectedVille.nom}}</h2>
 	</div>
+    <div class="row">
+        <div class="aboveButton col-md-5">
+            <button class="btn" (click)="changeArret()">Arrêt</button>
+        </div>
+    </div>
+	<div class="row">
+        <div class="aboveButton col-md-5">
+            <button class="btn" (click)="changeLigne()">Ligne</button>
+        </div>
+    </div>
 </div>
 
-<div class="row">
+<hr/>
+
+<div class="mapEtIndicateurs row">
 	<!-- Nav tabs -->
     <ul class="nav nav-tabs">
         <li class="active"><a href="#Accueil" data-toggle="tab">Accueil</a>
@@ -97,7 +109,7 @@
     				</div>
         			<div class="row fenetre">
         				<div class="titreInformations">
-        					Information	de l'arêt	: <span *ngIf="_selectedArret">{{_selectedArret.name}}</span>
+        					Information	de l'arrêt	: <span *ngIf="_selectedArret">{{_selectedArret.nom}}</span>
         				</div>
 
 						<div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
@@ -168,6 +180,11 @@
         			</div>
         		</div>
         	</div>
+            <div class="ligneRetour row">
+                <div class="col-md-6">
+                    <input class="btn btn-primary" type="submit" value="Retour"  (click)="goBack()" />
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="Statistiques">
 			Statistiques
