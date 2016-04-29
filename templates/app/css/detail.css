@@ -47,3 +47,20 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.filtreBusSurMap {
+    background-color: #F8F8F8;
+    border-radius: 12px 12px 12px 12px;
+    border-color: #DDD;
+    border-style: ridge;
+    float: right;
+    position: absolute;
+    z-index: 1;
+    top: 85px;
+    left: 22px;
+    height: 400px; 
+}
+
+.rowMap my-map {
+    display: block;
+}

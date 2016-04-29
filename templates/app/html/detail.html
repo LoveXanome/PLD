@@ -26,11 +26,17 @@
 	        			(onClickedArret)="onClickedArret($event)" 
 	        			(onClickedLigne)="onClickedLigne($event)">
 	        		</my-map>
-        		</div>
-                
-                <div class="filtreBusSurMap col-md-2">
                     
-                </div>
+                    <!-- TODO : Changer les données brutes en données dynamiques -->
+                    <div class="filtreBusSurMap col-md-2">
+                        <h4>Filtres :</h4>
+                        <input type="checkbox" name="filter" value="All">Tout sélectionner<br>
+                        <input type="checkbox" name="filter" value="Urbain">Urbain<br>
+                        <input type="checkbox" name="filter" value="C3">C3<br>
+                        <input type="checkbox" name="filter" value="Non-urbain">Non urbain<br>
+                        <input type="checkbox" name="filter" value="C1">C1<br/>
+                    </div>
+        		</div>
             </div>
             
             <!-- Row Indicateurs -->
