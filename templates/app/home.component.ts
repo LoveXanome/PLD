@@ -1,6 +1,9 @@
 import { Component, OnInit } from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
+import {Http} from 'angular2/http';
+import 'rxjs/Rx';
 
+import {HttpRequest} from './classes/httpRequest'
 import {Ville} from './classes/ville';
 import {VilleDetailComponent} from './ville.detail.component';
 
@@ -11,35 +14,41 @@ import {VilleDetailComponent} from './ville.detail.component';
 })
 
 export class HomeComponent {
-    villes = VILLES;
+    villes : Ville[] = [];
     private _selectedNomVille: string;
+    private _httpRequest: HttpRequest;
 
-    constructor(private _router: Router) { 
-    };
+
+    constructor(private _router: Router, routeParams: RouteParams, http: Http) {
+        this._httpRequest = new HttpRequest(this, http);
+        this._httpRequest.get('http://localhost:5000/agencies', this.getResult);
+    }
 
     ngOnInit() {
-        this._selectedNomVille = this.villes[0].agency;
+        // si on init ici la première valeur,ça ne marche pas du tout! pourquoi ? Je sais pas
     }
 
     onChange(ville) {
         this._selectedNomVille = ville;
-        console.debug(this._selectedNomVille);
     }
 
     gotoDetail() {
         this._router.navigate(['VilleDetail', { nom: this._selectedNomVille } ]);
     }
+
+    getResult(_this : any, data: any) {
+        //On appelle l'initialisation des villes/réseaux
+        _this.initVille(data.agencies);
+    }
+
+    initVille( VILLES: any ){
+        for(var _i = 0 ; _i <VILLES.length; _i++)
+        {
+            //Pour chaque nouveau réseau, ou push dans la liste 
+            this.villes.push({"id": VILLES[_i].id, "agency": VILLES[_i].name, "location":null, "lignes":null });
+        }
+        //On initialise la valeur de la comboBox au premier élément de la liste
+        this._selectedNomVille = this.villes[0].agency;
+    }
 }
 
-var VILLES: Ville[] = [
-    { "id": 11, "agency": "Lyon", "location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 12, "agency": "Nante","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 13, "agency": "Bourg-en-Bress","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 14, "agency": "Orléant","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 15, "agency": "Grenoble","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 16, "agency": "Troyes","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 17, "agency": "Paris","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 18, "agency": "Marseille","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 19, "agency": "St-Etienne","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null },
-    { "id": 20, "agency": "Lille","location":{ "lat":51.472 , "lng":-0.01}, "lignes":null }
-];
