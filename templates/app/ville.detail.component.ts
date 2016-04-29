@@ -74,8 +74,10 @@ export class VilleDetailComponent {
             if(ligne.id==idLigne)
             {              
                 ligne.stops = data.route.points;
-                console.debug(ligne.stops);
+                //console.debug(ligne.stops);
+                ligne.color = randomColor();
                 _this._mapComponent.displayLine(ligne);
+                //console.debug(ligne);
             }
         }
     }
