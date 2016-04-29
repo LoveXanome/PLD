@@ -1,8 +1,11 @@
 import { Component, OnInit, Output, EventEmitter} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
+import {Http} from 'angular2/http';
+import 'rxjs/Rx';
 
 import {Ligne} from './classes/ligne';
 import {Arret} from './classes/arret';
+import {HttpRequest} from './classes/httpRequest'
 
 declare var L: any;
 
@@ -17,24 +20,35 @@ export class MapComponent {
     stops = STOPS;
     lignes = LIGNES;
 
+    private _httpRequest: HttpRequest;
+    private _center_map_lat : any;
+    private _center_map_lng : any;
+
     @Output() onClickedArret = new EventEmitter<Arret>();
     @Output() onClickedLigne = new EventEmitter<Ligne>();
 
-    constructor() {
+    constructor(private _router: Router, routeParams: RouteParams, http: Http) {
+       this._httpRequest = new HttpRequest(this, http);
+       this._httpRequest.get('http://localhost:5000/agencies/1/routes', this.getResult);
     }
     
     ngOnInit(){
-        this.lignes[0].stops  = this.stops [0]; 
+        this.lignes[0].stops  = this.stops [0];
         this.lignes[1].stops  = this.stops [1];
         this.lignes[2].stops  = this.stops [2];
     }
 
     ngAfterViewInit() { 
-    	//Créer le template de la map et la center sur londre
+    	/*//Créer le template de la map et la center sur londre
 		this.mymap = L.map('mapid', {
 			center: [51.505, -0.09],
+            //center: [this._center_map_lat, this._center_map_lng],
 			zoom: 13
 		});
+        console.debug("init");
+        console.debug(this._center_map_lat);
+        console.debug(this._center_map_lng);
+
 
 		//Affiche la map pour de vrai
 		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -71,9 +85,36 @@ export class MapComponent {
         // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup   
         for (var ligne of this.lignes) {
 			this.displayLine(ligne);
-        }     
+        } */
     }
 
+    initMap(_center_map_lat: any, _center_map_lng : any)
+    {
+        //Créer le template de la map
+        this.mymap = L.map('mapid', {
+            center: [this._center_map_lat, this._center_map_lng],
+            zoom: 13
+        });
+        //Affiche la map pour de vrai
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(this.mymap);
+
+    }
+
+    getResult(_this : any, _data: any) {
+        
+        var data = _data.data;
+        //latitude et longitude du centre de la carte
+        _this._center_map_lat = data.location.lat;
+        _this._center_map_lng = data.location.lng;
+        _this.initMap(_this._center_map_lng, _this._center_map_lat);
+
+        //recuperation des lignes
+        var lignes: Ligne[];
+        lignes = data.routes;         
+    }
 
     displayLine(ligne: Ligne) {
         var _this = this;

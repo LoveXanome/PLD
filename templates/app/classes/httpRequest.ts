@@ -4,8 +4,10 @@ import 'rxjs/Rx';
 export class HttpRequest {
 	private _data: any;
   	private _http: any;
+  	private _this: any;
 
-	constructor(http: Http) {
+	constructor(_this:any, http: Http) {
+		this._this = _this;
 		this._http = http;
 		this._data = null;
 	}
@@ -15,7 +17,7 @@ export class HttpRequest {
        		.map(res => res.json())
             .subscribe(
                 //En cas de succès
-				data => doSuccess(data),
+				data => doSuccess(this._this, data),
                 //En cas d'erreur
                 err => this.handleError(err)
                 //,

@@ -29,8 +29,6 @@ export class VilleDetailComponent {
     private _httpRequest: HttpRequest;
 
     constructor(private _router: Router, routeParams: RouteParams, http: Http) {
-        this._httpRequest = new HttpRequest(http);
-
         this._selectedVille = new Ville();
         this._selectedVille.nom = routeParams.get('nom');
     }
