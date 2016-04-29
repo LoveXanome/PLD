@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
@@ -18,27 +18,83 @@ import {HttpRequest} from './classes/httpRequest';
 })
 
 export class VilleDetailComponent {
+
+    @Output() displayLine = new EventEmitter<Ligne>();
+
     private _selectedVille: Ville;
-
     private _selectedArret: Arret;
-    result: Object;
-
     private _selectedLigne: Ligne;
+
     private _lignes = LIGNES;
 
+    private _lignesUrbaines: Ligne[];
+    private _lignesNonUrbaines: Ligne[];
+
+    private _lignesAllChecked: boolean;
+    private _lignesUrbainesChecked: boolean;
+    private _lignesNonUrbainesChecked: boolean;
+
     private _httpRequest: HttpRequest;
+    private _mapComponent: MapComponent;
 
     constructor(private _router: Router, routeParams: RouteParams, http: Http) {
         this._selectedVille = new Ville();
-        this._selectedVille.agency = routeParams.get('nom');
-    }
 
+        this._selectedVille.agency = routeParams.get('nom');
+    
+        this._lignesUrbaines = [];
+        this._lignesNonUrbaines = [];
+
+        this._mapComponent = new MapComponent();
+
+        this._httpRequest = new HttpRequest(this, http);
+        this._httpRequest.get('http://localhost:5000/agencies/1/routes', this.getHttpResult);
+    }
 
     ngOnInit() {
         this._lignes[0].stops = STOPS_C1;
         this._lignes[1].stops = STOPS_C2;
+        this._lignes[2].stops = STOPS_C3;
+        this._lignes[3].stops = STOPS_C4;
+
+        /*
+            trie des lignes entre urbaines ou pas
+        */
+        for (var ligne of this._lignes)
+        {
+            if (ligne.category)
+                this._lignesUrbaines.push(ligne);
+            else
+                this._lignesNonUrbaines.push(ligne);
+        }
+
+        this._lignesUrbainesChecked = false;
+        this._lignesNonUrbainesChecked = false;
     }
 
+    ngAfterViewInit() {
+
+    }
+
+    getHttpResult(_this : any, _data : any) {
+        var data = _data.data;
+
+        //recuperation des lignes
+        var lignes: Ligne[];
+        lignes = data.routes; 
+
+         //Initialisation de la map
+        _this._mapComponent.initMap(data.location.lat, data.location.lng);
+
+        //Test : TODO à supprimer
+        for (var ligne of _this._lignes) {
+            _this._mapComponent.displayLine(ligne);
+        }
+    }
+
+    /*
+        Appellé lorsqu'on clique sur un arrêt pour la lignes
+    */
     onChoseArretOfLine(arret: Arret) {
         if (this._selectedLigne == null)
             return;
@@ -83,9 +139,44 @@ export class VilleDetailComponent {
      
         this._selectedArret = null;
     }
-    
-    goBack() {
-        window.history.back();
+
+    selectTous() {
+        this._lignesAllChecked = !this._lignesAllChecked;
+        
+        this._lignesUrbainesChecked = this._lignesAllChecked;
+        this._lignesNonUrbainesChecked = this._lignesAllChecked;
+
+        for (var ligne of this._lignes)
+        {
+            ligne.isChecked = this._lignesAllChecked;
+        }
+    }
+
+    selectUrbain() {
+        this._lignesUrbainesChecked = !this._lignesUrbainesChecked;
+        for (var ligne of this._lignesUrbaines)
+        {
+            ligne.isChecked = this._lignesUrbainesChecked;
+        }
+    }
+
+    selectNonUrbain() {
+        this._lignesNonUrbainesChecked = !this._lignesNonUrbainesChecked;
+        for (var ligne of this._lignesNonUrbaines) {
+            ligne.isChecked = this._lignesNonUrbainesChecked;
+        }
+    }
+
+    selectLigne(ligne: Ligne) {
+        ligne.isChecked = !ligne.isChecked;
+        if (!ligne.isChecked && ligne.category && this._lignesUrbainesChecked)
+            this._lignesUrbainesChecked = false;
+        if (!ligne.isChecked && !ligne.category && this._lignesNonUrbainesChecked)
+            this._lignesNonUrbainesChecked = false;
+    }
+
+    printLines() {
+
     }
 }
 
@@ -100,10 +191,10 @@ function randomColor(){
 }
 
 var LIGNES: Ligne[] = [
-    { "id": 11, "name": "C1", "category": true, "stops": STOPS_C1 , "color": randomColor() },
-    { "id": 12, "name": "C2", "category": false, "stops": STOPS_C2 , "color": randomColor()},
-    { "id": 13, "name": "C3", "category": true, "stops": STOPS_C3 , "color": randomColor()},
-    { "id": 14, "name": "C4", "category": true, "stops": STOPS_C4 , "color": randomColor()}
+    { "id": 11, "name": "C1", "category": true, "stops": STOPS_C1, "color": randomColor(), 'isChecked': false},
+    { "id": 12, "name": "C2", "category": false, "stops": STOPS_C2, "color": randomColor(), 'isChecked': false},
+    { "id": 13, "name": "C3", "category": true, "stops": STOPS_C3, "color": randomColor(), 'isChecked': false},
+    { "id": 14, "name": "C4", "category": true, "stops": STOPS_C4, "color": randomColor(), 'isChecked': false}
 ];
 
 
