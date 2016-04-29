@@ -57,23 +57,6 @@ export class MapComponent {
 
     }
 
-    getResult(_this : any, _data: any) {
-        
-        var data = _data.data;
-        //latitude et longitude du centre de la carte
-        _this._center_map_lat = data.location.lat;
-        _this._center_map_lng = data.location.lng;
-        _this.initMap(_this._center_map_lat, _this._center_map_lng);
-
-        //recuperation des lignes
-        _this._lignes = data.routes; 
-        //couleur des lignes
-        for (var ligne of _this._lignes) {
-            ligne.couleur = randomColor();
-        }
-        console.debug(_this._lignes);
-    }
-
     displayLine(ligne: Ligne) {
         var _this = this;
         

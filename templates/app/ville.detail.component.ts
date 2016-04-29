@@ -25,7 +25,7 @@ export class VilleDetailComponent {
     private _selectedArret: Arret;
     private _selectedLigne: Ligne;
 
-    private _lignes = LIGNES;
+    private _lignes: Ligne[];
 
     private _lignesUrbaines: Ligne[];
     private _lignesNonUrbaines: Ligne[];
@@ -49,32 +49,20 @@ export class VilleDetailComponent {
 
         this._httpRequest = new HttpRequest(this, http);
         this._httpRequest.get('http://localhost:5000/agencies/1/routes', this.getHttpResult);
+
         this._httpRequest.get('http://localhost:5000/agencies/1/routes/102', this.getLigneDetails);
-    }
 
-    ngOnInit() {
-        this._lignes[0].stops = STOPS_C1;
-        this._lignes[1].stops = STOPS_C2;
-        this._lignes[2].stops = STOPS_C3;
-        this._lignes[3].stops = STOPS_C4;
-
-        /*
-            trie des lignes entre urbaines ou pas
-        */
-        for (var ligne of this._lignes)
-        {
-            if (ligne.category)
-                this._lignesUrbaines.push(ligne);
-            else
-                this._lignesNonUrbaines.push(ligne);
-        }
 
         this._lignesUrbainesChecked = false;
         this._lignesNonUrbainesChecked = false;
+        this._lignesAllChecked = false;
     }
 
-    ngAfterViewInit() {
-
+    ngOnInit() {
+        /*this._lignes[0].stops = STOPS_C1;
+        this._lignes[1].stops = STOPS_C2;
+        this._lignes[2].stops = STOPS_C3;
+        this._lignes[3].stops = STOPS_C4;*/
     }
     getLigneDetails(_this : any, data: any)
     {
@@ -83,27 +71,36 @@ export class VilleDetailComponent {
         console.debug(idLigne);
         for (var ligne of _this._lignes)
         {
-            console.debug(ligne);
             if(ligne.id==idLigne)
-            {
-                console.debug(ligne);
+            {              
+                ligne.stops = data.route.points;
+                console.debug(ligne.stops);
+                _this._mapComponent.displayLine(ligne);
             }
         }
     }
 
+    /*
+    le this. est undefined, car la function est appellé par httpRequest. Il est donc passé en paramètre
+    */
     getHttpResult(_this : any, _data : any) {
         var data = _data.data;
-
-        //recuperation des lignes
-        var lignes: Ligne[];
-        lignes = data.routes; 
 
          //Initialisation de la map
         _this._mapComponent.initMap(data.location.lat, data.location.lng);
 
-        //Test : TODO à supprimer
-        for (var ligne of _this._lignes) {
-            _this._mapComponent.displayLine(ligne);
+        //recuperation des lignes
+        _this._lignes = data.routes; 
+
+        /*
+            trie des lignes entre urbaines ou pas
+        */
+        for (var ligne of _this._lignes)
+        {
+            if (ligne.category)
+                _this._lignesUrbaines.push(ligne);
+            else
+                _this._lignesNonUrbaines.push(ligne);
         }
     }
 
@@ -156,6 +153,7 @@ export class VilleDetailComponent {
     }
 
     selectTous() {
+        console.debug(this._lignesAllChecked);
         this._lignesAllChecked = !this._lignesAllChecked;
         
         this._lignesUrbainesChecked = this._lignesAllChecked;
