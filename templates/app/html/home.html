@@ -11,8 +11,8 @@
 	<div class="col-md-4 col-md-offset-2">
 		<h2>Sélection d'une ville </h2>	
 		<select class="form-control" required (change)="onChange($event.target.value)">
-		    <option *ngFor="#ville of villes" [value]="ville.nom" >
-	        	{{ville.nom}}
+		    <option *ngFor="#ville of villes" [value]="ville.agency" >
+	        	{{ville.agency}}
 	        </option>
 	  	</select>
 	  	<br/>

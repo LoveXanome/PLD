@@ -45,33 +45,11 @@ export class MapComponent {
 		//TODO affichage de données fictives : plusieurs lignes de bus, avec plusieurs arêtes.
 		//On peut cliquer sur les lignes et les arêts
         
-        //create a Marker
-        //L.marker([51.481, -0.01]).addTo(this.mymap);
-
-        // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup
-
-        var polyline = L.polyline([[51.481, -0.01], [51.483, -0.02], [51.486, -0.1]], { color: 'red' }).addTo(this.mymap);
-        this.mymap.fitBounds(polyline.getBounds());
-
-       	//Pour afficher les arrêts
-		var circle = L.circle([51.481, -0.08], 100, {
-    		  color: 'red',
-    		  fillColor: '#f03',
-    		  fillOpacity: 1
-    	}).addTo(this.mymap);
-
-		circle.bindPopup("<b>Arret Gaston Berger</b><br><img src=\"/picture/bus.png\" alt=\"metro\" style=\"width:30px;height: 28px; \">  T1 et T4");
-
-        var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
-        marker.bindPopup("Arrêt: République");
-
-        //var marker = L.marker([51.481, -0.01]).addTo(this.mymap);
-        //marker.bindPopup("Arrêt: République");
-
-        // create a red polyline from an array of LatLng points -> Bien pour afficher une ligne, voir multiPolyline pour afficher toute les lignes d'un coup   
+        //Boucle pour les test, requête pour la liste des lignes ( nom, id, category)
         for (var ligne of this.lignes) {
+            // pour la ligne récupérer les infos
 			this.displayLine(ligne);
-        }     
+        }
     }
 
 
@@ -88,27 +66,38 @@ export class MapComponent {
             //arr.ligneId = ligne.id;
 			if (arr.is_stop == true)
             {
-                var coordonnee = convertArretToLatLngs(arr);
-                //Création d'un cercle pour un arret donné
-                var circle = L.circle(coordonnee, 15, {
-                    color: ligne.color,
-                    fillColor: 'white',
-                    fillOpacity: 1
-                }).addTo(this.mymap);
-
-                /*
-                   Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
-                */  
-                circle.on('click', function() {
-                    _this.onClickedArret.emit(arr);
-                });
+                this.displayArret(arr, ligne);
             }
 		}
 	}
+
+    displayArret(arret: Arret, ligne: Ligne){
+        var _this = this;
+        var coordonnee = convertArretToLatLngs(arret);
+        //Création d'un cercle pour un arret donné
+        var circle = L.circle(coordonnee, 15, {
+            color: ligne.color,
+            fillColor: 'white',
+            fillOpacity: 1
+        }).addTo(this.mymap);
+
+        /*
+           Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
+        */  
+        circle.on('click', function() {
+            _this.onClickedArret.emit(arret);
+        });
+    }
+
+
+
 }
 
+
+
+
 function convertArretToLatLngs(arret: Arret) {
-    return L.latLng(arret.lng , arret.lat);
+    return L.latLng(arret.location.lng , arret.location.lat);
 }
 
 function convertLigneToLatLngs(stops : Arret[]) {
@@ -134,20 +123,20 @@ function randomColor(){
 
 var STOPS: Arret[][] = [ 
     [
-        { "id": 1, "name": "Arret République" ,"lng":51.478 , "lat":-0.04 , "is_stop": true }, 
-        { "id": 2, "name": "Arret Marie Curie" ,"lng":51.459 , "lat":-0.01 , "is_stop": false },
-        { "id": 3, "name": "Arret BelleCourt" ,"lng":51.428 , "lat":-0.06 , "is_stop": true } 
+        { "id": 1, "name": "Arret République" ,"location":{ "lng":51.478 , "lat":-0.04} , "is_stop": true }, 
+        { "id": 2, "name": "Arret Marie Curie" ,"location":{ "lng":51.459 , "lat":-0.01} , "is_stop": false },
+        { "id": 3, "name": "Arret BelleCourt" ,"location":{ "lng":51.428 , "lat":-0.06} , "is_stop": true } 
     ],
     [
-        { "id": 1, "name": "Arret Perrache" ,"lng":51.472 , "lat":-0.01, "is_stop": true }, 
-        { "id": 2, "name": "Arret Confluence" ,"lng":51.442 , "lat":-0.02, "is_stop": false},
-        { "id": 3, "name": "Arret INSA" ,"lng":51.440, "lat":-0.01, "is_stop": true }, 
-        { "id": 4, "name": "Arret Part Dieu" ,"lng":51.435, "lat":-0.02, "is_stop": true }
+        { "id": 1, "name": "Arret Perrache" ,"location":{ "lng":51.472 , "lat":-0.01}, "is_stop": true }, 
+        { "id": 2, "name": "Arret Confluence" ,"location":{ "lng":51.442 , "lat":-0.02}, "is_stop": false},
+        { "id": 3, "name": "Arret INSA" ,"location":{ "lng":51.440, "lat":-0.01}, "is_stop": true }, 
+        { "id": 4, "name": "Arret Part Dieu" ,"location":{ "lng":51.435, "lat":-0.02}, "is_stop": true }
     ],
     [
-        { "id": 1, "name": "Arret Perrache", "lng":51.481 , "lat":-0.01, "is_stop": true }, 
-        { "id": 2, "name": "Arret Haribot" ,"lng":51.483 , "lat":-0.02, "is_stop": true },    
-        { "id": 3, "name": "Arret Fourvière" ,"lng":51.486, "lat":-0.02, "is_stop": true }, 
+        { "id": 1, "name": "Arret Perrache", "location":{ "lng":51.481 , "lat":-0.01} , "is_stop": true }, 
+        { "id": 2, "name": "Arret Haribot" ,"location":{ "lng":51.483 , "lat":-0.02}, "is_stop": true },    
+        { "id": 3, "name": "Arret Fourvière" ,"location":{ "lng":51.486, "lat":-0.02}, "is_stop": true }, 
     ]
 ];
 

@@ -4,7 +4,7 @@ export class Ligne {
     id: number;
     name: string;
     category : Boolean;
-    stops : Arret[];
+    stops: Arret[];
     color: String;
 
 }
