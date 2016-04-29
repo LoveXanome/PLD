@@ -49,18 +49,28 @@ export class VilleDetailComponent {
         this._mapComponent = new MapComponent();
 
         this._httpRequest = new HttpRequest(this, http);
-        this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes', this.getHttpResult);
-        
+
+        //this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes', this.getHttpResult);
         this._lignesUrbainesChecked = false;
         this._lignesNonUrbainesChecked = false;
         this._lignesAllChecked = false;
     }
 
     ngOnInit() {
-        /*this._lignes[0].stops = STOPS_C1;
+        this._lignes = LIGNES;
+        this._lignes[0].stops = STOPS_C1;
         this._lignes[1].stops = STOPS_C2;
         this._lignes[2].stops = STOPS_C3;
-        this._lignes[3].stops = STOPS_C4;*/
+        this._lignes[3].stops = STOPS_C4;
+
+
+        for (var ligne of this._lignes)
+        {
+            if (ligne.category)
+                this._lignesUrbaines.push(ligne);
+            else
+                this._lignesNonUrbaines.push(ligne);
+        }
     }
      
     getLigneDetails(_this : any, data: any)
@@ -159,43 +169,59 @@ export class VilleDetailComponent {
     }
 
     selectTous() {
-       // console.debug(this._lignesAllChecked);
         this._lignesAllChecked = !this._lignesAllChecked;
-        
-        this._lignesUrbainesChecked = this._lignesAllChecked;
-        this._lignesNonUrbainesChecked = this._lignesAllChecked;
+
+        //Impossible de faire this._lignesUrbainesChecked = this._lignesAllChecked, car il créer une référence sur la valeur
+        if (this._lignesAllChecked) {
+            this._lignesUrbainesChecked = true;
+            this._lignesNonUrbainesChecked = true;
+        }    
+        else {
+            this._lignesUrbainesChecked = false;
+            this._lignesNonUrbainesChecked = false;
+        }
 
         for (var ligne of this._lignes)
-        {
+        { 
             ligne.isChecked = this._lignesAllChecked;
         }
+     
     }
 
     selectUrbain() {
+        console.debug("selectUrbain");
         this._lignesUrbainesChecked = !this._lignesUrbainesChecked;
         for (var ligne of this._lignesUrbaines)
         {
-            ligne.isChecked = this._lignesUrbainesChecked;
+            //Impossible de faire this._lignesUrbainesChecked, car il créer une référence sur la valeur
+            if (this._lignesUrbainesChecked)
+                ligne.isChecked = true;
+            else
+                ligne.isChecked = false;
         }
     }
 
     selectNonUrbain() {
+        console.debug("selectNonUrbain");
         this._lignesNonUrbainesChecked = !this._lignesNonUrbainesChecked;
         for (var ligne of this._lignesNonUrbaines) {
-            ligne.isChecked = this._lignesNonUrbainesChecked;
+            //Impossible de faire this._lignesUrbainesChecked, car il créer une référence sur la valeur
+            if (this._lignesNonUrbainesChecked)
+                ligne.isChecked = true;
+            else
+                ligne.isChecked = false;
         }
     }
 
     selectLigne(ligne: Ligne) {
-        ligne.isChecked = !ligne.isChecked;
+        console.debug("selectLigne");
+        ligne.isChecked = !ligne.²;
+
         if (!ligne.isChecked && ligne.category && this._lignesUrbainesChecked)
             this._lignesUrbainesChecked = false;
+
         if (!ligne.isChecked && !ligne.category && this._lignesNonUrbainesChecked)
             this._lignesNonUrbainesChecked = false;
-    }
-
-    printLines() {
-
     }
 }
 
@@ -209,7 +235,7 @@ function randomColor(){
     return color;    
 }
 
-/*var LIGNES: Ligne[] = [
+var LIGNES: Ligne[] = [
     { "id": 11, "name": "C1", "category": true, "points": STOPS_C1, "color": randomColor(), 'isChecked': false},
     { "id": 12, "name": "C2", "category": false, "points": STOPS_C2, "color": randomColor(), 'isChecked': false},
     { "id": 13, "name": "C3", "category": true, "points": STOPS_C3, "color": randomColor(), 'isChecked': false},
@@ -239,4 +265,4 @@ var STOPS_C4: Arret[] = [
     { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40547 , "lat":-0.04}, "is_stop": true }, 
     {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.01}, "is_stop": true },
     {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
-];*/
+];

@@ -27,22 +27,41 @@
         		</div>
         		<div class="col-md-6">
         			<div class="row fenetre">
-        				<span (click)="selectTous">
-        					<label><input type="checkbox" name="checkbox" value="value" 
-                                [checked]="_lignesAllChecked">
-	        					Tout selectionner
-	        				</label>
-	        			</span>
+    					<label>
+    						<input type="checkbox" name="checkbox" value="value"
+    						(click)="selectTous()" [checked]="_lignesAllChecked">
+        					Tout selectionner
+        				</label>
         				<br/>
-        				<label><input type="checkbox" name="checkbox" value="value"
-        					(click)="selectUrbain" [checked]="_lignesUrbainesChecked">
+        				<label>
+        					<input type="checkbox" name="checkbox" value="value"
+        					(click)="selectUrbain()" [checked]="_lignesUrbainesChecked">
         					Urbain
         				</label>
-        				<br/>
-        				<label><input type="checkbox" name="checkbox" value="value"
-        					(click)="selectNonUrbain" [checked]="_lignesNonUrbainesChecked">
+        				<div *ngFor="#ligne of _lignesUrbaines">
+        					<span class="col-md-offset-1">
+	        					<label>
+		        					<input type="checkbox" name="checkbox" [value]="ligne.name"
+		        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+		        					{{ligne.name}}
+		        				</label>        						
+        					</span>
+        				</div>
+        				<label>
+        					<input type="checkbox" name="checkbox" value="value"
+        					(click)="selectNonUrbain()" [checked]="_lignesNonUrbainesChecked">
         					Non Urbain
         				</label>
+        				<div *ngFor="#ligne of _lignesNonUrbaines">
+        					<span class="col-md-offset-1">
+	        					<label>
+		        					<input type="checkbox" name="checkbox" [value]="ligne.name"
+		        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+		        					{{ligne.name}}
+		        				</label>        						
+        					</span>
+        				</div>
+
         			</div>
         			<div class="row fenetre">
         				<div class="titreInformations">
@@ -63,7 +82,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX" *ngFor="#ligne of _lignes" 
+                                        <tr class="odd gradeX" 
                                         [class.success]="ligne.category"  [class.danger]="!ligne.category" 
                                         (click)="clickLigne(ligne.id)">
                                             <td>{{ligne.name}}</td>
