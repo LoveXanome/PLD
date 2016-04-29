@@ -49,6 +49,7 @@ export class VilleDetailComponent {
 
         this._httpRequest = new HttpRequest(this, http);
         this._httpRequest.get('http://localhost:5000/agencies/1/routes', this.getHttpResult);
+        this._httpRequest.get('http://localhost:5000/agencies/1/routes/102', this.getLigneDetails);
     }
 
     ngOnInit() {
@@ -74,6 +75,20 @@ export class VilleDetailComponent {
 
     ngAfterViewInit() {
 
+    }
+    getLigneDetails(_this : any, data: any)
+    {
+        console.debug(data);
+        var idLigne = data.route.id;
+        console.debug(idLigne);
+        for (var ligne of _this._lignes)
+        {
+            console.debug(ligne);
+            if(ligne.id==idLigne)
+            {
+                console.debug(ligne);
+            }
+        }
     }
 
     getHttpResult(_this : any, _data : any) {
