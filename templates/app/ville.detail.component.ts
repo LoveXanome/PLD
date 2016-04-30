@@ -62,10 +62,10 @@ export class VilleDetailComponent {
 
     ngOnInit() {
         this._lignes = LIGNES;
-        this._lignes[0].stops = STOPS_C1;
-        this._lignes[1].stops = STOPS_C2;
-        this._lignes[2].stops = STOPS_C3;
-        this._lignes[3].stops = STOPS_C4;
+        this._lignes[0].points = STOPS_C1;
+        this._lignes[1].points = STOPS_C2;
+        this._lignes[2].points = STOPS_C3;
+        this._lignes[3].points = STOPS_C4;
 
         for (var ligne of this._lignes)
         {
@@ -231,7 +231,7 @@ export class VilleDetailComponent {
 
     selectLigne(ligne: Ligne) {
         console.debug("selectLigne");
-        ligne.isChecked = !ligne.²;
+        ligne.isChecked = !ligne.isChecked;
 
         if (!ligne.isChecked && ligne.category && this._lignesUrbainesChecked)
             this._lignesUrbainesChecked = false;

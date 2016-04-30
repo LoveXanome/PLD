@@ -36,9 +36,9 @@ export class MapComponent {
     
     ngOnInit(){
         //TODO à supprimer quand les HTTP sont fait
-        /*this.lignes[0].stops = this.stops [0]; 
-        this.lignes[1].stops  = this.stops [1];
-        this.lignes[2].stops  = this.stops [2];*/
+        /*this.lignes[0].points = this.stops[0]; 
+        this.lignes[1].points  = this.stops[1];
+        this.lignes[2].points  = this.stops[2];*/
     }
 
 
