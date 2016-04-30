@@ -1,10 +1,10 @@
 import {Arret} from './arret';
 
 export class Ligne {
-    id: number;
+    id: string;
     name: string;
     category : Boolean;
-    stops: Arret[];
+    points: Arret[];
     color: String;
     //polyligne: any;
     isChecked: boolean;

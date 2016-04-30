@@ -16,24 +16,26 @@ import {VilleDetailComponent} from './ville.detail.component';
 export class HomeComponent {
     villes : Ville[] = [];
     private _selectedNomVille: string;
+    private _selectedIdVille: Number;
     private _httpRequest: HttpRequest;
 
 
     constructor(private _router: Router, routeParams: RouteParams, http: Http) {
         this._httpRequest = new HttpRequest(this, http);
         this._httpRequest.get('http://localhost:5000/agencies', this.getResult);
+        //console.debug(this.villes[0].agency);
     }
 
     ngOnInit() {
         // si on init ici la première valeur,ça ne marche pas du tout! pourquoi ? Je sais pas
     }
 
-    onChange(ville) {
-        this._selectedNomVille = ville;
+    onChange(id) {
+        this._selectedIdVille = id;
     }
 
     gotoDetail() {
-        this._router.navigate(['VilleDetail', { nom: this._selectedNomVille } ]);
+        this._router.navigate(['VilleDetail', { id: this._selectedIdVille } ]);
     }
 
     getResult(_this : any, data: any) {
@@ -48,7 +50,7 @@ export class HomeComponent {
             this.villes.push({"id": VILLES[_i].id, "agency": VILLES[_i].name, "location":null, "lignes":null });
         }
         //On initialise la valeur de la comboBox au premier élément de la liste
-        this._selectedNomVille = this.villes[0].agency;
+        this._selectedIdVille = this.villes[0].id;
     }
 }
 

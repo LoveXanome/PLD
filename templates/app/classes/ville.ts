@@ -5,5 +5,5 @@ export class Ville {
   id: number;
   agency: string;
   location: Location;
-  lignes: Ligne[];
+  lignes: Ligne[] = [];
 }
