@@ -8,6 +8,7 @@ import {MapComponent} from './map.component';
 import {Ville} from './classes/ville';
 import {Ligne} from './classes/ligne';
 import {Arret} from './classes/arret';
+import {AffichageLigne} from './classes/affichageLigne';
 import {HttpRequest} from './classes/httpRequest';
 
 @Component({
@@ -26,6 +27,7 @@ export class VilleDetailComponent {
     private _selectedLigne: Ligne;
 
     private _lignes: Ligne[];
+    private _printedLignes: Object;
 
     private _lignesUrbaines: Ligne[];
     private _lignesNonUrbaines: Ligne[];
@@ -50,10 +52,12 @@ export class VilleDetailComponent {
 
         this._httpRequest = new HttpRequest(this, http);
 
-        //this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes', this.getHttpResult);
+        //this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes', this.httpLigneDetails);
         this._lignesUrbainesChecked = false;
         this._lignesNonUrbainesChecked = false;
         this._lignesAllChecked = false;
+
+        this._printedLignes = {};
     }
 
     ngOnInit() {
@@ -63,17 +67,27 @@ export class VilleDetailComponent {
         this._lignes[2].stops = STOPS_C3;
         this._lignes[3].stops = STOPS_C4;
 
-
         for (var ligne of this._lignes)
         {
             if (ligne.category)
                 this._lignesUrbaines.push(ligne);
             else
                 this._lignesNonUrbaines.push(ligne);
+            
         }
+
+
+        //TODO à supprimer
+        this._mapComponent.initMap(48.68439, 6.18496);
+
     }
-     
-    getLigneDetails(_this : any, data: any)
+
+/*
+==============================================================================
+                            RESULTATS HTTP
+==============================================================================
+*/
+    httpLigneDetails(_this : any, data: any)
     {
         //console.debug(data);
         var idLigne = data.route.id;
@@ -85,8 +99,10 @@ export class VilleDetailComponent {
                 ligne.points = data.route.points;
                 //console.debug(ligne.points);
                 ligne.color = randomColor();
-                _this._mapComponent.displayLine(ligne);
-                //console.debug(ligne);
+
+                this._printedLignes[ligne.id] = new AffichageLigne();
+                this._printedLignes[ligne.id].isPrinted = true;
+                this._printedLignes[ligne.id].polyligne = this._mapComponent.displayLine(ligne);
             }
         }
     }
@@ -94,7 +110,7 @@ export class VilleDetailComponent {
     /*
     le this. est undefined, car la function est appellé par httpRequest. Il est donc passé en paramètre
     */
-    getHttpResult(_this : any, _data : any) {
+    httpLignesAgences(_this : any, _data : any) {
         var data = _data.data;
 
         //recuperation du nom du réseau
@@ -223,9 +239,46 @@ export class VilleDetailComponent {
         if (!ligne.isChecked && !ligne.category && this._lignesNonUrbainesChecked)
             this._lignesNonUrbainesChecked = false;
     }
+
+    //Parcours toutes les lignes et envoit la requêtes pour les affiché
+    afficherLignes() {
+
+        for (var ligne of this._lignes) {
+            if(ligne.isChecked)
+            {
+                //La ligne n'as jamais été affiché
+                if (this._printedLignes[ligne.id] === undefined) 
+                {
+                    //L'affichage sera fait par le callback de la requête
+                    //this._httpRequest.get('http://localhost:5000/agencies/1/routes/102', this.httpLigneDetails);
+
+                    this._printedLignes[ligne.id] = new AffichageLigne();
+                    this._printedLignes[ligne.id].isPrinted = true;
+                    this._printedLignes[ligne.id].polyligne = this._mapComponent.displayLine(ligne);
+                }
+                // la ligne à été afficher mais elle n'est pas afficher actuellement
+                else if (!this._printedLignes[ligne.id].isPrinted) 
+                {
+                    this._printedLignes[ligne.id].isPrinted = true;
+                    this._mapComponent.showPolyligne(this._printedLignes[ligne.id].polyligne);
+                } 
+            }
+            else {
+                if (this._printedLignes[ligne.id] !== undefined && this._printedLignes[ligne.id].isPrinted) 
+                {
+                    this._printedLignes[ligne.id].isPrinted = false;
+                    this._mapComponent.hidePolyligne(this._printedLignes[ligne.id].polyligne);
+                }
+            }
+
+            //TODO à supprimer
+            //this._mapComponent.displayLine(ligne);
+        
+        }
+    }
 }
 
-function randomColor(){
+function randomColor ( ){
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
     for (var _i = 0; _i < 6; _i++ ) 
@@ -244,25 +297,25 @@ var LIGNES: Ligne[] = [
 
 
 var STOPS_C1: Arret[] = [
-    { "id": 11, "name": "Gare Part-Dieu", "location":{"lng": 40547, "lat": -0.04}, "is_stop": true },
-    {  "id": 12, "name": "Brotteaux","location":{ "lng": 45.544 , "lat":-0.01}, "is_stop": true },
-    {  "id": 13, "name": "Vitton", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
+    { "id": 11, "name": "Gare Part-Dieu", "location": { "lng": 45.544, "lat": -0.1}, "is_stop": true },
+    {  "id": 12, "name": "Brotteaux","location":{ "lng": 45.544 , "lat":-0.2}, "is_stop": true },
+    {  "id": 13, "name": "Vitton", "location":{"lng": 4.455 , "lat":-0.3}, "is_stop": true } 
 ];
 
 var STOPS_C2: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu", "location":{"lng": 40547, "lat": -0.04}, "is_stop": true },
-    { "id": 22, "name": "Brotteaux", "location":{"lng": 45.544, "lat": -0.01}, "is_stop": true },
-    { "id": 23, "name": "Charpenne", "location":{"lng": 4.455, "lat": -0.06}, "is_stop": true }
+    { "id": 21, "name": "Gare Part-Dieu", "location":{"lng": 40.547, "lat": -0.4}, "is_stop": true },
+    { "id": 22, "name": "Brotteaux", "location":{"lng": 45.544, "lat": -0.5}, "is_stop": true },
+    { "id": 23, "name": "Charpenne", "location":{"lng": 4.455, "lat": -0.6}, "is_stop": true }
 ];
 
 var STOPS_C3: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40547 , "lat":-0.04}, "is_stop": true }, 
-    {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.01}, "is_stop": true },
-    {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
+    { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40.547 , "lat":-0.7}, "is_stop": true }, 
+    {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.8}, "is_stop": true },
+    {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.9}, "is_stop": true } 
 ];
 
 var STOPS_C4: Arret[] = [
-    { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40547 , "lat":-0.04}, "is_stop": true }, 
-    {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.01}, "is_stop": true },
-    {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.06}, "is_stop": true } 
+    { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40.547 , "lat":-0.10}, "is_stop": true }, 
+    {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.11}, "is_stop": true },
+    {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.12}, "is_stop": true } 
 ];

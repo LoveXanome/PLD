@@ -68,19 +68,20 @@ export class MapComponent {
             _this.onClickedLigne.emit(ligne);
         });
 
+      var arrets = [];
 		for (var arr of ligne.points) {
             //arr.ligneId = ligne.id;
 			if (arr.is_stop == true)
             {
                 //console.debug(""+arr.name);
-                this.displayArret(arr, ligne);
+                arrets.push(this.displayArret(arr, ligne));
             }
 		}
 
-        return polyline2;
-	}
+        return {'polyligne': polyline2, 'arrets': arrets};
+        }
 
-    displayArret(arret: Arret, ligne: Ligne){
+    displayArret(arret: Arret, ligne: Ligne) {
         var _this = this;
         var coordonnee = convertArretToLatLngs(arret);
         //Création d'un cercle pour un arret donné
@@ -92,10 +93,29 @@ export class MapComponent {
 
         /*
            Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
-        */  
+        */
         circle.on('click', function() {
             _this.onClickedArret.emit(arret);
         });
+
+        return circle;
+    }
+
+    showPolyligne(polyligne: any) {
+        this.mymap.addLayer(polyligne.polyligne);
+
+        for (var arr of polyligne.arrets) {
+            this.mymap.addLayer(arr);
+        }
+
+    }
+
+    hidePolyligne(polyligne: any) {
+        this.mymap.removeLayer(polyligne.polyligne);
+
+        for (var arr of polyligne.arrets) {
+            this.mymap.removeLayer(arr);
+        }
     }
 }
 
