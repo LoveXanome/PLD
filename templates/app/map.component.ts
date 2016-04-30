@@ -59,9 +59,7 @@ export class MapComponent {
 
     displayLine(ligne: Ligne) {
         var _this = this;
-        
-        //console.debug(ligne);
-        
+
         var polyline2 = L.polyline(convertLigneToLatLngs(ligne.points), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
 
         polyline2.on('click', function() {
@@ -120,11 +118,11 @@ export class MapComponent {
 }
 
 function convertArretToLatLngs(arret: Arret) {
-    return L.latLng(arret.location.lng , arret.location.lat);
+    return L.latLng(arret.location.lat , arret.location.lng);
 }
 
 function convertLigneToLatLngs(points : Arret[]) {
-    var arretConvert: Arret[] = [];
+    var arretConvert: Location[] = [];
     for (var arr of points )
     {
         var coordonnee = convertArretToLatLngs(arr)
