@@ -47,3 +47,41 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.filtreBusSurMap {
+    /*background-color: #F8F8F8;
+    border-radius: 12px 12px 12px 12px;
+    border-color: #DDD;
+    border-style: ridge;
+    float: right;
+    position: absolute;
+    z-index: 1;
+    top: 85px;
+    left: 22px;
+    height: 400px;*/
+}
+
+.filtreBusSurMap .boutonFiltre {
+    display: inline-block;
+    width: 400px;
+}
+
+.inputFiltre {
+    display: inline-block;
+    border-style: solid;
+    border-width: 1px;
+    position: absolute;
+    z-index: 1;
+    padding: 6px 8px;
+    height: 34px;
+    border-radius: 4px 0px 0px 4px;
+    border-color: #CCC;
+}
+
+.dropdown {
+    display: inline;
+}
+
+.rowMap my-map {
+    /*display: block;*/
+}

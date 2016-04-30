@@ -18,203 +18,375 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div class="tab-pane fade in active" id="Accueil">
-        	<div class="row">
-    			<div class="col-md-6">
+            
+            <!-- Row map -->
+            <div class="rowMap row">
+                <div class="col-md-12">
         			<my-map 
 	        			(onClickedArret)="onClickedArret($event)" 
 	        			(onClickedLigne)="onClickedLigne($event)">
 	        		</my-map>
-        		</div>
-        		<div class="col-md-6">
-        			<div class="row fenetre">
-    					<label>
-    						<input type="checkbox" name="checkbox" value="value"
-    						(click)="selectTous()" [checked]="_lignesAllChecked">
-        					Tout selectionner
-        				</label>
-        				<br/>
-        				<label>
-        					<input type="checkbox" name="checkbox" value="value"
-        					(click)="selectUrbain()" [checked]="_lignesUrbainesChecked">
-        					Urbain
-        				</label>
-        				<div *ngFor="#ligne of _lignesUrbaines">
-        					<span class="col-md-offset-1">
-	        					<label>
-		        					<input type="checkbox" name="checkbox" [value]="ligne.name"
-		        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-		        					{{ligne.name}}
-		        				</label>        						
-        					</span>
-        				</div>
-        				<label>
-        					<input type="checkbox" name="checkbox" value="value"
-        					(click)="selectNonUrbain()" [checked]="_lignesNonUrbainesChecked">
-        					Non Urbain
-        				</label>
-        				<div *ngFor="#ligne of _lignesNonUrbaines">
-        					<span class="col-md-offset-1">
-	        					<label>
-		        					<input type="checkbox" name="checkbox" [value]="ligne.name"
-		        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-		        					{{ligne.name}}
-		        				</label>        						
-        					</span>
-        				</div>
-        				<div>
+                    
+                    <!-- TODO : Changer les données brutes en données dynamiques --> 
+                    <!-- Filtre sur la map -->
+                    <div class="filtreBusSurMap col-md-12">
+                        <h4>Filtres :</h4>
+<!--                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">Action</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </div>-->
+                        
+                        <!-- Tout selectionner -->
+                        <div class="oneButtonFiltre">
+                            <div class="inputFiltre">
+                                <input type="checkbox" name="filter" value="all" [checked]="_lignesAllChecked" (click)="selectTous()"/>
+                            </div>
+                            <button type="button" class="btn btn-default boutonFiltre">		
+                            	Tout sélectionner
+                            </button>
+                        </div>
+                        
+                        <!-- Urbain -->
+                        <div class="oneButtonFiltre">
+                            <div class="inputFiltre">
+                                <input type="checkbox" name="filter" value="urbain" [checked]="_lignesUrbainesChecked" (click)="selectUrbain()"/>
+                            </div>
+
+                            <div class="dropdown">
+                                <button id="dropdownUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="dropdown">Urbain
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownUrbain">
+                                	<div *ngFor="#ligne of _lignesUrbaines">
+	                            		<li>
+				        					<span class="col-md-offset-1">
+					        					<label>
+						        					<input type="checkbox" name="checkbox" 
+						        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+						        					{{ligne.name}}
+						        				</label>        						
+				        					</span>
+	                                    </li>
+			        				</div>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Non Urbain -->
+                        <div class="oneButtonFiltre">
+                            <div class="inputFiltre">
+								<input type="checkbox" name="checkbox" value="non-urbain"
+								(click)="selectNonUrbain()" [checked]="_lignesNonUrbainesChecked">
+                            </div>
+                            <div class="dropdown">
+                                <button id="dropdownNonUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="dropdown">Non urbain
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownUrbain">
+                                	<div *ngFor="#ligne of _lignesNonUrbaines">
+	                            		<li>
+				        					<span class="col-md-offset-1">
+					        					<label>
+						        					<input type="checkbox" name="checkbox" 
+						        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+						        					{{ligne.name}}
+						        				</label>        						
+				        					</span>
+	                                    </li>
+			        				</div>
+                                </ul>
+                            </div>
+                        </div>
+
+						<div>
 							<button class="btn" (click)="afficherLignes()">Afficher les lignes</button>
 						</div>
-        			</div>
-        			<div class="row fenetre">
-        				<div class="titreInformations">
-        					Information	de la ligne	: <span *ngIf="_selectedLigne">{{_selectedLigne.name}}</span>
-        				</div>
-						
-						<div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
-							Sélectionner un arrêt ou une ligne
-						</div>
-						<div *ngIf="!_selectedLigne && _selectedArret" class="text-center">
-							Sélectionner une ligne correspondant à l'arrêt {{_selectedArret.name}}
-							<br/>
-						  	<div class="dataTable_wrapper tableLigne">
-                                <table width="80%" id="tableLigne" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>Nom de la ligne</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX" 
-                                        [class.success]="ligne.category"  [class.danger]="!ligne.category" 
-                                        (click)="clickLigne(ligne.id)">
-                                            <td>{{ligne.name}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        
+                        <!-- Urbain -->
+                        <!--<div class="btn-group">
+                            <button type="button" class="btn btn-default boutonFiltre">
+                                <input type="checkbox" name="filter" value="urbain">Urbain
+                            </button>
+                            
+                            <button type="button" class="btn btn-default dropdown-toggle boutonFiltreDropdown" id="dropdownUrbain" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only caret">Toggle Dropdown</span>
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownUrbain">
+                                <a class="dropdown-item" href="#">C3</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">C6</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">C26</a>
                             </div>
-						</div>
-						<div *ngIf="_selectedLigne">
-							<div class="col-md-6">
-	        					<div class="panel panel-primary text-center">
-			                        <div class="panel-heading ">
-			                            Nombre de passage
-			                        </div>
-			                        <div class="panel-body">
-			                        	<div class="row">
-			                        		<div class="col-md-6 traitMilieu">
-				                            	<h2 >
-													56
-					                            </h2>
-					                            Par Jour
-				                            </div>
-				                            <div class="col-md-6">
-				                            	<h2 >
-													392
-					                            </h2>
-					                            Par Semaine
-				                            </div>
-			                        	</div>  
-			                        </div>
-			                    </div>
-	        				</div>
-	        				<div class="col-md-6">
-	        					<div class="panel panel-primary text-center">
-			                        <div class="panel-heading ">
-			                            Vitesse moyenne de la ligne
-			                        </div>
-			                        <div class="panel-body">
-			                        	<div class="row">
-			                        		<div>
-				                            	<h2 >
-													37
-					                            </h2>
-					                            Km/h
-				                            </div>
-			                        	</div>  
-			                        </div>
-			                    </div>
-	        				</div>
-						</div>        				
-    				</div>
-        			<div class="row fenetre">
-        				<div class="titreInformations">
-        					Information	de l'arrêt	: <span *ngIf="_selectedArret">{{_selectedArret.name}}</span>
-        				</div>
-
-						<div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
-							Sélectionner un arrêt ou une ligne
-						</div>
-						<div *ngIf="!_selectedArret && _selectedLigne" class="text-center">
-							Sélectionner une ligne correspondant à l'arrêt {{_selectedLigne.name}}
-							<br/>
-						  	<div class="dataTable_wrapper tableLigne">
-                                <table width="80%" id="tableLigne" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>Nom de l'arrêt</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX" *ngFor="#arret of _selectedLigne.stops" 
-                                        (click)="onChoseArretOfLine(arret)">
-                                            <td>{{arret.name}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        </div>-->
+                        
+                        <!-- Non urbain -->
+                        <!--<div class="btn-group">
+                            <button type="button" class="btn btn-default boutonFiltre">
+                                <input type="checkbox" name="filter" value="non-urbain">Non urbain
+                            </button>
+                            
+                            <button type="button" class="btn btn-default dropdown-toggle boutonFiltreDropdown" id="dropdownNonUrbain" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only caret">Toggle Dropdown</span>
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownNonUrbain">
+                                <a class="dropdown-item" href="#">C1</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">C2</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">C86</a>
                             </div>
-						</div>
-
-        				<div *ngIf="_selectedArret">
-        					<div class="col-md-6">
-	        					<div class="panel panel-primary text-center">
-			                        <div class="panel-heading ">
-			                            Nombre de passage
-			                        </div>
-			                        <div class="panel-body">
-			                        	<div class="row">
-			                        		<div class="col-md-6 traitMilieu">
-				                            	<h2 >
-													28
-					                            </h2>
-					                            Par Jour
-				                            </div>
-				                            <div class="col-md-6">
-				                            	<h2 >
-													392
-					                            </h2>
-					                            Par Semaine
-				                            </div>
-			                        	</div>  
-			                        </div>
-			                    </div>
-	        				</div>
-	        				<div class="col-md-6">
-	        					<div class="panel panel-primary text-center">
-			                        <div class="panel-heading ">
-			                            Nombre d'habitants
-			                        </div>
-			                        <div class="panel-body">
-			                        	<div class="row">
-			                        		<div>
-				                            	<h2 >
-													3 745
-					                            </h2>
-					                            à moins de 200m
-				                            </div>
-			                        	</div>  
-			                        </div>
-			                    </div>
-	        				</div>
-        				</div>
-        			</div>
+                        </div>-->
+                        
+                        <!--<input type="checkbox" name="filter" value="All">Tout sélectionner<br>
+                        <input type="checkbox" name="filter" value="Urbain">Urbain<br>
+                        <input type="checkbox" name="filter" value="C3">C3<br>
+                        <input type="checkbox" name="filter" value="Non-urbain">Non urbain<br>
+                        <input type="checkbox" name="filter" value="C1">C1<br/>-->
+                    </div>
         		</div>
-        	</div>
+
+            </div>
+            
+            <!-- Row Indicateurs -->
+            <div class="rowIndicateur row"> <!-- anciennement class="fenetre" -->
+                <div class="col-md-12">
+                    
+                    <!-- Indicateurs concernant les lignes en general -->
+                    <div class="indicateurLigne row">
+                        <div class="col-md-12">
+                        
+                            <!-- Ligne titre -->
+                            <div class="titre row">
+                                <div class="cold-md-12">
+                                    
+                                    <div class="titreInformations">
+                                        Information	de la ligne	: <span *ngIf="_selectedLigne">{{_selectedLigne.name}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+     
+                            <!-- Choix de la ligne -->
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
+                                        Sélectionner un arrêt ou une ligne
+                                    </div>
+
+
+                                    <div *ngIf="!_selectedLigne && _selectedArret" class="text-center">
+                                        Sélectionner une ligne correspondant à l'arrêt {{_selectedArret.name}} <br/>
+                                        <div class="dataTable_wrapper tableLigne">
+                                            <table width="80%" id="tableLigne" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nom de la ligne</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="odd gradeX" *ngFor="#ligne of _lignes" 
+                                                    [class.success]="ligne.category"  [class.danger]="!ligne.category" 
+                                                    (click)="clickLigne(ligne.id)">
+                                                        <td>{{ligne.name}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <!-- Indicateurs -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    
+                                    <div *ngIf="_selectedLigne">
+                                        
+                                        <!-- Indicateur : nombre de passage -->
+                                        <div class="col-md-6">
+                                            
+                                            <div class="panel panel-primary text-center">
+                                                <div class="panel-heading ">
+                                                    Nombre de passage
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6 traitMilieu">
+                                                            <h2 >
+                                                                56
+                                                            </h2>
+                                                            Par Jour
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h2 >
+                                                                392
+                                                            </h2>
+                                                            Par Semaine
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <!-- Indicateur : Vitesse moyenne -->
+                                        <div class="col-md-6">
+                                            
+                                            <div class="panel panel-primary text-center">
+                                                <div class="panel-heading ">
+                                                    Vitesse moyenne de la ligne
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div>
+                                                            <h2 >
+                                                                37
+                                                            </h2>
+                                                            Km/h
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Indicateurs concernant les arrêts en general -->
+                    <div class="indicateurArret row">
+                        <div class="col-md-12">
+                            
+                            <!-- Ligne titre -->
+                            <div class="titre row">
+                                <div class="cold-md-12">
+                                    
+                                    <div class="titreInformations">
+                                        Information	de l'arrêt	: <span *ngIf="_selectedArret">{{_selectedArret.nom}}</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+     
+                            <!-- Choix de la ligne -->
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div *ngIf="!_selectedLigne && !_selectedArret" class="text-center">
+                                        Sélectionner un arrêt ou une ligne
+                                    </div>
+
+                                    <div *ngIf="!_selectedArret && _selectedLigne" class="text-center">
+                                        Sélectionner une ligne correspondant à l'arrêt {{_selectedLigne.name}}
+                                        <br/>
+                                        <div class="dataTable_wrapper tableLigne">
+                                            <table width="80%" id="tableLigne" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nom de l'arrêt</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="odd gradeX" *ngFor="#arret of _selectedLigne.stops" 
+                                                    (click)="onChoseArretOfLine(arret)">
+                                                        <td>{{arret.name}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <!-- Indicateurs -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    
+                                    <div *ngIf="_selectedArret">
+                                        
+                                        <!-- Indicateur : nombre de passages -->
+                                        <div class="col-md-6">
+                                            <div class="panel panel-primary text-center">
+                                                <div class="panel-heading ">
+                                                    Nombre de passage
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6 traitMilieu">
+                                                            <h2 >
+                                                                28
+                                                            </h2>
+                                                            Par Jour
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h2 >
+                                                                392
+                                                            </h2>
+                                                            Par Semaine
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Indicateur : Nombre d'habitants -->
+                                        <div class="col-md-6">
+                                            <div class="panel panel-primary text-center">
+                                                <div class="panel-heading ">
+                                                    Nombre d'habitants
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div>
+                                                            <h2 >
+                                                                3 745
+                                                            </h2>
+                                                            à moins de 200m
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+        				            </div>
+                                    
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+
             <div class="ligneRetour row">
                 <div class="col-md-6">
                     <input class="btn btn-primary" type="submit" value="Retour"  (click)="goBack()" />
                 </div>
             </div>
         </div>
+        
         <div class="tab-pane fade" id="Statistiques">
 			Statistiques
         </div>
