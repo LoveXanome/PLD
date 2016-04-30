@@ -27,14 +27,113 @@
 	        			(onClickedLigne)="onClickedLigne($event)">
 	        		</my-map>
                     
-                    <!-- TODO : Changer les données brutes en données dynamiques -->
-                    <div class="filtreBusSurMap col-md-2">
+                    <!-- TODO : Changer les données brutes en données dynamiques --> 
+                    <!-- Filtre sur la map -->
+                    <div class="filtreBusSurMap col-md-12">
                         <h4>Filtres :</h4>
-                        <input type="checkbox" name="filter" value="All">Tout sélectionner<br>
+<!--                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">Action</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </div>-->
+                        
+                        <!-- Tout selectionner -->
+                        <div class="oneButtonFiltre">
+                            <div class="inputFiltre">
+                                <input type="checkbox" name="filter" value="all" />
+                            </div>
+                            <button type="button" class="btn btn-default boutonFiltre">Tout sélectionner</button>
+                        </div>
+                        
+                        <!-- Urbain -->
+                        <div class="oneButtonFiltre">
+                            <div class="inputFiltre">
+                                <input type="checkbox" name="filter" value="urbain" />
+                            </div>
+                            <div class="dropdown">
+                                <button id="dropdownUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="dropdown">Urbain
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownUrbain">
+                                    <li><input type="checkbox" name="filter" value="C3">C3</li>
+                                    <li class="divider"></li>
+                                    <li><input type="checkbox" name="filter" value="C6">C6</li>
+                                    <li class="divider"></li>
+                                    <li><input type="checkbox" name="filter" value="C26">C26</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Non Urbain -->
+                        <div class="oneButtonFiltre">
+                            <div class="inputFiltre">
+                                <input type="checkbox" name="filter" value="non-urbain" />
+                            </div>
+                            <div class="dropdown">
+                                <button id="dropdownNonUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="dropdown">Non urbain
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownUrbain">
+                                    <li><input type="checkbox" name="filter" value="C1">C1</li>
+                                    <li class="divider"></li>
+                                    <li><input type="checkbox" name="filter" value="C2">C2</li>
+                                    <li class="divider"></li>
+                                    <li><input type="checkbox" name="filter" value="C86">C86</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Urbain -->
+                        <!--<div class="btn-group">
+                            <button type="button" class="btn btn-default boutonFiltre">
+                                <input type="checkbox" name="filter" value="urbain">Urbain
+                            </button>
+                            
+                            <button type="button" class="btn btn-default dropdown-toggle boutonFiltreDropdown" id="dropdownUrbain" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only caret">Toggle Dropdown</span>
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownUrbain">
+                                <a class="dropdown-item" href="#">C3</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">C6</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">C26</a>
+                            </div>
+                        </div>-->
+                        
+                        <!-- Non urbain -->
+                        <!--<div class="btn-group">
+                            <button type="button" class="btn btn-default boutonFiltre">
+                                <input type="checkbox" name="filter" value="non-urbain">Non urbain
+                            </button>
+                            
+                            <button type="button" class="btn btn-default dropdown-toggle boutonFiltreDropdown" id="dropdownNonUrbain" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only caret">Toggle Dropdown</span>
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownNonUrbain">
+                                <a class="dropdown-item" href="#">C1</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">C2</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">C86</a>
+                            </div>
+                        </div>-->
+                        
+                        <!--<input type="checkbox" name="filter" value="All">Tout sélectionner<br>
                         <input type="checkbox" name="filter" value="Urbain">Urbain<br>
                         <input type="checkbox" name="filter" value="C3">C3<br>
                         <input type="checkbox" name="filter" value="Non-urbain">Non urbain<br>
-                        <input type="checkbox" name="filter" value="C1">C1<br/>
+                        <input type="checkbox" name="filter" value="C1">C1<br/>-->
                     </div>
         		</div>
             </div>
