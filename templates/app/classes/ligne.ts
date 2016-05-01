@@ -4,6 +4,7 @@ export class Ligne {
     id: string;
     name: string;
     category : Boolean;
+    short_name : string;
     points: Arret[];
     color: String;
     polyligne: any;
