@@ -44,6 +44,12 @@
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
                         </div>-->
+
+
+                        Rercher une ligne : 
+                        <input type="text" 
+				          [value]="_searchInput" 
+				          (input)="_searchInput = $event.target.value" />
                         
                         <!-- Tout selectionner -->
                         <div class="oneButtonFiltre">
@@ -124,7 +130,7 @@
 								      	</span>
 								    </div>
 								    <div id="collapseUrbain" class="panel-collapse collapse">
-	                                	<div *ngFor="#ligne of _lignesUrbaines">
+	                                	<div *ngFor="#ligne of _lignesUrbaines | filterName:_searchInput">
 				        					<span class="col-md-offset-1">
 					        					<label>
 						        					<input type="checkbox" name="checkbox" 
@@ -156,7 +162,7 @@
 								      	</span>
 								    </div>
 								    <div id="collapseNonUrbain" class="panel-collapse collapse">
-	                                	<div *ngFor="#ligne of _lignesNonUrbaines">
+	                                	<div *ngFor="#ligne of _lignesNonUrbaines | filterName:_searchInput">
 				        					<span class="col-md-offset-1">
 					        					<label>
 						        					<input type="checkbox" name="checkbox" 

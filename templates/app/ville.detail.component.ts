@@ -9,13 +9,16 @@ import {Ville} from './classes/ville';
 import {Ligne} from './classes/ligne';
 import {Arret} from './classes/arret';
 import {AffichageLigne} from './classes/affichageLigne';
+
 import {HttpRequest} from './classes/httpRequest';
+import {PipeFilter} from './classes/pipeFilter';
 
 @Component({
     selector: 'my-ville-detail',
     templateUrl: 'app/html/detail.html',
     styleUrls: ['app/css/detail.css'],
-    directives: [MapComponent]
+    directives: [MapComponent],
+    pipes: [PipeFilter]
 })
 
 export class VilleDetailComponent {
@@ -35,6 +38,7 @@ export class VilleDetailComponent {
     private _lignesAllChecked: boolean;
     private _lignesUrbainesChecked: boolean;
     private _lignesNonUrbainesChecked: boolean;
+    private _searchInput: string;
 
     private _httpRequest: HttpRequest;
     private _mapComponent: MapComponent;
@@ -57,6 +61,7 @@ export class VilleDetailComponent {
         this._lignesUrbainesChecked = false;
         this._lignesNonUrbainesChecked = false;
         this._lignesAllChecked = false;
+        this._searchInput = "";
 
         this._printedLignes = {};
     }
