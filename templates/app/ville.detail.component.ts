@@ -51,8 +51,8 @@ export class VilleDetailComponent {
         this._mapComponent = new MapComponent();
 
         this._httpRequest = new HttpRequest(this, http);
-        this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes' , this.httpLignesAgences);
-        this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id, this.httpInfoAgence);
+        //this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes' , this.httpLignesAgences);
+        //this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id, this.httpInfoAgence);
                 
         this._lignesUrbainesChecked = false;
         this._lignesNonUrbainesChecked = false;
@@ -62,7 +62,8 @@ export class VilleDetailComponent {
     }
 
     ngOnInit() {
-       /* this._lignes = LIGNES;
+       /**/
+        this._lignes = LIGNES;
         this._lignes[0].points = STOPS_C1;
         this._lignes[1].points = STOPS_C2;
         this._lignes[2].points = STOPS_C3;
@@ -79,7 +80,7 @@ export class VilleDetailComponent {
 
 
         //TODO à supprimer
-        this._mapComponent.initMap(48.68439, 6.18496);*/
+        this._mapComponent.initMap(48.68439, 6.18496);
 
     }
 
@@ -194,6 +195,12 @@ export class VilleDetailComponent {
         this._selectedArret = null;
     }
 
+/*
+==============================================================================
+                            Checkbox
+==============================================================================
+*/
+
     selectTous() {
         this._lignesAllChecked = !this._lignesAllChecked;
 
@@ -263,6 +270,7 @@ export class VilleDetailComponent {
                     //L'affichage sera fait par le callback de la requête
                     //this._httpRequest.get('http://localhost:5000/agencies/1/routes/102', this.httpLigneDetails);
 
+                    //TODO à supprimer
                     this._printedLignes[ligne.id] = new AffichageLigne();
                     this._printedLignes[ligne.id].isPrinted = true;
                     this._printedLignes[ligne.id].polyligne = this._mapComponent.displayLine(ligne);
@@ -301,7 +309,7 @@ function randomColor ( ){
     return color;    
 }
 
-/*var LIGNES: Ligne[] = [
+var LIGNES: Ligne[] = [
     { "id": 11, "name": "C1", "category": true, "points": STOPS_C1, "color": randomColor(), 'isChecked': false},
     { "id": 12, "name": "C2", "category": false, "points": STOPS_C2, "color": randomColor(), 'isChecked': false},
     { "id": 13, "name": "C3", "category": true, "points": STOPS_C3, "color": randomColor(), 'isChecked': false},
@@ -331,4 +339,4 @@ var STOPS_C4: Arret[] = [
     { "id": 21, "name": "Gare Part-Dieu",  "location":{"lng":40.547 , "lat":-0.10}, "is_stop": true }, 
     {  "id": 22, "name": "Brotteaux", "location":{"lng": 45.544 , "lat":-0.11}, "is_stop": true },
     {  "id": 23, "name": "Charpenne", "location":{"lng": 4.455 , "lat":-0.12}, "is_stop": true } 
-];*/
+];
