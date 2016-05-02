@@ -60,29 +60,32 @@ export class MapComponent {
     displayLine(ligne: Ligne) {
         var _this = this;
         
+        var polyline;
         if(ligne.points.length != 0 ){
         
-            var polyline2 = L.polyline(convertLigneToLatLngs(ligne.points), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
+            polyline = L.polyline(convertLigneToLatLngs(ligne.points), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
 
-            polyline2.on('click', function() {
+            polyline.on('click', function() {
                 _this.onClickedLigne.emit(ligne);
             });
         }
         else{
             
-           var polyline3 = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
+            polyline = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
 
-            polyline3.on('click', function() {
+            polyline.on('click', function() {
                 _this.onClickedLigne.emit(ligne);
             }); 
         }
-      var arrets = [];
-		for (var arr of ligne.stops) {
+        
+        var arrets = [];
+		
+        for (var arr of ligne.stops) {
             arrets.push(this.displayArret(arr, ligne));
 		}
 
-        return {'polyligne': polyline2, 'arrets': arrets};
-        }
+        return { 'polyligne': polyline, 'arrets': arrets} ;
+    }
 
     displayArret(arret: Arret, ligne: Ligne) {
         var _this = this;
@@ -104,19 +107,19 @@ export class MapComponent {
         return circle;
     }
 
-    showPolyligne(polyligne: any) {
-        this.mymap.addLayer(polyligne.polyligne);
+    showPolyligne(leaflet: any) {
+        this.mymap.addLayer(leaflet.polyligne);
 
-        for (var arr of polyligne.arrets) {
+        for (var arr of leaflet.arrets) {
             this.mymap.addLayer(arr);
         }
 
     }
 
-    hidePolyligne(polyligne: any) {
-        this.mymap.removeLayer(polyligne.polyligne);
+    hidePolyligne(leaflet: any) {
+        this.mymap.removeLayer(leaflet.polyligne);
 
-        for (var arr of polyligne.arrets) {
+        for (var arr of leaflet.arrets) {
             this.mymap.removeLayer(arr);
         }
     }

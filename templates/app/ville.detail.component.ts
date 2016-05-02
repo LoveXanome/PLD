@@ -103,7 +103,7 @@ export class VilleDetailComponent {
                 
                 _thisVilleDetail._printedLignes[ligne.id] = new AffichageLigne();
                 _thisVilleDetail._printedLignes[ligne.id].isPrinted = true;
-                _thisVilleDetail._printedLignes[ligne.id].polyligne = _thisVilleDetail._mapComponent.displayLine(ligne);
+                _thisVilleDetail._printedLignes[ligne.id].leaflet = _thisVilleDetail._mapComponent.displayLine(ligne);
             }
         }
         //console.debug(idLigne + " chargement terminé");
@@ -269,15 +269,15 @@ export class VilleDetailComponent {
                 {
                     console.debug(ligne.name + " est selectionné devrait etre affiché mais l'est pas")
                     this._printedLignes[ligne.id].isPrinted = true;
-                    this._mapComponent.showPolyligne(this._printedLignes[ligne.id].polyligne);
-                } 
+                    this._mapComponent.showPolyligne(this._printedLignes[ligne.id].leaflet);
+                }
             }
             else {
                
                 if (this._printedLignes[ligne.id] !== undefined && this._printedLignes[ligne.id].isPrinted) 
                 {
                     this._printedLignes[ligne.id].isPrinted = false;
-                    this._mapComponent.hidePolyligne(this._printedLignes[ligne.id].polyligne);
+                    this._mapComponent.hidePolyligne(this._printedLignes[ligne.id].leaflet);
                 }
             }
         
