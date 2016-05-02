@@ -180,8 +180,24 @@
                                             </div>
                                             
                                             <div *ngIf="_selectedLigne">
+                                                
+                                                <!-- Indicateur : Type de la ligne -->
+                                                <div class="col-md-3">    
+                                                    <div class="panel panel-primary text-center">
+                                                        <div class="panel-heading ">
+                                                            Type de la ligne
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <h1 *ngIf="_selectedLigne.category" > Urbain</h1>
+                                                                <h1 *ngIf="!_selectedLigne.category" > Non Urbain</h1>
+                                                            </div>  
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                                
                                                 <!-- Indicateur : nombre de passage -->
-                                                <div class="col-md-6">    
+                                                <div class="col-md-3">    
                                                     <div class="panel panel-primary text-center">
                                                         <div class="panel-heading ">
                                                             Nombre de passage
@@ -206,7 +222,7 @@
                                                 </div>
                                                 
                                                 <!-- Indicateur : Vitesse moyenne -->
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <div class="panel panel-primary text-center">
                                                         <div class="panel-heading ">
                                                             Vitesse moyenne de la ligne
@@ -218,6 +234,26 @@
                                                                         37
                                                                     </h2>
                                                                     Km/h
+                                                                </div>
+                                                            </div>  
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Indicateur : Interdistance -->
+                                                <div class="col-md-3">
+                                                    <div class="panel panel-primary text-center">
+                                                        <div class="panel-heading ">
+                                                            Interdistance
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="row">                                                                
+                                                                <div class="col-md-6 traitMilieu">
+                                                                    <h2>{{_selectedLigne.interdistance}}</h2>
+                                                                    mètres
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <h2>{{_selectedLigne.ratio}}</h2>
+                                                                    ratio
                                                                 </div>
                                                             </div>  
                                                         </div>
@@ -237,7 +273,7 @@
                                     <div class="titre row">
                                         <div class="cold-md-12">
                                             <div class="titreInformations">
-                                                Information de l'arrêt  : <span *ngIf="_selectedArret">{{_selectedArret.nom}}</span>
+                                                Information de l'arrêt  : <span *ngIf="_selectedArret">{{_selectedArret.name}}</span>
                                             </div>
                                         </div>
                                     </div>

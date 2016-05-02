@@ -10,6 +10,8 @@ export class Ligne {
     color: String;
     polyligne: any;
     isChecked: boolean;
+    interdistance : Number;
+    ratio : Number;
 }
 
 function randomColor(){

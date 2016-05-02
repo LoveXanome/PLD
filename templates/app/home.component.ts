@@ -19,6 +19,8 @@ export class HomeComponent {
     private _selectedIdVille: Number;
     private _httpRequest: HttpRequest;
 
+    private _FileUploadName: string;
+
 
     constructor(private _router: Router, routeParams: RouteParams, http: Http) {
         this._httpRequest = new HttpRequest(this, http);
@@ -34,8 +36,16 @@ export class HomeComponent {
         this._selectedIdVille = id;
     }
 
+    onChangeFile(name){
+        this._FileUploadName = name  
+    }
+
     gotoDetail() {
         this._router.navigate(['VilleDetail', { id: this._selectedIdVille } ]);
+    }
+
+    uploadFile(){
+
     }
 
     getResult(_this : any, data: any) {

@@ -98,9 +98,7 @@ export class MapComponent {
            Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
         */
         circle.on('click', function() {
-            console.debug('Avant l appel de onClickedArret');
             _this.onClickedArret.emit(arret);
-            console.debug('Après l appel de onClickedArret');
         });
 
         return circle;

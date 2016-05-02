@@ -79,6 +79,11 @@ export class VilleDetailComponent {
     httpLignesAgences(_thisVilleDetail : any, _data : any){
         //recuperation des lignes
         _thisVilleDetail._lignes = _data.routes;
+        for( var ligne of _thisVilleDetail._lignes){
+            ligne.interdistance = Math.floor(ligne.interdistance);
+            if(ligne.ratio != null )
+                ligne.ratio = Math.round(ligne.ratio * 1000) / 1000;
+        }
     }
 
      
@@ -92,6 +97,7 @@ export class VilleDetailComponent {
             {   
                 ligne.points = data.route.points;
                 ligne.stops = data.route.stops;
+
                 //console.debug(ligne.points);
                 ligne.color = randomColor();
                 
@@ -142,19 +148,19 @@ export class VilleDetailComponent {
     */
     onClickedArret(arret: Arret) {
         this._selectedArret = arret;
-        //console.debug(arret);
-
+        //console.debug(arret);       
+        
         //On vérifie que la ligne séléctionner appartient à l'arrêt
         if (this._selectedLigne == null)
             return;
 
-        for (var arr of this._selectedLigne.points) {
+        for (var arr of this._selectedLigne.stops) {
             if (arr == arret) {
                 return;
             }
         }
 
-        this._selectedLigne = null;
+        //this._selectedLigne = null;
     }
 
     /*
@@ -167,7 +173,7 @@ export class VilleDetailComponent {
         if (this._selectedArret == null)
             return;
 
-        for (var arr of ligne.points) {
+        for (var arr of ligne.stops) {
             if (arr == this._selectedArret) {
                 return;
             }
