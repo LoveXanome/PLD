@@ -55,8 +55,8 @@ export class VilleDetailComponent {
         this._mapComponent = new MapComponent();
 
         this._httpRequest = new HttpRequest(this, http);
-        //this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes' , this.httpLignesAgences);
-        //this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id, this.httpInfoAgence);
+        this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes' , this.httpLignesAgences);
+        this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id, this.httpInfoAgence);
                 
         this._lignesUrbainesChecked = false;
         this._lignesNonUrbainesChecked = false;
@@ -67,7 +67,7 @@ export class VilleDetailComponent {
     }
 
     ngOnInit() {
-       /**/
+       /*
         this._lignes = LIGNES;
         this._lignes[0].points = STOPS_C1;
         this._lignes[1].points = STOPS_C2;
@@ -85,7 +85,7 @@ export class VilleDetailComponent {
 
 
         //TODO à supprimer
-        this._mapComponent.initMap(48.68439, 6.18496);
+        this._mapComponent.initMap(48.68439, 6.18496);*/
 
     }
 
