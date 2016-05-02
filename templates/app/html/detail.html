@@ -4,26 +4,104 @@
 	</div>
 </div>
 
-<hr/>
-
 <div class="mapEtIndicateurs row">
             
     <!-- Row map -->
     <div class="rowMap row">
-        <div class="col-md-12">
-			<my-map 
-    			(onClickedArret)="onClickedArret($event)" 
-    			(onClickedLigne)="onClickedLigne($event)">
-    		</my-map>
+        <div class="col-md-10">
+            <my-map 
+                (onClickedArret)="onClickedArret($event)" 
+                (onClickedLigne)="onClickedLigne($event)">
+            </my-map>
+        </div> 
+        <div class="col-md-2 maxHeighMap">
+            <!-- Recherche d'une ligne en particulier -->
+            <div class="row text-center">
+                Rechercher une ligne : 
+                <input type="text" 
+                  [value]="_searchInput" 
+                  (input)="_searchInput = $event.target.value" />
+            </div>
+            
+            <!-- Tout selectionner -->
+            <div class="row text-center">
+                <div class="oneButtonFiltre">
+                    <div class="inputFiltre">
+                        <input type="checkbox" name="filter" value="all" [checked]="_lignesAllChecked" (click)="selectTous()"/>
+                    </div>
+                    <button type="button" class="btn btn-default boutonFiltre">     
+                        Tout sélectionner
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Urbain -->
+            <div class="row m-b-0">
+                <div class="text-center">
+                    <div class="oneButtonFiltre">
+                        <div class="inputFiltre">
+                            <input type="checkbox" name="filter" value="urbain" [checked]="_lignesUrbainesChecked" (click)="selectUrbain()"/>
+                        </div>
+
+                        <span id="dropdownUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="collapse" href="#collapseUrbain">
+                            Urbain
+                        </span>
+                    </div>
+                    
+                    <div id="collapseUrbain" class="panel-collapse collapse">
+                        <div class="surroundArrets">
+                            <div *ngFor="#ligne of _lignesUrbaines | filterName:_searchInput">
+                                <span class="col-md-offset-1">
+                                    <label>
+                                        <input type="checkbox" name="checkbox" 
+                                        (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+                                        <div class="affDynamiqueCheckbox">
+                                            Bus {{ligne.short_name}}
+                                        </div>
+                                    </label>                                
+                                </span>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- Non Urbain -->
+            <div class="row">
+                <div class="text-center">
+                    <div class="oneButtonFiltre">
+                        <div class="inputFiltre">
+                            <input type="checkbox" name="filter" value="nonUrbain" [checked]="_lignesNonUrbainesChecked" (click)="selectNonUrbain()"/>
+                        </div>
+
+                        <span id="dropdownNonUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="collapse" href="#collapseNonUrbain">
+                            Non Urbain
+                        </span>
+                    </div>
+                    
+                    <div id="collapseNonUrbain" class="panel-collapse collapse">
+                        <div class="surroundArrets">
+                            <div *ngFor="#ligne of _lignesNonUrbaines | filterName:_searchInput">
+                                <span class="col-md-offset-1">
+                                    <label>
+                                        <input type="checkbox" name="checkbox" 
+                                        (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+                                        <div class="affDynamiqueCheckbox">
+                                            Bus {{ligne.short_name}}
+                                        </div>
+                                    </label>                                
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div> 
     </div>
 
     <div class="row">
-            <!-- Nav tabs -->
+        <!-- Nav tabs -->
         <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="#Filtre" data-toggle="tab">Filtre</a>
-            </li>
             <li>
                 <a href="#Indicateur" data-toggle="tab">Indicateurs</a>
             </li>
@@ -36,101 +114,7 @@
         <div class="filtreBusSurMap col-md-12">
 
             <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active col-md-offset-4" id="Filtre">
-                    <h4>Filtres :</h4>
-
-                    <!-- Recherche d'une ligne en particulier -->
-                    <div class="row text-center">
-                        <div class="col-md-6">
-                        
-                            Rechercher une ligne : 
-	                        <input type="text" 
-					          [value]="_searchInput" 
-					          (input)="_searchInput = $event.target.value" />
-                            
-                        </div>
-                    </div>
-                    
-                    <!-- Tout selectionner -->
-                    <div class="row text-center">
-                    	<div class="col-md-6">
-
-	                        <div class="oneButtonFiltre">
-	                            <div class="inputFiltre">
-	                                <input type="checkbox" name="filter" value="all" [checked]="_lignesAllChecked" (click)="selectTous()"/>
-	                            </div>
-	                            <button type="button" class="btn btn-default boutonFiltre">		
-	                            	Tout sélectionner
-	                            </button>
-	                        </div>
-
-                    	</div>                        
-                    </div>
-                    
-                    <!-- Urbain -->
-					<div class="row m-b-0">
-						<div class="col-md-6 text-center">
-                            <div class="oneButtonFiltre">
-                                <div class="inputFiltre">
-                                    <input type="checkbox" name="filter" value="urbain" [checked]="_lignesUrbainesChecked" (click)="selectUrbain()"/>
-                                </div>
-
-                                <span id="dropdownUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="collapse" href="#collapseUrbain">
-                                    Urbain
-                                </span>
-                            </div>
-                            
-                            <div id="collapseUrbain" class="panel-collapse collapse">
-                                <div class="surroundArrets">
-                                    <div *ngFor="#ligne of _lignesUrbaines | filterName:_searchInput">
-                                        <span class="col-md-offset-1">
-                                            <label>
-                                                <input type="checkbox" name="checkbox" 
-                                                (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-                                                <div class="affDynamiqueCheckbox">
-                                                    Bus {{ligne.short_name}}
-                                                </div>
-                                            </label>        						
-                                        </span>
-                                    </div>
-                                </div>
-						     </div>
-                        </div>
-					</div>
-                    
-                    <!-- Non Urbain -->
-                    <div class="row">
-                        <div class="col-md-6 text-center">
-                            <div class="oneButtonFiltre">
-                                <div class="inputFiltre">
-                                    <input type="checkbox" name="filter" value="nonUrbain" [checked]="_lignesNonUrbainesChecked" (click)="selectNonUrbain()"/>
-                                </div>
-
-                                <span id="dropdownNonUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="collapse" href="#collapseNonUrbain">
-                                    Non Urbain
-                                </span>
-                            </div>
-                            
-                            <div id="collapseNonUrbain" class="panel-collapse collapse">
-                                <div class="surroundArrets">
-                                    <div *ngFor="#ligne of _lignesNonUrbaines | filterName:_searchInput">
-                                        <span class="col-md-offset-1">
-                                            <label>
-                                                <input type="checkbox" name="checkbox" 
-                                                (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-                                                <div class="affDynamiqueCheckbox">
-                                                    Bus {{ligne.short_name}}
-                                                </div>
-                                            </label>        						
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+            <div class="tab-content">                
                 <div class="tab-pane fade" id="Indicateur">
                     <!-- Row Indicateurs -->
                     <div class="rowIndicateur row"> <!-- anciennement class="fenetre" -->
@@ -145,7 +129,7 @@
                                         <div class="cold-md-12">
                                             <div class="titreInformations">
                                                 Information de la ligne : 
-                                                <span *ngIf="_selectedLigne">
+                                                <span *ngIf="_selectedLigne" class="nomClickedLigne">
                                                     {{_selectedLigne.name}}
                                                 </span>
                                             </div>

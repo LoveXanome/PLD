@@ -61,7 +61,7 @@
     height: 400px;*/
 }
 
-.filtreBusSurMap .boutonFiltre {
+.boutonFiltre {
     display: inline-block;
     width: 100%;
 }
@@ -117,4 +117,13 @@
 
 .filtreBusSurMap .row {
     margin-top: 10px;
+}
+
+.maxHeighMap {
+    max-height: 80%;
+    overflow: auto;
+}
+
+.nomClickedLigne {
+    font-size: large;
 }
