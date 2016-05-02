@@ -40,6 +40,9 @@ export class VilleDetailComponent {
     private _lignesNonUrbainesChecked: boolean;
     private _searchInput: string;
 
+    private _loadingAgence: boolean;
+    private _loadingRoutes: boolean;
+
     private _httpRequest: HttpRequest;
     private _mapComponent: MapComponent;
 
@@ -55,6 +58,9 @@ export class VilleDetailComponent {
         this._mapComponent = new MapComponent();
         this._mapComponent.onClickedLigne.subscribe(item => this.onClickedLigne(item));
         this._mapComponent.onClickedArret.subscribe(item => this.onClickedArret(item));
+
+        this._loadingAgence = true;
+        this._loadingRoutes = true;
 
         this._httpRequest = new HttpRequest(this, http);
         this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes' , this.httpLignesAgences);
@@ -84,9 +90,10 @@ export class VilleDetailComponent {
             if(ligne.ratio != null )
                 ligne.ratio = Math.round(ligne.ratio * 1000) / 1000;
         }
+
+        _thisVilleDetail._loadingAgence = false;
     }
 
-     
     httpLigneDetails(_thisVilleDetail : any, data: any){
         //console.debug(data);
         var idLigne = data.route.id;
@@ -132,6 +139,8 @@ export class VilleDetailComponent {
             else
                 _thisVilleDetail._lignesNonUrbaines.push(ligne);
         }
+
+        _thisVilleDetail._loadingRoutes = false;
     }
 
     /*
