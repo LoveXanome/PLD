@@ -246,7 +246,6 @@ export class VilleDetailComponent {
 
     //Parcours toutes les lignes et envoit la requêtes pour les affiché
     afficherLignes() {
-
         for (var ligne of this._lignes) {
             if(ligne.isChecked)
             {
