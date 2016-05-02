@@ -27,7 +27,8 @@
 	        			(onClickedLigne)="onClickedLigne($event)">
 	        		</my-map>
                     
-                    <!-- TODO : Changer les données brutes en données dynamiques --> 
+                    <hr/>
+                    
                     <!-- Filtre sur la map -->
                     <div class="filtreBusSurMap col-md-12">
                         <h4>Filtres :</h4>
@@ -44,16 +45,21 @@
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
                         </div>-->
-
+                        <!-- Recherche d'une ligne en particulier -->
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                            
+                                Rercher une ligne : 
+		                        <input type="text" 
+						          [value]="_searchInput" 
+						          (input)="_searchInput = $event.target.value" />
+                                
+                            </div>
+                        </div>
                         
                         <!-- Tout selectionner -->
                         <div class="row text-center">
                         	<div class="col-md-6">
-
-		                        Rercher une ligne : 
-		                        <input type="text" 
-						          [value]="_searchInput" 
-						          (input)="_searchInput = $event.target.value" />
 
 		                        <div class="oneButtonFiltre">
 		                            <div class="inputFiltre">
@@ -69,7 +75,7 @@
                         
                         <!-- Urbain -->
 						<div class="row m-b-0">
-							<div class="panel-group col-md-6 text-center">
+							<div class="col-md-6 text-center">
                                 <div class="oneButtonFiltre">
                                     <div class="inputFiltre">
                                         <input type="checkbox" name="filter" value="urbain" [checked]="_lignesUrbainesChecked" (click)="selectUrbain()"/>
@@ -100,7 +106,7 @@
                         
                         <!-- Non Urbain -->
                         <div class="row">
-                            <div class="panel-group col-md-6 text-center">
+                            <div class="col-md-6 text-center">
                                 <div class="oneButtonFiltre">
                                     <div class="inputFiltre">
                                         <input type="checkbox" name="filter" value="nonUrbain" [checked]="_lignesNonUrbainesChecked" (click)="selectNonUrbain()"/>
@@ -129,9 +135,12 @@
                             </div>
                         </div>
                     </div>
+                    
         		</div>
 
             </div>
+            
+            <hr/>
             
             <!-- Row Indicateurs -->
             <div class="rowIndicateur row"> <!-- anciennement class="fenetre" -->
