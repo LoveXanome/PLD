@@ -53,6 +53,8 @@ export class VilleDetailComponent {
         this._lignesNonUrbaines = [];
         //this._lignes = [];
         this._mapComponent = new MapComponent();
+        this._mapComponent.onClickedLigne.subscribe(item => this.onClickedLigne(item));
+        this._mapComponent.onClickedArret.subscribe(item => this.onClickedArret(item));
 
         this._httpRequest = new HttpRequest(this, http);
         this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes' , this.httpLignesAgences);
@@ -74,19 +76,17 @@ export class VilleDetailComponent {
                             RESULTATS HTTP
 ==============================================================================
 */
-    httpLignesAgences(_this : any, _data : any){
-        
+    httpLignesAgences(_thisVilleDetail : any, _data : any){
         //recuperation des lignes
-        _this._lignes = _data.routes;
-       
+        _thisVilleDetail._lignes = _data.routes;
     }
 
      
-    httpLigneDetails(_this : any, data: any){
+    httpLigneDetails(_thisVilleDetail : any, data: any){
         //console.debug(data);
         var idLigne = data.route.id;
         //console.debug(idLigne);
-        for (var ligne of _this._lignes)
+        for (var ligne of _thisVilleDetail._lignes)
         {
             if(ligne.id==idLigne)
             {   
@@ -95,9 +95,9 @@ export class VilleDetailComponent {
                 //console.debug(ligne.points);
                 ligne.color = randomColor();
                 
-                _this._printedLignes[ligne.id] = new AffichageLigne();
-                _this._printedLignes[ligne.id].isPrinted = true;
-                _this._printedLignes[ligne.id].polyligne = _this._mapComponent.displayLine(ligne);
+                _thisVilleDetail._printedLignes[ligne.id] = new AffichageLigne();
+                _thisVilleDetail._printedLignes[ligne.id].isPrinted = true;
+                _thisVilleDetail._printedLignes[ligne.id].polyligne = _thisVilleDetail._mapComponent.displayLine(ligne);
             }
         }
         //console.debug(idLigne + " chargement terminé");
@@ -107,24 +107,24 @@ export class VilleDetailComponent {
     /*
     le this. est undefined, car la function est appellé par httpRequest. Il est donc passé en paramètre
     */
-    httpInfoAgence(_this : any, _data : any) {
+    httpInfoAgence(_thisVilleDetail : any, _data : any) {
         
         //recuperation du nom du réseau
-        _this._selectedVille.agency = _data.agency.name;
+        _thisVilleDetail._selectedVille.agency = _data.agency.name;
         
          //Initialisation de la map
-        _this._mapComponent.initMap(_data.agency.location.lat, _data.agency.location.lng);   
+        _thisVilleDetail._mapComponent.initMap(_data.agency.location.lat, _data.agency.location.lng);   
         
         /*
             trie des lignes entre urbaines ou pas
         */
-        for (var ligne of _this._lignes)
+        for (var ligne of _thisVilleDetail._lignes)
         {   
 
             if (ligne.category == true)
-                _this._lignesUrbaines.push(ligne);
+                _thisVilleDetail._lignesUrbaines.push(ligne);
             else
-                _this._lignesNonUrbaines.push(ligne);
+                _thisVilleDetail._lignesNonUrbaines.push(ligne);
         }
     }
 
