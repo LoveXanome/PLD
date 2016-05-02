@@ -119,7 +119,7 @@ export class VilleDetailComponent {
                 _this._printedLignes[ligne.id].polyligne = _this._mapComponent.displayLine(ligne);
             }
         }
-        console.debug(idLigne + " chargement terminé");
+        //console.debug(idLigne + " chargement terminé");
     }
      
 
@@ -129,9 +129,7 @@ export class VilleDetailComponent {
     httpInfoAgence(_this : any, _data : any) {
         
         //recuperation du nom du réseau
-        _this._selectedVille.agency = _data.name;
-        
-        //console.debug(_data.agency.location.lat + " "+ _data.agency.location.lng);
+        _this._selectedVille.agency = _data.agency.name;
         
          //Initialisation de la map
         _this._mapComponent.initMap(_data.agency.location.lat, _data.agency.location.lng);   
