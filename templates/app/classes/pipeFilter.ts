@@ -11,7 +11,7 @@ export class PipeFilter{
             return value;
         }
 	  	return value.filter(
-	  		(item) => item.name.toLowerCase().startsWith(nameFilter.toLowerCase())
+	  		(item) => ("bus " + item.short_name.toLowerCase()).startsWith(nameFilter.toLowerCase())
 	  	);
 	}
 }
