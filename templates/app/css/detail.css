@@ -63,7 +63,7 @@
 
 .filtreBusSurMap .boutonFiltre {
     display: inline-block;
-    width: 400px;
+    width: 100%;
 }
 
 .inputFiltre {
@@ -87,8 +87,13 @@
 }
 
 .surroundArrets {
-    width: 80%;
-    margin: auto;
+    width: 100%;
+    padding-left: 10px;
+    border-color: #CCC;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0px 0px 4px 4px;
 }
 
 .surroundArrets div {
