@@ -45,76 +45,31 @@
                             </div>
                         </div>-->
 
-
-                        Rercher une ligne : 
-                        <input type="text" 
-				          [value]="_searchInput" 
-				          (input)="_searchInput = $event.target.value" />
                         
                         <!-- Tout selectionner -->
-                        <div class="oneButtonFiltre">
-                            <div class="inputFiltre">
-                                <input type="checkbox" name="filter" value="all" [checked]="_lignesAllChecked" (click)="selectTous()"/>
-                            </div>
-                            <button type="button" class="btn btn-default boutonFiltre">		
-                            	Tout sélectionner
-                            </button>
+                        <div class="row text-center">
+                        	<div class="col-md-6">
+
+		                        Rercher une ligne : 
+		                        <input type="text" 
+						          [value]="_searchInput" 
+						          (input)="_searchInput = $event.target.value" />
+
+		                        <div class="oneButtonFiltre">
+		                            <div class="inputFiltre">
+		                                <input type="checkbox" name="filter" value="all" [checked]="_lignesAllChecked" (click)="selectTous()"/>
+		                            </div>
+		                            <button type="button" class="btn btn-default boutonFiltre">		
+		                            	Tout sélectionner
+		                            </button>
+		                        </div>
+
+                        	</div>                        
                         </div>
                         
                         <!-- Urbain -->
-                        <div class="oneButtonFiltre">
-                            <div class="inputFiltre">
-                                <input type="checkbox" name="filter" value="urbain" [checked]="_lignesUrbainesChecked" (click)="selectUrbain()"/>
-                            </div>
-
-                            <div class="dropdown">
-                                <button id="dropdownUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="dropdown">Urbain
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownUrbain">
-                                	<div *ngFor="#ligne of _lignesUrbaines">
-	                            		<li>
-				        					<span class="col-md-offset-1">
-					        					<label>
-						        					<input type="checkbox" name="checkbox" 
-						        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-						        					{{ligne.name}}
-						        				</label>        						
-				        					</span>
-	                                    </li>
-			        				</div>
-                                </ul>
-                            </div>
-                    	</div>
-
-                        <!-- Non Urbain -->
-                        <div class="oneButtonFiltre">
-                            <div class="inputFiltre">
-								<input type="checkbox" name="checkbox" value="non-urbain"
-								(click)="selectNonUrbain()" [checked]="_lignesNonUrbainesChecked">
-                            </div>
-                            <div class="dropdown">
-                                <button id="dropdownNonUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="dropdown">Non urbain
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownUrbain">
-                                	<div *ngFor="#ligne of _lignesNonUrbaines">
-	                            		<li>
-				        					<span class="col-md-offset-1">
-					        					<label>
-						        					<input type="checkbox" name="checkbox" 
-						        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-						        					{{ligne.name}}
-						        				</label>        						
-				        					</span>
-	                                    </li>
-			        				</div>
-                                </ul>
-                            </div>
-                        </div>
-
-						<div class="row">
-							<div class="panel-group m-b-0 col-md-6 text-center">
+						<div class="row m-b-0">
+							<div class="panel-group col-md-6 text-center">
 								<div class="panel panel-default ">
 								    <div class="panel-heading">
 								      	<span class="panel-title">
@@ -144,7 +99,7 @@
 							</div>
 						</div>
                         
-
+                        <!-- Non Urbain -->
 						<div class="row">
 	                        <div class="panel-group col-md-6 text-center">
 								<div class="panel panel-default">
@@ -176,9 +131,11 @@
 							</div>
                         </div>
 
-						<div>
-							<button class="btn" (click)="afficherLignes()">Afficher les lignes</button>
-						</div>
+                        <div class="row">
+							<div class="col-md-6 text-center">
+								<button class="btn" (click)="afficherLignes()">Afficher les lignes</button>
+							</div>
+                        </div>
                         
                         <!-- Urbain -->
                         <!--<div class="btn-group">
