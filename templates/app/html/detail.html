@@ -44,7 +44,7 @@
                     <div class="row text-center">
                         <div class="col-md-6">
                         
-                            Rercher une ligne : 
+                            Rechercher une ligne : 
 	                        <input type="text" 
 					          [value]="_searchInput" 
 					          (input)="_searchInput = $event.target.value" />
@@ -89,7 +89,7 @@
                                                 <input type="checkbox" name="checkbox" 
                                                 (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
                                                 <div class="affDynamiqueCheckbox">
-                                                    {{ligne.name}}
+                                                    Bus {{ligne.short_name}}
                                                 </div>
                                             </label>        						
                                         </span>
@@ -120,7 +120,7 @@
                                                 <input type="checkbox" name="checkbox" 
                                                 (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
                                                 <div class="affDynamiqueCheckbox">
-                                                    {{ligne.name}}
+                                                    Bus {{ligne.short_name}}
                                                 </div>
                                             </label>        						
                                         </span>
