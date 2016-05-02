@@ -141,7 +141,6 @@ export class VilleDetailComponent {
        // console.debug(_this._lignes );
         for (var ligne of _this._lignes)
         {   
-            _this._httpRequest.get('http://localhost:5000/agencies/'+ _this._selectedVille.id +'/routes/'+ligne.id , _this.httpLigneDetails);
 
             if (ligne.category == true)
                 _this._lignesUrbaines.push(ligne);
@@ -221,7 +220,8 @@ export class VilleDetailComponent {
         { 
             ligne.isChecked = this._lignesAllChecked;
         }
-     
+        
+        this.afficherLignes();
     }
 
     selectUrbain() {
@@ -235,6 +235,8 @@ export class VilleDetailComponent {
             else
                 ligne.isChecked = false;
         }
+        
+        this.afficherLignes();
     }
 
     selectNonUrbain() {
@@ -247,6 +249,8 @@ export class VilleDetailComponent {
             else
                 ligne.isChecked = false;
         }
+        
+        this.afficherLignes();
     }
 
     selectLigne(ligne: Ligne) {
@@ -258,6 +262,8 @@ export class VilleDetailComponent {
 
         if (!ligne.isChecked && !ligne.category && this._lignesNonUrbainesChecked)
             this._lignesNonUrbainesChecked = false;
+        
+        this.afficherLignes();
     }
 
     //Parcours toutes les lignes et envoit la requêtes pour les affiché
@@ -271,12 +277,7 @@ export class VilleDetailComponent {
                 {
                      console.debug(ligne.name + " est selectionné  mais undifined")
                     //L'affichage sera fait par le callback de la requête
-                    //this._httpRequest.get('http://localhost:5000/agencies/1/routes/102', this.httpLigneDetails);
-
-                    //TODO à supprimer
-                    this._printedLignes[ligne.id] = new AffichageLigne();
-                    this._printedLignes[ligne.id].isPrinted = true;
-                    this._printedLignes[ligne.id].polyligne = this._mapComponent.displayLine(ligne);
+                    this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+ligne.id , this.httpLigneDetails);
                 }
                 // la ligne à été afficher mais elle n'est pas afficher actuellement
                 else if (!this._printedLignes[ligne.id].isPrinted) 
