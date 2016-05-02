@@ -85,15 +85,19 @@
 								      	</span>
 								    </div>
 								    <div id="collapseUrbain" class="panel-collapse collapse">
-	                                	<div *ngFor="#ligne of _lignesUrbaines | filterName:_searchInput">
-				        					<span class="col-md-offset-1">
-					        					<label>
-						        					<input type="checkbox" name="checkbox" 
-						        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-						        					{{ligne.name}}
-						        				</label>        						
-				        					</span>
-				        				</div>
+                                        <div class="surroundArrets">
+                                            <div *ngFor="#ligne of _lignesUrbaines | filterName:_searchInput">
+                                                <span class="col-md-offset-1">
+                                                    <label>
+                                                        <input type="checkbox" name="checkbox" 
+                                                        (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+                                                        <div class="affDynamiqueCheckbox">
+                                                            {{ligne.name}}
+                                                        </div>
+                                                    </label>        						
+                                                </span>
+                                            </div>
+                                        </div>
 								    </div>
 							  	</div>
 							</div>
@@ -117,15 +121,19 @@
 								      	</span>
 								    </div>
 								    <div id="collapseNonUrbain" class="panel-collapse collapse">
-	                                	<div *ngFor="#ligne of _lignesNonUrbaines | filterName:_searchInput">
-				        					<span class="col-md-offset-1">
-					        					<label>
-						        					<input type="checkbox" name="checkbox" 
-						        					(click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-						        					{{ligne.name}}
-						        				</label>        						
-				        					</span>
-				        				</div>
+	                                	<div class="surroundArrets">
+                                            <div *ngFor="#ligne of _lignesNonUrbaines | filterName:_searchInput">
+                                                <span class="col-md-offset-1">
+                                                    <label>
+                                                        <input type="checkbox" name="checkbox" 
+                                                        (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+                                                        <div class="affDynamiqueCheckbox">
+                                                            {{ligne.name}}
+                                                        </div>
+                                                    </label>        						
+                                                </span>
+                                            </div>
+                                        </div>
 								    </div>
 							  	</div>
 							</div>

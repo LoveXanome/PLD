@@ -85,3 +85,27 @@
 .rowMap my-map {
     /*display: block;*/
 }
+
+.surroundArrets {
+    width: 80%;
+    margin: auto;
+}
+
+.surroundArrets div {
+    width: 100%;
+}
+
+.surroundArrets label {
+    width: 100%;
+    display: flex;
+}
+
+.surroundArrets span {
+    margin: 0px;   
+}
+
+.surroundArrets .affDynamiqueCheckbox {
+    display: inline;
+    text-align: left;
+    margin-left: 14px;
+}
