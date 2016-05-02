@@ -59,21 +59,26 @@ export class MapComponent {
 
     displayLine(ligne: Ligne) {
         var _this = this;
+        
+        if(ligne.points.length != 0 ){
+        
+            var polyline2 = L.polyline(convertLigneToLatLngs(ligne.points), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
 
-        var polyline2 = L.polyline(convertLigneToLatLngs(ligne.points), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
+            polyline2.on('click', function() {
+                _this.onClickedLigne.emit(ligne);
+            });
+        }
+        else{
+            
+           var polyline3 = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
 
-        polyline2.on('click', function() {
-            _this.onClickedLigne.emit(ligne);
-        });
-
+            polyline3.on('click', function() {
+                _this.onClickedLigne.emit(ligne);
+            }); 
+        }
       var arrets = [];
-		for (var arr of ligne.points) {
-            //arr.ligneId = ligne.id;
-			if (arr.is_stop == true)
-            {
-                //console.debug(""+arr.name);
-                arrets.push(this.displayArret(arr, ligne));
-            }
+		for (var arr of ligne.stops) {
+            arrets.push(this.displayArret(arr, ligne));
 		}
 
         return {'polyligne': polyline2, 'arrets': arrets};

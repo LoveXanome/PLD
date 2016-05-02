@@ -91,6 +91,7 @@ export class VilleDetailComponent {
             if(ligne.id==idLigne)
             {   
                 ligne.points = data.route.points;
+                ligne.stops = data.route.stops;
                 //console.debug(ligne.points);
                 ligne.color = randomColor();
                 

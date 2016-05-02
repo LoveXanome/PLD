@@ -6,6 +6,7 @@ export class Ligne {
     category : Boolean;
     short_name : string;
     points: Arret[];
+    stops: Arret[];
     color: String;
     polyligne: any;
     isChecked: boolean;
