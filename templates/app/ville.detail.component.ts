@@ -82,6 +82,25 @@ export class VilleDetailComponent {
                             RESULTATS HTTP
 ==============================================================================
 */
+     
+    httpGetVitesseLigne(_thisVilleDetail : any, _data : any){
+         _thisVilleDetail._selectedLigne.vitesse = Math.round(_data.vitesse_moyenne.vitesse_moyenne_ligne * 1000) / 1000;
+    }
+     
+    httpGetVitesseArret(_thisVilleDetail : any, _data : any){
+        _thisVilleDetail._selectedArret.vitesse = Math.round(_data.vitesse_moyenne.vitesse_moyenne_troncon * 1000 ) /1000;
+        
+        console.debug( _thisVilleDetail._selectedArret.vitesse );
+        
+    }
+        
+    httpGetPassage (_thisVilleDetail : any, _data : any){
+        
+        _thisVilleDetail._selectedArret.passagesSemaine = _data.passages.passagesSemaine;
+        _thisVilleDetail._selectedArret.passagesWE = _data.passages.passagesWE;
+        
+    } 
+     
     httpLignesAgences(_thisVilleDetail : any, _data : any){
         //recuperation des lignes
         _thisVilleDetail._lignes = _data.routes;
@@ -116,7 +135,6 @@ export class VilleDetailComponent {
         //console.debug(idLigne + " chargement terminé");
     }
      
-
     /*
     le this. est undefined, car la function est appellé par httpRequest. Il est donc passé en paramètre
     */
@@ -143,6 +161,11 @@ export class VilleDetailComponent {
         _thisVilleDetail._loadingRoutes = false;
     }
 
+/*
+==============================================================================
+                            Indicateurs
+==============================================================================
+*/
     /*
         Appellé lorsqu'on clique sur un arrêt pour la lignes
     */
@@ -158,6 +181,8 @@ export class VilleDetailComponent {
     onClickedArret(arret: Arret) {
         this._selectedArret = arret;
         //console.debug(arret);       
+        
+        this.getIndicateurArret(arret);
         
         //On vérifie que la ligne séléctionner appartient à l'arrêt
         if (this._selectedLigne == null)
@@ -178,6 +203,10 @@ export class VilleDetailComponent {
     onClickedLigne(ligne: Ligne) {
         this._selectedLigne = ligne;
 
+                
+        var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/vitesse';
+        this._httpRequest.get(requete, this.httpGetVitesseLigne);
+        
         //On vérifie que l'arrêt séléctionner appartient à la ligne 
         if (this._selectedArret == null)
             return;
@@ -189,6 +218,16 @@ export class VilleDetailComponent {
         }
      
         this._selectedArret = null;
+    }
+     
+     
+    getIndicateurArret( arr : Arret){
+         var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/stops/'+this._selectedArret.id+'/passages';
+        
+        var requete2 : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/stops/'+this._selectedArret.id+'/vitesse';
+        
+        this._httpRequest.get(requete, this.httpGetPassage);
+        this._httpRequest.get(requete2, this.httpGetVitesseArret);
     }
 
 /*
@@ -292,6 +331,11 @@ export class VilleDetailComponent {
         
         }
     }
+     
+     goBack(){
+         window.history.back();
+     }
+     
 }
 
 function randomColor ( ){

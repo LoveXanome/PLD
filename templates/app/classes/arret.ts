@@ -5,4 +5,7 @@ export class Arret {
   is_stop: Boolean;
   name: String;
   location: Location;
+  passagesSemaine : Number;
+  passagesWE : Number;
+  vitesse : Number;
 }

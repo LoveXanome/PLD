@@ -1,3 +1,9 @@
+titre,
+.corps {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 .divMap {
     background-color: grey;
     height: 90%;
@@ -128,6 +134,10 @@
     font-size: large;
 }
 
+.panel-body {
+    height: 125px;
+}
+
 /*
     Loading icon
 
@@ -136,7 +146,6 @@
     Source : https://gist.github.com/alexandrevicenzi/680147013e902a4eaa5d
     This version adds support for IE 10+ and Firefox.
 */
-
 .glyphicon-refresh-animate {
     font-size: 40px;
     margin-top: 15%;
