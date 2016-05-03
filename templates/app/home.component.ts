@@ -10,7 +10,7 @@ import {VilleDetailComponent} from './ville.detail.component';
 @Component({
     selector: 'my-home',
     templateUrl: 'app/html/home.html',
-    styleUrls: ['app/css/home.css']
+    styleUrls: ['app/css/home.css', 'app/css/style.css']
 })
 
 export class HomeComponent {

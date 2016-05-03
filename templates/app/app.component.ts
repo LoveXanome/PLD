@@ -7,14 +7,7 @@ import {MapComponent} from './map.component';
 
 @Component({
 	selector: 'my-app',
-	template: `
-	  <div class="titre">
-	  	<h1 class="text-center">Bienvenue dans Urban Bus</h1>
-	  </div>
- 	  <div class="corps">
-	    <router-outlet></router-outlet>
-	  </div>
-	`,
+    templateUrl: 'app/html/app.html',
   	styleUrls: ['app/css/style.css'],
 	directives: [ROUTER_DIRECTIVES]
 })
