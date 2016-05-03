@@ -12,6 +12,7 @@ export class Ligne {
     isChecked: boolean;
     interdistance : Number;
     ratio : Number;
+    vitesse : Number;
 }
 
 function randomColor(){
