@@ -46,6 +46,9 @@ export class VilleDetailComponent {
     private _httpRequest: HttpRequest;
     private _mapComponent: MapComponent;
 
+    private _sTimeout: number;
+    private _boolTimeOut: boolean;
+
     constructor(private _router: Router, routeParams: RouteParams, http: Http) {
         this._selectedVille = new Ville();
         
@@ -65,6 +68,9 @@ export class VilleDetailComponent {
         this._httpRequest = new HttpRequest(this, http);
         this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes' , this.httpLignesAgences);
         this._httpRequest.get('http://localhost:5000/agencies/'+ this._selectedVille.id, this.httpInfoAgence);
+
+        this._sTimeout = setTimeout(() => this.timeOutServer(), 15000);
+        this._boolTimeOut = false;
                 
         this._lignesUrbainesChecked = false;
         this._lignesNonUrbainesChecked = false;
@@ -78,6 +84,10 @@ export class VilleDetailComponent {
     }
 
     ngOnInit() {
+    }
+    
+    timeOutServer() { 
+        this._boolTimeOut = true;
     }
 
 /*
