@@ -195,7 +195,8 @@ export class VilleDetailComponent {
             return;
         this._selectedArret = arret;
         
-        this.getIndicateurArret(arret);
+        if (!this._selectedArret.population_200m)
+            this.getIndicateurArret(arret);
     }
 
      
@@ -204,8 +205,9 @@ export class VilleDetailComponent {
     */
     onClickedArret(arret: Arret) {
         this._selectedArret = arret;
-       
-        this.getIndicateurArret(arret);
+
+        if (!this._selectedArret.population_200m)
+            this.getIndicateurArret(arret);
         
         //On vérifie que la ligne séléctionner appartient à l'arrêt
         if (this._selectedLigne == null)
@@ -216,7 +218,6 @@ export class VilleDetailComponent {
                 return;
             }
         }
-    
         
         this._selectedLigne = null;
     }
