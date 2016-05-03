@@ -3,12 +3,13 @@ import {Ligne} from './ligne';
 
 export class Arret {
     id: number;
-    is_stop: Boolean;
-    name: String;
+    is_stop: boolean;
+    name: string;
     location: Location;
-    vitesse : Number;
+    vitesse : number;
     routes : Ligne[];
-    vitesse_Arret_ligne : Number;
-    passageW_Arret_ligne : Number;
-    passageWE_Arret_ligne : Number;
+    vitesse_Arret_ligne : number;
+    passageW_Arret_ligne : number;
+    passageWE_Arret_ligne : number;
+    population_200m : number;
 }

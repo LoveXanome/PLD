@@ -197,10 +197,10 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr class="odd gradeX" *ngFor="#ligne of _lignes" 
+                                                                    <tr class="odd gradeX" *ngFor="#ligne of _selectedArret.routes" 
                                                                     [class.success]="ligne.category"  [class.danger]="!ligne.category" 
-                                                                    (click)="clickLigne(ligne.id)">
-                                                                        <td>{{ligne.name}}</td>
+                                                                    (click)="onChoseLineofArret(ligne)">
+                                                                        <td>{{ligne.name}}  (Bus {{ligne.short_name}} )</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -333,12 +333,12 @@
                                                     </div> 
                                                     <div class="col-md-8">
                                                         <div *ngIf="_selectedArret">
-                                                            <div *ngIf="!_selectedArret.population_200m">
-                                                                <div class="row text-center">
+                                                            <div *ngIf="!_selectedArret.population_200m || (_selectedLigne && !_selectedArret.passageW_Arret_ligne )">
+                                                                <div class="text-center">
                                                                     <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
                                                                 </div>
                                                             </div>
-                                                            <div *ngIf="_selectedArret.population_200m">
+                                                            <div *ngIf="(_selectedLigne &&  _selectedArret.passageW_Arret_ligne ) || _selectedArret.passageW_Arret_ligne || ( !_selectedLigne && _selectedArret.population_200m)">
                                                                 <div class="row">
                                                                     <!-- Indicateur : nombre de passages -->
                                                                     <div class="col-md-4">
