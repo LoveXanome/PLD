@@ -14,7 +14,7 @@ export class Ligne {
     ratio : Number;
     average_speed : Number;
     passages: {passagesWeek : Number,
-               passagesWE : Number},
+               passagesWE : Number};
     population_200m : Number;
 }
 
