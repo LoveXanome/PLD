@@ -29,7 +29,7 @@
                         {{ville.agency}}
                     </option>
                 </select>
-                <input class="btn btn-primary" type="submit" value="Voir les lignes"  (click)="gotoDetail()" >
+                <input *ngIf="_selectedIdVille" class="btn btn-primary" type="submit" value="Voir les lignes"  (click)="gotoDetail()" >
             </div>
         </div>
 	</div>

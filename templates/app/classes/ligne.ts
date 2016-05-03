@@ -12,7 +12,9 @@ export class Ligne {
     isChecked: boolean;
     interdistance : Number;
     ratio : Number;
-    vitesse : Number;
+    average_speed : Number;
+    passages: {passagesWeek : Number,
+               passagesWE : Number}
 }
 
 function randomColor(){

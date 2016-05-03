@@ -72,6 +72,9 @@ export class VilleDetailComponent {
         this._searchInput = "";
 
         this._printedLignes = {};
+        
+        
+        
     }
 
     ngOnInit() {
@@ -83,16 +86,34 @@ export class VilleDetailComponent {
 ==============================================================================
 */
      
-    httpGetVitesseLigne(_thisVilleDetail : any, _data : any){
-         _thisVilleDetail._selectedLigne.vitesse = Math.round(_data.vitesse_moyenne.vitesse_moyenne_ligne * 1000) / 1000;
+    httpGetArret(_thisVilleDetail : any, _data : any){
+        
+        _thisVilleDetail._selectedArret = _data.stop;
+        
+        for(var route of _thisVilleDetail._selectedArret.routes){
+            
+            if(_thisVilleDetail._selectedLigne.id == route.id){
+
+                _thisVilleDetail._selectedArret.vitesse_Arret_ligne = Math.round(route.average_speed * 1000 ) / 1000;
+                _thisVilleDetail._selectedArret.passageW_Arret_ligne = route.passages.passagesWeek;
+                _thisVilleDetail._selectedArret.passageWE_Arret_ligne = route.passages.passagesWE;
+                
+                console.debug("vitesse: " +_thisVilleDetail._selectedArret.vitesse_Arret_ligne +"\n\r"+
+                             "passage W: "+ _thisVilleDetail._selectedArret.passageW_Arret_ligne + "\n\r"+
+                             "passage WE: "+  _thisVilleDetail._selectedArret.passageWE_Arret_ligne );
+
+            }
+            
+        }
+        //_thisVilleDetail._selectedLigne.vitesse = Math.round(_data.vitesse_moyenne.vitesse_moyenne_ligne * 1000) / 1000;
     }
      
-    httpGetVitesseArret(_thisVilleDetail : any, _data : any){
+   /* httpGetVitesseArret(_thisVilleDetail : any, _data : any){
         _thisVilleDetail._selectedArret.vitesse = Math.round(_data.vitesse_moyenne.vitesse_moyenne_troncon * 1000 ) /1000;
         
         console.debug( _thisVilleDetail._selectedArret.vitesse );
         
-    }
+    }*/
         
     httpGetPassage (_thisVilleDetail : any, _data : any){
         
@@ -121,8 +142,10 @@ export class VilleDetailComponent {
         {
             if(ligne.id==idLigne)
             {   
-                ligne.points = data.route.points;
-                ligne.stops = data.route.stops;
+                ligne = data.route;
+                ligne.interdistance = Math.round(data.route.interdistance * 1000) / 1000;
+                ligne.ratio = Math.round(data.route.ratio * 1000) / 1000;
+                ligne.average_speed = Math.round(data.route.average_speed *1000 ) /1000;
 
                 //console.debug(ligne.points);
                 ligne.color = randomColor();
@@ -173,16 +196,21 @@ export class VilleDetailComponent {
         if (this._selectedLigne == null)
             return;
         this._selectedArret = arret;
+        
+        //this.getIndicateurArret(arret);
     }
 
+     
     /*
         Appellé lorsqu'on clique sur un arrêt de la map
     */
     onClickedArret(arret: Arret) {
         this._selectedArret = arret;
-        //console.debug(arret);       
+        //console.debug(arret);      
         
         this.getIndicateurArret(arret);
+        
+        //this.getIndicateurArret(arret);
         
         //On vérifie que la ligne séléctionner appartient à l'arrêt
         if (this._selectedLigne == null)
@@ -193,7 +221,8 @@ export class VilleDetailComponent {
                 return;
             }
         }
-
+    
+        
         //this._selectedLigne = null;
     }
 
@@ -202,10 +231,8 @@ export class VilleDetailComponent {
     */
     onClickedLigne(ligne: Ligne) {
         this._selectedLigne = ligne;
-
-                
-        var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/vitesse';
-        this._httpRequest.get(requete, this.httpGetVitesseLigne);
+        
+        //this.getIndicateurLigne(ligne);
         
         //On vérifie que l'arrêt séléctionner appartient à la ligne 
         if (this._selectedArret == null)
@@ -219,15 +246,20 @@ export class VilleDetailComponent {
      
         this._selectedArret = null;
     }
+    
      
+    getIndicateurLigne(ligne: Ligne){
+       /* var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/vitesse';
+        this._httpRequest.get(requete, this.httpGetVitesseLigne);      */  
+    }
      
     getIndicateurArret( arr : Arret){
-         var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/stops/'+this._selectedArret.id+'/passages';
+         var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/stops/'+this._selectedArret.id;
         
-        var requete2 : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/stops/'+this._selectedArret.id+'/vitesse';
+       /* var requete2 : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/stops/'+this._selectedArret.id+'/vitesse';
         
-        this._httpRequest.get(requete, this.httpGetPassage);
-        this._httpRequest.get(requete2, this.httpGetVitesseArret);
+        this._httpRequest.get(requete2, this.httpGetPassage);*/
+        this._httpRequest.get(requete, this.httpGetArret);
     }
 
 /*

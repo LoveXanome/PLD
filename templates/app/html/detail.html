@@ -184,7 +184,11 @@
                                                     <div class="col-md-3">    
                                                         <div class="panel panel-primary text-center">
                                                             <div class="panel-heading ">
-                                                                Type de la ligne
+                                                                <p>
+                                                                     <span href="#">Type de la Ligne
+                                                                          <span>I'm a popup...</span>
+                                                                     </span>
+                                                                </p>
                                                             </div>
                                                             <div class="panel-body">
                                                                 <div class="row">
@@ -234,7 +238,7 @@
                                                                 <div class="row">
                                                                     <div>
                                                                         <h2 >
-                                                                            {{_selectedLigne.vitesse}}
+                                                                            {{_selectedLigne.average_speed}}
                                                                         </h2>
                                                                         Km/h
                                                                     </div>
@@ -323,15 +327,15 @@
                                                                         <div class="row">
                                                                             <div class="col-md-6 traitMilieu">
                                                                                 <h2 >
-                                                                                    {{_selectedArret.passagesWE}}
+                                                                                    {{_selectedArret.passageWE_Arret_ligne}}
                                                                                 </h2>
-                                                                                Par Week-end
+                                                                                Jour de Week-End et jours Fériés
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <h2 >
-                                                                                    {{_selectedArret.passagesSemaine}}
+                                                                                    {{_selectedArret.passageW_Arret_ligne}}
                                                                                 </h2>
-                                                                                Par Semaine
+                                                                                Par Jour de la semaine
                                                                             </div>
                                                                         </div>  
                                                                     </div>
@@ -356,26 +360,27 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Indicateur : Vitesse moyenne -->
-                                                    <div class="col-md-4">
-                                                        <div class="panel panel-primary text-center">
-                                                            <div class="panel-heading ">
-                                                                Vitesse du tronçon centré sur cette arrêt
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <div class="row">
-                                                                    <div>
-                                                                        <h2 >
-                                                                            {{_selectedArret.vitesse}}
-                                                                        </h2>
-                                                                        Km/h
+                                                             <!-- Indicateur : Vitesse moyenne -->
+                                                            <div class="col-md-4">
+                                                                <div class="panel panel-primary text-center">
+                                                                    <div class="panel-heading ">
+                                                                        Vitesse du tronçon centré sur cette arrêt
                                                                     </div>
-                                                                </div>  
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div>
+                                                                                <h2 >
+                                                                                    {{_selectedArret.vitesse_Arret_ligne}}
+                                                                                </h2>
+                                                                                Km/h
+                                                                            </div>
+                                                                        </div>  
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
