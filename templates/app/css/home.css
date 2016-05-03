@@ -12,8 +12,34 @@ form {
     margin: auto;
 }
 
-.panel-heading {
-    font-size: 18px;
-    font-weight: bold;  
-    background-color: #D8D8D8;
+.panel-custom {
+    background-color: transparent;
+}
+
+.panel-custom  > .panel-heading {
+    color: #FFFFFF;
+    border-color: white;
+    border-style: dashed;
+    border-width: 2px;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Poiret One', cursive;
+    background: rgba(46, 51, 56, 0.8);
+}
+
+.panel-custom  > .panel-body{
+    border-color: #FFFFFF;
+    border-width: 2px;
+    background: rgba(46, 51, 56, 0.5);
+    color: #FFFFFF;
+    border-width: 2px;
+    border-left-style: dashed;
+    border-right-style: dashed;
+    border-bottom-style: dashed;
+}
+
+.btn-primary-cover {
+    background-color: #D9D9D9;
+    color: #000000;
+    width: 100%;
 }

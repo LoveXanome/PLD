@@ -21,7 +21,7 @@
             
     <!-- Row map -->
     <div class="rowMap row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <my-map 
                 (onClickedArret)="onClickedArret($event)" 
                 (onClickedLigne)="onClickedLigne($event)">
@@ -105,6 +105,7 @@
                                             </div>
                                         </label>                                
                                     </span>
+
                                 </div>
                             </div>
                         </div>
@@ -199,6 +200,7 @@
                                                         </div>
                                                     </div>
                                                     
+
                                                     <!-- Indicateur : nombre de passage -->
                                                     <div class="col-md-3">    
                                                         <div class="panel panel-primary text-center">
@@ -235,6 +237,7 @@
                                                                     <div>
                                                                         <h2 >
                                                                             {{_selectedLigne.vitesse}}
+
                                                                         </h2>
                                                                         Km/h
                                                                     </div>
@@ -271,7 +274,7 @@
                                 <!-- Indicateurs concernant les arrêts en general -->
                                 <div class="indicateurArret row">
                                     <div class="col-md-12">
-                                        
+
                                         <!-- Ligne titre -->
                                         <div class="titre row">
                                             <div class="cold-md-12">
@@ -401,4 +404,4 @@
         </div>
     </div>
 </div>
-    <!-- /.panel-body -->
+<!-- /.panel-body -->
