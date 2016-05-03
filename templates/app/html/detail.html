@@ -281,7 +281,9 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr class="odd gradeX" *ngFor="#arret of _selectedLigne.stops" 
-                                                                        (click)="onChoseArretOfLine(arret)">
+                                                                        (click)="onChoseArretOfLine(arret)"
+                                                                        [class.selectedArret]="arret == _selectedArret"
+                                                                        >
                                                                             <td>{{arret.name}}</td>
                                                                         </tr>
                                                                     </tbody>
@@ -292,66 +294,73 @@
                                                     <div class="col-md-8">                                                       
 
                                                         <div *ngIf="_selectedArret">
-                                                            <div class="row">
-                                                                <!-- Indicateur : nombre de passages -->
-                                                                <div class="col-md-4">
-                                                                    <div class="panel panel-primary text-center">
-                                                                        <div class="panel-heading ">
-                                                                            Nombre de passage
-                                                                        </div>
-                                                                        <div class="panel-body">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6 traitMilieu">
-                                                                                    <h2 >
-                                                                                        {{_selectedArret.passageWE_Arret_ligne}}
-                                                                                    </h2>
-                                                                                    Par jour de WE et Fériés
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <h2 >
-                                                                                        {{_selectedArret.passageW_Arret_ligne}}
-                                                                                    </h2>
-                                                                                    Par Jour de la semaine
-                                                                                </div>
-                                                                            </div>  
-                                                                        </div>
-                                                                    </div> 
-                                                                </div>  
+                                                            <div *ngIf="!_selectedArret.population_200m">
+                                                                <div class="text-center">
+                                                                    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="_selectedArret.population_200m">
+                                                                <div class="row">
+                                                                    <!-- Indicateur : nombre de passages -->
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary text-center">
+                                                                            <div class="panel-heading ">
+                                                                                Nombre de passage
+                                                                            </div>
+                                                                            <div class="panel-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6 traitMilieu">
+                                                                                        <h2 >
+                                                                                            {{_selectedArret.passageWE_Arret_ligne}}
+                                                                                        </h2>
+                                                                                        Week-End / Jours Fériés
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <h2 >
+                                                                                            {{_selectedArret.passageW_Arret_ligne}}
+                                                                                        </h2>
+                                                                                        Semaine
+                                                                                    </div>
+                                                                                </div>  
+                                                                            </div>
+                                                                        </div> 
+                                                                    </div>  
 
-                                                                 <!-- Indicateur : Vitesse moyenne -->
-                                                                <div class="col-md-4">
-                                                                    <div class="panel panel-primary text-center">
-                                                                        <div class="panel-heading ">
-                                                                            Vitesse du tronçon
-                                                                        </div>
-                                                                        <div class="panel-body">
-                                                                            <div class="row">
-                                                                                <div>
-                                                                                    <h2 >
-                                                                                         {{_selectedArret.vitesse_Arret_ligne}}
-                                                                                    </h2>
-                                                                                    Km/h
-                                                                                </div>
-                                                                            </div>  
+                                                                     <!-- Indicateur : Vitesse moyenne -->
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary text-center">
+                                                                            <div class="panel-heading ">
+                                                                                Vitesse du tronçon
+                                                                            </div>
+                                                                            <div class="panel-body">
+                                                                                <div class="row">
+                                                                                    <div>
+                                                                                        <h2 >
+                                                                                             {{_selectedArret.vitesse_Arret_ligne}}
+                                                                                        </h2>
+                                                                                        Km/h
+                                                                                    </div>
+                                                                                </div>  
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
 
-                                                                <!-- Indicateur : Nombre d'habitants -->
-                                                                <div class="col-md-4">
-                                                                    <div class="panel panel-primary text-center">
-                                                                        <div class="panel-heading ">
-                                                                            Nombre d'habitants
-                                                                        </div>
-                                                                        <div class="panel-body">
-                                                                            <div class="row">
-                                                                                <div>
-                                                                                    <h2 >
-                                                                                        {{_selectedArret.population_200m}}
-                                                                                    </h2>
-                                                                                    à moins de 200m
-                                                                                </div>
-                                                                            </div>  
+                                                                    <!-- Indicateur : Nombre d'habitants -->
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary text-center">
+                                                                            <div class="panel-heading ">
+                                                                                Nombre d'habitants
+                                                                            </div>
+                                                                            <div class="panel-body">
+                                                                                <div class="row">
+                                                                                    <div>
+                                                                                        <h2 >
+                                                                                            {{_selectedArret.population_200m}}
+                                                                                        </h2>
+                                                                                        à moins de 200m
+                                                                                    </div>
+                                                                                </div>  
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

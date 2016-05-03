@@ -138,6 +138,12 @@ titre,
     height: 125px;
 }
 
+.selectedArret {
+    font-size: bold;
+    color: white;
+    background-color: #337ab7 !important;
+}
+
 /*
     Loading icon
 

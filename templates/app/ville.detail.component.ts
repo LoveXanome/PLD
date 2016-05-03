@@ -97,9 +97,10 @@ export class VilleDetailComponent {
 */
      
     httpGetArret(_thisVilleDetail : any, _data : any){
-        
-        _thisVilleDetail._selectedArret = _data.stop;
-        
+
+        _thisVilleDetail._selectedArret.routes = _data.stop.routes;
+        _thisVilleDetail._selectedArret.population_200m = _data.stop.population_200m;
+
         console.debug(_thisVilleDetail._selectedArret);
         
         console.debug(_thisVilleDetail._selectedArret.population_200m);
@@ -217,7 +218,7 @@ export class VilleDetailComponent {
         }
     
         
-        //this._selectedLigne = null;
+        this._selectedLigne = null;
     }
 
     /*
@@ -239,7 +240,6 @@ export class VilleDetailComponent {
         this._selectedArret = null;
     }
     
-     
 
     getIndicateurArret( arr : Arret){
         var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/stops/'+this._selectedArret.id;        
