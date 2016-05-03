@@ -107,7 +107,7 @@ export class VilleDetailComponent {
         
         for(var route of _thisVilleDetail._selectedArret.routes){
             if(_thisVilleDetail._selectedLigne.id == route.id){
-                _thisVilleDetail._selectedArret.vitesse_Arret_ligne = Math.round(route.average_speed * 1000 ) / 1000;
+                _thisVilleDetail._selectedArret.vitesse_Arret_ligne = Math.round(route.average_speed * 100 ) / 100;
                 _thisVilleDetail._selectedArret.passageW_Arret_ligne = route.passages.passagesWeek;
                 _thisVilleDetail._selectedArret.passageWE_Arret_ligne = route.passages.passagesWE;
             } 
@@ -127,7 +127,7 @@ export class VilleDetailComponent {
         for( var ligne of _thisVilleDetail._lignes){
             ligne.interdistance = Math.floor(ligne.interdistance);
             if(ligne.ratio != null )
-                ligne.ratio = Math.round(ligne.ratio * 1000) / 1000;
+                ligne.ratio = Math.round(ligne.ratio * 100) / 100;
         }
 
         _thisVilleDetail._loadingAgence = false;
@@ -142,9 +142,9 @@ export class VilleDetailComponent {
             if(ligne.id==idLigne)
             {   
                 ligne = data.route;
-                ligne.interdistance = Math.round(data.route.interdistance * 1000) / 1000;
-                ligne.ratio = Math.round(data.route.ratio * 1000) / 1000;
-                ligne.average_speed = Math.round(data.route.average_speed *1000 ) /1000;
+                ligne.interdistance = Math.round(data.route.interdistance * 100) / 100;
+                ligne.ratio = Math.round(data.route.ratio * 100) / 100;
+                ligne.average_speed = Math.round(data.route.average_speed *100 ) /100;
 
                 ligne.color = randomColor();
                 
