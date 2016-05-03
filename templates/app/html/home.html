@@ -12,7 +12,7 @@
                 </div>
 
                 <hr/>
-
+        
                 <div class="corps">
                     <div class="row">
                         <div class="centered col-md-12">
@@ -53,22 +53,28 @@
 
                 </div>
 
-                    <div class="row">
-                        <div class="centered col-md-12">
-                            <div class="panel panel-custom">
-                            <div class="panel-heading">
-                                Calcul de la population du réseau
+                <div class="row">
+                    <div class="centered col-md-12">
+                        <div class="panel panel-custom">
+                            
+                        <div class="panel-heading">
+                            Calcul de la population du réseau
+                        </div>
+                            
+                        <div class="panel-body">
+                            <div id="progress">
+                                <p>Calcul...<strong>100%</strong></p>
+                                <progress value="100" min="0" max="100">0%</progress>
                             </div>
-                            <div class="panel-body">
-                                <div id="progress">
-                                    <p>Calcul...<strong>100%</strong></p>
-                                    <progress value="100" min="0" max="100">0%</progress>
-                                </div>
-                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
 
-<div class="row">
-	<router-outlet></router-outlet>
+                <div class="row">
+                    <router-outlet></router-outlet>
+                </div>
+        
+        </div>
+    </div>
 </div>

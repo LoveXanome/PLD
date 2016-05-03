@@ -1,3 +1,7 @@
+.corps {
+    margin-top: 90px;
+}
+
 titre,
 .corps {
     margin-left: 50px;
@@ -191,4 +195,35 @@ span span{
 span:hover span, span:focus span{
    opacity:1; 
 }
-                                                                
+
+/**************************
+    NAVIGATION
+**************************/
+
+#tf-menu {
+	padding: 20px;
+	transition: all 0.8s;
+}
+#tf-menu.navbar-default {
+    background-color: #393f44;
+}
+#tf-menu a.navbar-brand {
+    text-transform: uppercase;
+    font-size: 28px;
+    color: #fff;
+    font-weight: 900;
+    font-family: 'Poiret One', cursive;
+}
+
+#tf-menu.navbar-default .navbar-nav > li > a {
+	text-transform: uppercase;
+	color: #FFF;
+	font-size: 16px;
+	letter-spacing: 1px;
+    font-family: 'Poiret One', cursive;
+}
+
+#tf-menu.navbar-default .navbar-nav > li > a:hover {
+    text-shadow: 2px 2px #800000;
+    font-weight: bold;
+}

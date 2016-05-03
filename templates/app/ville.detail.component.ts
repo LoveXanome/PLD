@@ -374,8 +374,9 @@ export class VilleDetailComponent {
         }
     }
      
-     goBack(){
-         window.history.back();
+     toAccueil(){
+        let link = ['Home'];
+        this._router.navigate(link);
      }
      
 }
