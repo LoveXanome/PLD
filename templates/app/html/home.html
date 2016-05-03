@@ -20,10 +20,10 @@
 	<div class="centered col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Sélection d'une ville
+                Sélection d'un réseau
             </div>
             <div class="panel-body">
-                Veuillez sélectionner une ville pour connaître ses détails concernant ses lignes de bus.<br/>
+                Veuillez sélectionner un réseau pour connaître ses détails concernant ses lignes de bus.<br/>
                 <select class="form-control choixVille" required (change)="onChange($event.target.value)">
                     <option *ngFor="#ville of villes" [value]="ville.id" >
                         {{ville.agency}}
@@ -33,6 +33,20 @@
             </div>
         </div>
 	</div>
+</div>
+
+<div class="row">
+    <div class="centered col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Calcul de la population du réseau
+            </div>
+            <div id="progress">
+                <p>Calcul...<strong>100%</strong></p>
+                <progress value="100" min="0" max="100">0%</progress>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
