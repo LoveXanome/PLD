@@ -205,6 +205,10 @@ span:hover span, span:focus span{
    opacity:1; 
 }
 
+.footer {
+  min-height: 50px; 
+}
+
 /**************************
     NAVIGATION
 **************************/
