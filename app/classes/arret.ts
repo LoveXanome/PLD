@@ -11,4 +11,5 @@ export class Arret {
     vitesse_Arret_ligne : Number;
     passageW_Arret_ligne : Number;
     passageWE_Arret_ligne : Number;
+	population_200m: Number;
 }
