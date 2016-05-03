@@ -13,6 +13,9 @@
                 </div>
                 <div class="row sizeFontLarge">
                     Chargement des données en cours
+                     <div *ngIf="_boolTimeOut">
+                     <p class="alert alert-danger">Erreur de connection au serveur</p>
+                     </div>
                 </div>
             </div>
         </div>
