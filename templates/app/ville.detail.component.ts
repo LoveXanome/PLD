@@ -135,7 +135,6 @@ export class VilleDetailComponent {
         //console.debug(idLigne + " chargement terminé");
     }
      
-
     /*
     le this. est undefined, car la function est appellé par httpRequest. Il est donc passé en paramètre
     */
@@ -162,6 +161,11 @@ export class VilleDetailComponent {
         _thisVilleDetail._loadingRoutes = false;
     }
 
+/*
+==============================================================================
+                            Indicateurs
+==============================================================================
+*/
     /*
         Appellé lorsqu'on clique sur un arrêt pour la lignes
     */
