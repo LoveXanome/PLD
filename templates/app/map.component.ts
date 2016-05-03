@@ -28,6 +28,8 @@ export class MapComponent {
     private _center_map_lng : any;
     private _lignes: Ligne[];
 
+    private _selectedArret: any;
+
     @Output() onClickedArret = new EventEmitter();
     @Output() onClickedLigne = new EventEmitter();
 
@@ -97,11 +99,30 @@ export class MapComponent {
             fillOpacity: 1
         }).addTo(this.mymap);
 
+        circle.bindPopup(arret.name);
+
+        circle.on('mouseover', function(e) {
+            this.openPopup();
+        });
+
+        circle.on('mouseout', function(e) {
+            if (_this._selectedArret != this)
+            {
+                this.closePopup();
+            }
+        });
+
         /*
            Appel une fonction dans ville.detail pour afficher les détail de l'arrêt sélectionner
         */
         circle.on('click', function() {
             _this.onClickedArret.emit(arret);
+
+            if (this._selectedArret)
+                this._selectedArret.closePopup();
+
+            this._selectedArret = this;
+            this._selectedArret.openPopup();
         });
 
         return circle;
