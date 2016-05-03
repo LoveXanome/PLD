@@ -1,6 +1,6 @@
-templates/app/*.js
-templates/app/*.js.map
-templates/app/classes/*.js
-templates/app/classes/*.js.map
+app/*.js
+app/*.js.map
+app/classes/*.js
+app/classes/*.js.map
 node_modules
 typings
