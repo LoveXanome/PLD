@@ -57,15 +57,15 @@
             
             
             <div *ngIf="!_loadingAgence && !_loadingRoutes">
-                <div class="col-md-2 maxHeighMap">
-                    
+                <div class="col-md-2 maxHeighMap">                    
                     <div class="box box-default">
                         <!-- Recherche d'une ligne en particulier -->
                         <div id="rowRecherche" class="row text-center">
                             Rechercher une ligne : 
                             <input type="text" 
-                              [value]="_searchInput" 
-                              (input)="_searchInput = $event.target.value" />
+                              [value]="_searchInputLigne" 
+                              (input)="_searchInputLigne = $event.target.value" />
+
                         </div>
 
                         <!-- Tout selectionner -->
@@ -95,7 +95,7 @@
 
                                 <div id="collapseUrbain" class="panel-collapse collapse in">
                                     <div class="surroundArrets">
-                                        <div *ngFor="#ligne of _lignesUrbaines | filterName:_searchInput">
+                                        <div *ngFor="#ligne of _lignesUrbaines | filterLigneName:_searchInputLigne">
                                             <span class="col-md-offset-1">
                                                 <label>
                                                     <input type="checkbox" name="checkbox" 
@@ -126,7 +126,8 @@
 
                                 <div id="collapseNonUrbain" class="panel-collapse collapse in">
                                     <div class="surroundArrets">
-                                        <div *ngFor="#ligne of _lignesNonUrbaines | filterName:_searchInput">
+                                        <div *ngFor="#ligne of _lignesNonUrbaines | filterLigneName:_searchInputLigne">
+
                                             <span class="col-md-offset-1">
                                                 <label>
                                                     <input type="checkbox" name="checkbox" 
@@ -315,6 +316,13 @@
                                                         Sélectionner un arrêt ou une ligne
                                                     </div>
                                                     <div class="col-md-4">
+
+                                                        <div class="row text-center">
+                                                            Rechercher un arrêt : 
+                                                            <input type="text" 
+                                                              [value]="_searchInputArret" 
+                                                              (input)="_searchInputArret = $event.target.value" />
+                                                        </div>
                                                         <div *ngIf="_selectedLigne" class="text-center">
                                                             Sélectionner un arrêt
                                                             <br/>
@@ -326,7 +334,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr class="odd gradeX" *ngFor="#arret of _selectedLigne.stops" 
+                                                                        <tr class="odd gradeX" *ngFor="#arret of _selectedLigne.stops | filterArretName:_searchInputArret" 
                                                                         (click)="onChoseArretOfLine(arret)"
                                                                         [class.selectedArret]="arret == _selectedArret"
                                                                         >

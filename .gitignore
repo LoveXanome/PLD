@@ -4,3 +4,4 @@ app/classes/*.js
 app/classes/*.js.map
 node_modules
 typings
+templates

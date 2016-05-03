@@ -11,14 +11,15 @@ import {Arret} from './classes/arret';
 import {AffichageLigne} from './classes/affichageLigne';
 
 import {HttpRequest} from './classes/httpRequest';
-import {PipeFilter} from './classes/pipeFilter';
+import {PipeFilterLigne} from './classes/pipeFilterLigne';
+import {PipeFilterArret} from './classes/pipeFilterArret';
 
 @Component({
     selector: 'my-ville-detail',
     templateUrl: 'app/html/detail.html',
     styleUrls: ['app/css/detail.css'],
     directives: [MapComponent],
-    pipes: [PipeFilter]
+    pipes: [PipeFilterLigne, PipeFilterArret]
 })
 
 export class VilleDetailComponent {
@@ -38,7 +39,8 @@ export class VilleDetailComponent {
     private _lignesAllChecked: boolean;
     private _lignesUrbainesChecked: boolean;
     private _lignesNonUrbainesChecked: boolean;
-    private _searchInput: string;
+    private _searchInputLigne: string;
+    private _searchInputArret: string;
 
     private _loadingAgence: boolean;
     private _loadingRoutes: boolean;
@@ -75,12 +77,10 @@ export class VilleDetailComponent {
         this._lignesUrbainesChecked = false;
         this._lignesNonUrbainesChecked = false;
         this._lignesAllChecked = false;
-        this._searchInput = "";
+        this._searchInputLigne = "";
+        this._searchInputArret = "";
 
         this._printedLignes = {};
-        
-        
-        
     }
 
     ngOnInit() {
