@@ -158,7 +158,6 @@ titre,
 */
 .glyphicon-refresh-animate {
     font-size: 40px;
-    margin-top: 15%;
 
     -animation: spin .7s infinite linear;
     -ms-animation: spin .7s infinite linear;
@@ -179,6 +178,10 @@ titre,
 @-moz-keyframes spinm {
     from { -moz-transform: rotate(0deg);}
     to { -moz-transform: rotate(360deg);}
+}
+
+.loadingDetail {
+    margin-top: 15%;
 }
 
 
