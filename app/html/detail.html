@@ -15,7 +15,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="" class="menu-li" (click)="toAccueil()">Accueil</a></li>
+                <li><a class="menu-li" (click)="toAccueil()">Accueil</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -24,7 +24,7 @@
 <div class="corps">
     <div class="villeChoisie row">
         <div class="col-md-12" ng-if="_selectedVille" class="text-center">
-            <h2 class="text-uppercase">{{_selectedVille.agency}}</h2>
+            <h2 class="text-uppercase">Informations concernant : <strong>{{_selectedVille.agency}}</strong></h2>
         </div>
     </div>
 
@@ -53,91 +53,97 @@
                     (onClickedArret)="onClickedArret($event)" 
                     (onClickedLigne)="onClickedLigne($event)">
                 </my-map>
-            </div> 
+            </div>
+            
+            
             <div *ngIf="!_loadingAgence && !_loadingRoutes">
                 <div class="col-md-2 maxHeighMap">
-                    <!-- Recherche d'une ligne en particulier -->
-                    <div class="row text-center">
-                        Rechercher une ligne : 
-                        <input type="text" 
-                          [value]="_searchInput" 
-                          (input)="_searchInput = $event.target.value" />
-                    </div>
-
-                    <!-- Tout selectionner -->
-                    <div class="row text-center">
-                        <div class="oneButtonFiltre">
-                            <div class="inputFiltre">
-                                <input type="checkbox" name="filter" value="all" [checked]="_lignesAllChecked" (click)="selectTous()"/>
-                            </div>
-                            <button type="button" class="btn btn-default boutonFiltre">     
-                                Tout sélectionner
-                            </button>
+                    
+                    <div class="box box-default">
+                        <!-- Recherche d'une ligne en particulier -->
+                        <div id="rowRecherche" class="row text-center">
+                            Rechercher une ligne : 
+                            <input type="text" 
+                              [value]="_searchInput" 
+                              (input)="_searchInput = $event.target.value" />
                         </div>
-                    </div>
 
-                    <!-- Urbain -->
-                    <div class="row m-b-0">
-                        <div class="text-center">
+                        <!-- Tout selectionner -->
+                        <div class="row text-center">
                             <div class="oneButtonFiltre">
                                 <div class="inputFiltre">
-                                    <input type="checkbox" name="filter" value="urbain" [checked]="_lignesUrbainesChecked" (click)="selectUrbain()"/>
+                                    <input type="checkbox" name="filter" value="all" [checked]="_lignesAllChecked" (click)="selectTous()"/>
                                 </div>
-
-                                <span id="dropdownUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="collapse" href="#collapseUrbain">
-                                    Urbain
-                                </span>
-                            </div>
-
-                            <div id="collapseUrbain" class="panel-collapse collapse">
-                                <div class="surroundArrets">
-                                    <div *ngFor="#ligne of _lignesUrbaines | filterName:_searchInput">
-                                        <span class="col-md-offset-1">
-                                            <label>
-                                                <input type="checkbox" name="checkbox" 
-                                                (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-                                                <div class="affDynamiqueCheckbox">
-                                                    Bus {{ligne.short_name}}
-                                                </div>
-                                            </label>                                
-                                        </span>
-                                    </div>
-                                </div>
-                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Non Urbain -->
-                    <div class="row">
-                        <div class="text-center">
-                            <div class="oneButtonFiltre">
-                                <div class="inputFiltre">
-                                    <input type="checkbox" name="filter" value="nonUrbain" [checked]="_lignesNonUrbainesChecked" (click)="selectNonUrbain()"/>
-                                </div>
-
-                                <span id="dropdownNonUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="collapse" href="#collapseNonUrbain">
-                                    Non Urbain
-                                </span>
-                            </div>
-
-                            <div id="collapseNonUrbain" class="panel-collapse collapse">
-                                <div class="surroundArrets">
-                                    <div *ngFor="#ligne of _lignesNonUrbaines | filterName:_searchInput">
-                                        <span class="col-md-offset-1">
-                                            <label>
-                                                <input type="checkbox" name="checkbox" 
-                                                (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-                                                <div class="affDynamiqueCheckbox">
-                                                    Bus {{ligne.short_name}}
-                                                </div>
-                                            </label>                                
-                                        </span>
-
-                                    </div>
-                                </div>
+                                <button id="allSelectButton" type="button" class="btn btn-default boutonFiltre">     
+                                    Tout sélectionner
+                                </button>
                             </div>
                         </div>
+
+                        <!-- Urbain -->
+                        <div class="row m-b-0">
+                            <div class="text-center">
+                                <div class="oneButtonFiltre">
+                                    <div class="inputFiltre">
+                                        <input type="checkbox" name="filter" value="urbain" [checked]="_lignesUrbainesChecked" (click)="selectUrbain()"/>
+                                    </div>
+
+                                    <span id="dropdownUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="collapse" href="#collapseUrbain">
+                                        Urbain
+                                    </span>
+                                </div>
+
+                                <div id="collapseUrbain" class="panel-collapse collapse in">
+                                    <div class="surroundArrets">
+                                        <div *ngFor="#ligne of _lignesUrbaines | filterName:_searchInput">
+                                            <span class="col-md-offset-1">
+                                                <label>
+                                                    <input type="checkbox" name="checkbox" 
+                                                    (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+                                                    <div class="affDynamiqueCheckbox">
+                                                        Bus {{ligne.short_name}}
+                                                    </div>
+                                                </label>                                
+                                            </span>
+                                        </div>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Non Urbain -->
+                        <div class="row">
+                            <div class="text-center">
+                                <div class="oneButtonFiltre">
+                                    <div class="inputFiltre">
+                                        <input type="checkbox" name="filter" value="nonUrbain" [checked]="_lignesNonUrbainesChecked" (click)="selectNonUrbain()"/>
+                                    </div>
+
+                                    <span id="dropdownNonUrbain" class="btn btn-default dropdown-toggle boutonFiltre" type="button" data-toggle="collapse" href="#collapseNonUrbain">
+                                        Non Urbain
+                                    </span>
+                                </div>
+
+                                <div id="collapseNonUrbain" class="panel-collapse collapse in">
+                                    <div class="surroundArrets">
+                                        <div *ngFor="#ligne of _lignesNonUrbaines | filterName:_searchInput">
+                                            <span class="col-md-offset-1">
+                                                <label>
+                                                    <input type="checkbox" name="checkbox" 
+                                                    (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
+                                                    <div class="affDynamiqueCheckbox">
+                                                        Bus {{ligne.short_name}}
+                                                    </div>
+                                                </label>                                
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+    
                 </div> 
             </div>
         </div>
@@ -174,7 +180,7 @@
                                                     <div class="titreInformations">
                                                         Information de la ligne : 
                                                         <span *ngIf="_selectedLigne" class="sizeFontLarge">
-                                                            {{_selectedLigne.name}}
+                                                            <strong>{{_selectedLigne.name}}</strong>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -207,7 +213,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div *ngIf="_selectedLigne">
+                                                    <div id="idIndicateurLigne" *ngIf="_selectedLigne">
                                                         
                                                         <!-- Indicateur : Type de la ligne -->
                                                         <div class="col-md-3">    
@@ -296,7 +302,7 @@
                                             <div class="titre row">
                                                 <div class="cold-md-12">
                                                     <div class="titreInformations">
-                                                        Information de l'arrêt  : <span class="sizeFontLarge" *ngIf="_selectedArret">{{_selectedArret.name}}</span>
+                                                        Information de l'arrêt  : <span class="sizeFontLarge" *ngIf="_selectedArret"><strong>{{_selectedArret.name}}</strong></span>
                                                     </div>
                                                 </div>
                                             </div>

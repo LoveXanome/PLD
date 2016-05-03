@@ -92,10 +92,6 @@ titre,
     display: inline;
 }
 
-.rowMap my-map {
-    /*display: block;*/
-}
-
 .surroundArrets {
     width: 100%;
     padding-left: 10px;
@@ -132,6 +128,10 @@ titre,
 .maxHeighMap {
     max-height: 80%;
     overflow: auto;
+}
+
+.maxHeighMap > div {
+    padding: 10px 25px 10px 25px;
 }
 
 .sizeFontLarge {
@@ -235,4 +235,28 @@ span:hover span, span:focus span{
 #tf-menu.navbar-default .navbar-nav > li > a:hover {
     text-shadow: 2px 2px #800000;
     font-weight: bold;
+    cursor: pointer;
+}
+
+#rowRecherche {
+    margin-bottom: 10px;   
+}
+
+#allSelectButton:hover {
+    background-color: #f4f4f4;
+    border-color: #ddd;
+}
+
+#allSelectButton:active {
+    background-color: #f4f4f4;
+    border-color: #ddd;
+}
+
+#idIndicateurLigne {
+    display: flex;
+    justify-content: space-around;  
+}
+
+#idIndicateurLigne > div {
+    width: 25%;
 }
