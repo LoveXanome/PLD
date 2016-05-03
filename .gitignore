@@ -2,3 +2,5 @@ templates/app/*.js
 templates/app/*.js.map
 templates/app/classes/*.js
 templates/app/classes/*.js.map
+node_modules
+typings
