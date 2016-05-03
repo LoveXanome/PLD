@@ -100,31 +100,19 @@ export class VilleDetailComponent {
         
         _thisVilleDetail._selectedArret = _data.stop;
         
+        console.debug(_thisVilleDetail._selectedArret);
+        
+        console.debug(_thisVilleDetail._selectedArret.population_200m);
+        
         for(var route of _thisVilleDetail._selectedArret.routes){
-            
             if(_thisVilleDetail._selectedLigne.id == route.id){
-
                 _thisVilleDetail._selectedArret.vitesse_Arret_ligne = Math.round(route.average_speed * 1000 ) / 1000;
                 _thisVilleDetail._selectedArret.passageW_Arret_ligne = route.passages.passagesWeek;
                 _thisVilleDetail._selectedArret.passageWE_Arret_ligne = route.passages.passagesWE;
-                
-                console.debug("vitesse: " +_thisVilleDetail._selectedArret.vitesse_Arret_ligne +"\n\r"+
-                             "passage W: "+ _thisVilleDetail._selectedArret.passageW_Arret_ligne + "\n\r"+
-                             "passage WE: "+  _thisVilleDetail._selectedArret.passageWE_Arret_ligne );
-
-            }
-            
+            } 
         }
-        //_thisVilleDetail._selectedLigne.vitesse = Math.round(_data.vitesse_moyenne.vitesse_moyenne_ligne * 1000) / 1000;
     }
      
-   /* httpGetVitesseArret(_thisVilleDetail : any, _data : any){
-        _thisVilleDetail._selectedArret.vitesse = Math.round(_data.vitesse_moyenne.vitesse_moyenne_troncon * 1000 ) /1000;
-        
-        console.debug( _thisVilleDetail._selectedArret.vitesse );
-        
-    }*/
-        
     httpGetPassage (_thisVilleDetail : any, _data : any){
         
         _thisVilleDetail._selectedArret.passagesSemaine = _data.passages.passagesSemaine;
@@ -157,7 +145,6 @@ export class VilleDetailComponent {
                 ligne.ratio = Math.round(data.route.ratio * 1000) / 1000;
                 ligne.average_speed = Math.round(data.route.average_speed *1000 ) /1000;
 
-                //console.debug(ligne.points);
                 ligne.color = randomColor();
                 
                 _thisVilleDetail._printedLignes[ligne.id] = new AffichageLigne();
@@ -207,7 +194,7 @@ export class VilleDetailComponent {
             return;
         this._selectedArret = arret;
         
-        //this.getIndicateurArret(arret);
+        this.getIndicateurArret(arret);
     }
 
      
@@ -216,11 +203,8 @@ export class VilleDetailComponent {
     */
     onClickedArret(arret: Arret) {
         this._selectedArret = arret;
-        //console.debug(arret);      
-        
+       
         this.getIndicateurArret(arret);
-        
-        //this.getIndicateurArret(arret);
         
         //On vérifie que la ligne séléctionner appartient à l'arrêt
         if (this._selectedLigne == null)
@@ -241,9 +225,7 @@ export class VilleDetailComponent {
     */
     onClickedLigne(ligne: Ligne) {
         this._selectedLigne = ligne;
-        
-        //this.getIndicateurLigne(ligne);
-        
+
         //On vérifie que l'arrêt séléctionner appartient à la ligne 
         if (this._selectedArret == null)
             return;
@@ -258,17 +240,9 @@ export class VilleDetailComponent {
     }
     
      
-    getIndicateurLigne(ligne: Ligne){
-       /* var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/vitesse';
-        this._httpRequest.get(requete, this.httpGetVitesseLigne);      */  
-    }
-     
+
     getIndicateurArret( arr : Arret){
-         var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/stops/'+this._selectedArret.id;
-        
-       /* var requete2 : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/routes/'+this._selectedLigne.id+'/stops/'+this._selectedArret.id+'/vitesse';
-        
-        this._httpRequest.get(requete2, this.httpGetPassage);*/
+        var requete : string = 'http://localhost:5000/agencies/'+ this._selectedVille.id +'/stops/'+this._selectedArret.id;        
         this._httpRequest.get(requete, this.httpGetArret);
     }
 
