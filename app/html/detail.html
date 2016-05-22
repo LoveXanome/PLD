@@ -55,7 +55,6 @@
                 </my-map>
             </div>
             
-            
             <div *ngIf="!_loadingAgence && !_loadingRoutes">
                 <div class="col-md-2 maxHeighMap">                    
                     <div class="box box-default">
@@ -151,22 +150,11 @@
 
         <div *ngIf="!_loadingAgence && !_loadingRoutes">
             <div class="row">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs">
-                    <li>
-                        <a href="#Indicateur" data-toggle="tab">Indicateurs</a>
-                    </li>
-                    <li>
-                        <a href="#Population" data-toggle="tab">Population</a>
-                    </li>
-                </ul>
-
                 <!-- Filtre sur la map -->
                 <div class="filtreBusSurMap col-md-12">
-
                     <!-- Tab panes -->
-                    <div class="tab-content">                
-                        <div class="tab-pane fade in active" id="Indicateur">
+                    <div class="">                
+                        <div class="">
                             <!-- Row Indicateurs -->
                             <div id="zoomIndicateur" class="rowIndicateur row"> <!-- anciennement class="fenetre" -->
                                 <div class="col-md-12">
@@ -428,9 +416,6 @@
                         </div>
                         <!-- FIN TAB INDICATEUR -->
                             
-                        <div class="tab-pane fade" id="Population">
-                            Indication sur la population
-                        </div>
                     </div> <!-- FIN TABS -->      
                 </div> <!-- FIN ROW SOUS LA MAP -->  
             </div>

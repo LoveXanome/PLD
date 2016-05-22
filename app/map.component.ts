@@ -64,16 +64,24 @@ export class MapComponent {
         
         var polyline;
         if(ligne.points.length != 0 ){
-        
-            polyline = L.polyline(convertLigneToLatLngs(ligne.points), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
+            if (ligne.category) {
+                polyline = L.polyline(convertLigneToLatLngs(ligne.points), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
+            }
+            else {
+                polyline = L.polyline(convertLigneToLatLngs(ligne.points), { color: ligne.color, opacity: 1, weight: 8, dashArray: [3, 10] }).addTo(this.mymap);
+            }
 
             polyline.on('click', function() {
-                _this.onClickedLigne.emit(ligne);
+                    _this.onClickedLigne.emit(ligne);
             });
         }
-        else{
-            
-            polyline = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
+        else {
+            if (ligne.category) {
+                polyline = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8 }).addTo(this.mymap);
+            }
+            else {
+                polyline = L.polyline(convertLigneToLatLngs(ligne.stops), { color: ligne.color, opacity: 1, weight: 8, dashArray: [3, 10] }).addTo(this.mymap);
+            }
 
             polyline.on('click', function() {
                 _this.onClickedLigne.emit(ligne);

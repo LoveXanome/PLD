@@ -146,7 +146,7 @@ export class VilleDetailComponent {
 
                 ligne.interdistance = Math.round(data.route.interdistance * 100) / 100;
                 ligne.ratio = Math.round(data.route.ratio * 100) / 100;
-                ligne.average_speed = Math.round(data.route.average_speed *100 ) /100;
+                ligne.average_speed = Math.round(data.route.average_speed * 100 ) /100;
 
                 ligne.color = randomColor();
                 
