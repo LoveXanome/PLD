@@ -12,4 +12,10 @@ export class Arret {
     passageW_Arret_ligne : number;
     passageWE_Arret_ligne : number;
     population_200m : number;
+
+    getted: boolean;
+
+    constructor(){
+        this.getted = false;
+    }
 }

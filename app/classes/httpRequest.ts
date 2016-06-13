@@ -12,12 +12,12 @@ export class HttpRequest {
 		this._data = null;
 	}
 
-	get(url: string, doSuccess) {
+	get(url: string, doSuccess, param:any = null) {
 		this._http.get(url)
        		.map(res => res.json())
             .subscribe(
                 //En cas de succès
-				data => doSuccess(this._this, data),
+				data => doSuccess(this._this, data, param),
                 //En cas d'erreur
                 err => this.handleError(err)
                 //,
