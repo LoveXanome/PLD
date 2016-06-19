@@ -100,9 +100,14 @@
                                         <div *ngFor="#ligne of _lignesUrbaines | filterLigneName:_searchInputLigne">
                                             <span class="col-md-offset-1">
                                                 <label>
+                                                    <i [id]="'loader_'+ligne.id"
+                                                       class="fa fa-spinner fa-spin hide"
+                                                       aria-hidden="true"
+                                                       style="height: 14px;"></i>
                                                     <input type="checkbox" name="checkbox"
+                                                           [id]="'checkbox_'+ligne.id"
                                                            (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-                                                    <div class="affDynamiqueCheckbox">
+                                                    <div [id]="'ligne_'+ligne.id" class="affDynamiqueCheckbox">
                                                         Bus {{ligne.short_name}}
                                                     </div>
                                                 </label>                                
@@ -134,9 +139,14 @@
 
                                             <span class="col-md-offset-1">
                                                 <label>
+                                                    <i [id]="'loader_'+ligne.id"
+                                                       class="fa fa-spinner fa-spin hide"
+                                                       aria-hidden="true"
+                                                       style="height: 14px;"></i>
                                                     <input type="checkbox" name="checkbox"
+                                                           [id]="'checkbox_'+ligne.id"
                                                            (click)="selectLigne(ligne)" [checked]="ligne.isChecked">
-                                                    <div class="affDynamiqueCheckbox">
+                                                    <div [id]="'ligne_'+ligne.id" class="affDynamiqueCheckbox">
                                                         Bus {{ligne.short_name}}
                                                     </div>
                                                 </label>                                

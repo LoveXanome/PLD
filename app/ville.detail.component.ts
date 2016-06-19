@@ -1,6 +1,6 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Output, EventEmitter} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
-import {Http, Response} from 'angular2/http';
+import {Http} from 'angular2/http';
 import 'rxjs/Rx';
 
 import {MapComponent} from './map.component';
@@ -147,10 +147,17 @@ export class VilleDetailComponent {
                 ligne = data.route;
                 ligne.average_speed = Math.round(data.route.average_speed * 100) / 100;
 
-                ligne.color = randomColor();
-
                 //Affichage la ligne
-                if (param.print) {
+                if (param.print && _thisVilleDetail._printedLignes[ligne.id] === undefined) {
+                    ligne.color = randomColor();
+
+                    //noinspection TypeScriptUnresolvedFunction
+                    $("#loader_"+ligne.id).addClass("hide");
+                    //noinspection TypeScriptUnresolvedFunction
+                    $("#checkbox_"+ligne.id).removeClass("hide");
+                    //noinspection TypeScriptUnresolvedFunction
+                    $("#ligne_"+ligne.id).css('color', ligne.color);
+
                     _thisVilleDetail._printedLignes[ligne.id] = new AffichageLigne();
                     _thisVilleDetail._printedLignes[ligne.id].isPrinted = true;
                     _thisVilleDetail._printedLignes[ligne.id].leaflet = _thisVilleDetail._mapComponent.displayLine(ligne);
@@ -322,6 +329,11 @@ export class VilleDetailComponent {
                 //La ligne n'as jamais été affiché
                 if (this._printedLignes[ligne.id] === undefined) {
                     //L'affichage sera fait par le callback de la requête
+
+                    //noinspection TypeScriptUnresolvedFunction
+                    $("#loader_"+ligne.id).removeClass("hide");
+                    //noinspection TypeScriptUnresolvedFunction
+                    $("#checkbox_"+ligne.id).addClass("hide");
                     this.getLine(ligne, true);
                 }
                 // la ligne à été afficher mais elle n'est pas afficher actuellement
