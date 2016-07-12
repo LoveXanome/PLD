@@ -1,6 +1,8 @@
 import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
 
+declare var $: any;
+
 export class HttpRequest {
 	private _data: any;
   	private _http: any;
