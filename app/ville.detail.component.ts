@@ -14,6 +14,8 @@ import {HttpRequest} from './classes/httpRequest';
 import {PipeFilterLigne} from './classes/pipeFilterLigne';
 import {PipeFilterArret} from './classes/pipeFilterArret';
 
+declare var $: any;
+
 @Component({
     selector: 'my-ville-detail',
     templateUrl: 'app/html/detail.html',

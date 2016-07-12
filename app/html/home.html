@@ -1,80 +1,77 @@
-
 <div class="backgroundImage dark blur">
 </div>
 
-<div class="site-wrapper">
+<div class="site-wrapper container">
     <div class="site-wrapper-inner">
 
-    <div id="cover-container-detail" class="cover-container">
+        <div id="cover-container-detail" class="cover-container">
 
-                <div class="inner cover">
-                    <h2 class="cover-heading">Bienvenue dans Urban Bus</h2>
-                </div>
+            <div class="inner cover">
+                <h2 class="cover-heading">Bienvenue dans Urban Bus</h2>
+            </div>
 
-                <hr/>
-        
-                <div class="corps">
-                    <div class="row">
-                        <div class="centered col-md-12">
-                            <div class="panel panel-custom">
-                                <div class="panel-heading">
-                                    Ajout d'un réseau
-                                </div>
-                                <div class="panel-body">
-                                    <form action="TODO"	enctype="multipart/form-data" method="post">
-                                        Si vous possédez un fichier <strong>GTFS</strong> concernant les données de votre ville, vous pouvez le télécharger ici.<br/>
-                                        <input class="choixFichier" type="file" name="datafile" size="40" required (change)="onChangeFile($event.target.value)">
-                                        <input class="btn btn-primary-cover" type="submit" value="Envoyer" (click)="uploadFile()">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <hr/>
 
-
-                    <div class="row">
-                        <div class="centered col-md-12">
-                            <div class="panel panel-custom">
-                                <div class="panel-heading">
-                                    Sélection d'un réseau
-                                </div>
-                                <div class="panel-body">
-                                    Veuillez sélectionner un réseau pour connaître ses détails concernant ses lignes de bus.<br/>
-                                    <select class="form-control choixVille" required (change)="onChange($event.target.value)">
-                                        <option *ngFor="#ville of villes" [value]="ville.id" >
-                                            {{ville.agency}}
-                                        </option>
-                                    </select>
-                                    <input class="btn btn-primary-cover" type="submit" value="Voir les lignes"  (click)="gotoDetail()" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
+            <div class="corps">
                 <div class="row">
                     <div class="centered col-md-12">
                         <div class="panel panel-custom">
-                            
-                        <div class="panel-heading">
-                            Calcul de la population du réseau
-                        </div>
-                            
-                        <div class="panel-body">
-                            <div id="progress">
-                                <p>Calcul...<strong>100%</strong></p>
-                                <progress value="100" min="0" max="100">0%</progress>
+                            <div class="panel-heading">
+                                Ajout d'un réseau
                             </div>
-                        </div>
+                            <div class="panel-body">
+                                Si vous possédez un fichier <strong>GTFS</strong> concernant les données de votre
+                                ville, vous pouvez le télécharger ici.<br/>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <form id='form-file' method="post">
+                                            <fieldset>
+                                                <input class="choixFichier" type="file" name="datafile" size="40" required
+                                                       (change)="onChangeFile($event)">
+                                            </fieldset>
+                                            <input class="btn btn-primary-cover" type="submit" value="Envoyer">
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="progress" class="text-center">
+                                            <p id="text_progress">Aucun upload en cours</p>
+                                            <progress class="progress  progress-striped progress-success"
+                                                      [value]="progress"
+                                                      max="100">
+                                                {{progress}}
+                                            </progress>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
-                    <router-outlet></router-outlet>
+                    <div class="centered col-md-12">
+                        <div class="panel panel-custom">
+                            <div class="panel-heading">
+                                Sélection d'un réseau
+                            </div>
+                            <div class="panel-body">
+                                Veuillez sélectionner un réseau pour connaître ses détails concernant ses lignes de bus.<br/>
+                                <select class="form-control choixVille" required
+                                        (change)="onChange($event.target.value)">
+                                    <option *ngFor="#ville of villes" [value]="ville.id">
+                                        {{ville.agency}}
+                                    </option>
+                                </select>
+                                <input class="btn btn-primary-cover" type="submit" value="Voir les lignes"
+                                       (click)="gotoDetail()">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-        
+            </div>
+            <div class="row">
+                <router-outlet></router-outlet>
+            </div>
+
         </div>
     </div>
 </div>
