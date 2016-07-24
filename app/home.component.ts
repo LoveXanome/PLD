@@ -42,7 +42,6 @@ export class HomeComponent {
                 url: 'http://localhost:5000/upload/gtfs',
                 type: 'POST',
                 data: new FormData(this),
-                processData: false,
                 contentType: 'application/octet-stream',
                 processData: false, // Don't process the files
                 success: function (data, textStatus, jqXHR) {
