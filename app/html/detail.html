@@ -285,12 +285,20 @@
                                                                 <div class="panel-body">
                                                                     <div class="row">
                                                                         <div class="col-md-6 traitMilieu">
-                                                                            <h2>{{_selectedLigne.interdistance}}</h2>
-                                                                            Seuil : 500m
+                                                                            <h2 style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: clip; -o-text-overflow: ellipsis; width: 100%;">
+                                                                                {{_selectedLigne.interdistance}}
+                                                                            </h2>
+                                                                            <div>
+                                                                                Seuil : 500m
+                                                                            </div>
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            <h2>{{_selectedLigne.ratio}}</h2>
-                                                                            Seuil : 2.5
+                                                                            <h2 style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: clip; -o-text-overflow: ellipsis; width: 100%;">
+                                                                                {{_selectedLigne.ratio}}
+                                                                            </h2>
+                                                                            <div>
+                                                                                Seuil : 2.5
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

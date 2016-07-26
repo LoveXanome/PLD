@@ -43,7 +43,6 @@ export class HomeComponent {
                 type: 'POST',
                 data: new FormData(this),
                 contentType: 'application/octet-stream',
-                processData: false, // Don't process the files
                 success: function (data, textStatus, jqXHR) {
                     if (typeof data.error === 'undefined') {
                         // Success so call function to process the form

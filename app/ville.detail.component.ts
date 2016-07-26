@@ -123,8 +123,10 @@ export class VilleDetailComponent {
         _thisVilleDetail._lignes = _data.routes;
         for (var ligne of _thisVilleDetail._lignes) {
             //On y recalcule l'interdistance et le ratio
-            ligne.interdistance = Math.floor(ligne.interdistance);
-            ligne.ratio = (ligne.ratio != null ) ? Math.round(ligne.ratio * 100) / 100 : 999;
+            ligne.interdistance = round(Math.floor(ligne.interdistance), 2);
+            ligne.ratio = (ligne.ratio != null ) ? round(ligne.ratio * 100, 2) / 100 : 999;
+
+            console.debug(ligne.interdistance, ligne.ratio);
 
             ligne.category = ((ligne.ratio < 2.5) && (ligne.interdistance < 500));
 
@@ -219,7 +221,7 @@ export class VilleDetailComponent {
     /*
      Appelé lorsqu'on on a clique sur une ligne pour un arrêt déjà séléctionnée
      */
-    onChoseLineofArret(ligne:Ligne) {
+    onChoseLineofArret(ligne:any) {
         this._selectedLigne = ligne;
 
         this.getLine(this._selectedLigne, false);
@@ -369,4 +371,9 @@ function randomColor() {
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+}
+
+function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
 }
